@@ -1,0 +1,13 @@
+{"bones":[{"name":"root"}],"slots":[
+{"name":"C06_BG","bone":"root","attachment":"C06_BG"},
+{"name":"C06_UL","bone":"root","attachment":"C06_UL"},
+{"name":"C06_role","bone":"root","attachment":"C06_role"},
+{"name":"中轴线","bone":"root","attachment":"中轴线"},
+{"name":"C06_face","bone":"root","attachment":"C06_face"},
+],"skins":{"default":{
+"C06_BG":{"C06_BG":{"x":1300,"y":649.5,"width":2600,"height":1299}},
+"C06_UL":{"C06_UL":{"x":1300,"y":596.5,"width":2600,"height":1193}},
+"C06_role":{"C06_role":{"x":418.5,"y":329,"width":722,"height":597}},
+"中轴线":{"中轴线":{"x":1300,"y":649.5,"width":2477,"height":1299}},
+"C06_face":{"C06_face":{"x":447.5,"y":418,"width":214,"height":244}},
+}}, "animations": { "animation": {} }}

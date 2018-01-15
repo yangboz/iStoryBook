@@ -1,0 +1,11 @@
+{"bones":[{"name":"root"}],"slots":[
+{"name":"C03_BG","bone":"root","attachment":"C03_BG"},
+{"name":"C03_role","bone":"root","attachment":"C03_role"},
+{"name":"C03_face","bone":"root","attachment":"C03_face"},
+{"name":"中轴线","bone":"root","attachment":"中轴线"},
+],"skins":{"default":{
+"C03_BG":{"C03_BG":{"x":1300,"y":649.5,"width":2600,"height":1299}},
+"C03_role":{"C03_role":{"x":316,"y":310,"width":632,"height":620}},
+"C03_face":{"C03_face":{"x":291.5,"y":317.5,"width":206,"height":234}},
+"中轴线":{"中轴线":{"x":1300,"y":649.5,"width":2477,"height":1299}},
+}}, "animations": { "animation": {} }}
