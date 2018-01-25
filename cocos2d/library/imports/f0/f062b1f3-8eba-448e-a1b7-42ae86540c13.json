@@ -1,0 +1,22 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "C09_role",
+    "texture": "3f7532ff-8970-4024-a1c0-44bc52bec984",
+    "atlas": "",
+    "rect": [
+      1,
+      1,
+      383,
+      422
+    ],
+    "offset": [
+      -0.5,
+      0
+    ],
+    "originalSize": [
+      386,
+      424
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "Begin00_role",
+    "texture": "ed9099fd-6757-4a8c-ac7e-647ca04eb580",
+    "atlas": "",
+    "rect": [
+      0,
+      0,
+      552,
+      454
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      552,
+      454
+    ]
+  }
+}
