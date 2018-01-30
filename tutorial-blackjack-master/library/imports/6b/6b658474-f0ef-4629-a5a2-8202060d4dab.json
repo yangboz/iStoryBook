@@ -1,0 +1,104 @@
+{
+  "__type__": "cc.SpriteAtlas",
+  "_name": "fx_animation.plist",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_spriteFrames": {
+    "blackjack-BLACK JACK_1": {
+      "__uuid__": "8b521e1b-61b1-4534-92f6-1a6122c7d8a2"
+    },
+    "blackjack-BLACK JACK_10": {
+      "__uuid__": "db5f6c35-a5f1-4122-84b0-4f3d0325a806"
+    },
+    "blackjack-BLACK JACK_11": {
+      "__uuid__": "6becbe79-30f7-4787-ba69-e2ba92a37887"
+    },
+    "blackjack-BLACK JACK_12": {
+      "__uuid__": "9ba7d36f-d9e1-49c4-a90f-56e883d3a3c2"
+    },
+    "blackjack-BLACK JACK_13": {
+      "__uuid__": "2885715a-3e6d-47ca-8cb7-58c014720f25"
+    },
+    "blackjack-BLACK JACK_14": {
+      "__uuid__": "caea59ac-ff6a-46c7-9291-f2becab3bc6b"
+    },
+    "blackjack-BLACK JACK_15": {
+      "__uuid__": "c9af549f-439f-4d4f-9c54-472dce04ed05"
+    },
+    "blackjack-BLACK JACK_16": {
+      "__uuid__": "1309d585-c0f2-4601-8dea-d48f4c01d237"
+    },
+    "blackjack-BLACK JACK_17": {
+      "__uuid__": "9656c0dc-8b24-413e-b2b6-df23a9f8cd5a"
+    },
+    "blackjack-BLACK JACK_18": {
+      "__uuid__": "472a6fd0-07b9-4ca2-a4ef-9e3b7ba87a2b"
+    },
+    "blackjack-BLACK JACK_19": {
+      "__uuid__": "d5160333-6fb7-4c7c-b78b-c378a51ae2eb"
+    },
+    "blackjack-BLACK JACK_2": {
+      "__uuid__": "7b4c606e-6bed-4160-abcb-ab953ce0e4fb"
+    },
+    "blackjack-BLACK JACK_20": {
+      "__uuid__": "08c0fb53-1388-4d72-a804-cbd574ab839d"
+    },
+    "blackjack-BLACK JACK_21": {
+      "__uuid__": "1da36c61-b0dc-47ef-ba9f-14af72e35b56"
+    },
+    "blackjack-BLACK JACK_22": {
+      "__uuid__": "197b5d58-ab02-4c72-b992-9df9805bd61c"
+    },
+    "blackjack-BLACK JACK_3": {
+      "__uuid__": "2ff5cdd9-9085-4a24-a8d5-7a41a4f13d8f"
+    },
+    "blackjack-BLACK JACK_4": {
+      "__uuid__": "9096406d-0e15-4c94-bd7e-9005a6b47c1d"
+    },
+    "blackjack-BLACK JACK_5": {
+      "__uuid__": "e67c656e-c0df-446d-80d6-daf415131bb3"
+    },
+    "blackjack-BLACK JACK_6": {
+      "__uuid__": "2c6a517f-7676-4995-a1b0-acfea75e87cb"
+    },
+    "blackjack-BLACK JACK_7": {
+      "__uuid__": "de46554f-173d-4e33-97f3-3341e77deaac"
+    },
+    "blackjack-BLACK JACK_8": {
+      "__uuid__": "04bf6704-51da-439b-bf34-2774ec09a6ca"
+    },
+    "blackjack-BLACK JACK_9": {
+      "__uuid__": "7602a3e1-e284-4b77-a535-1998a229f141"
+    },
+    "bust-BUST_1": {
+      "__uuid__": "3c9f63d9-e2f3-4a7d-92ff-b0cb86283d83"
+    },
+    "bust-BUST_10": {
+      "__uuid__": "5184bf31-ecc9-43aa-aa70-7954a3b4dc41"
+    },
+    "bust-BUST_2": {
+      "__uuid__": "579508e4-abc4-48fc-b118-1624326e2df0"
+    },
+    "bust-BUST_3": {
+      "__uuid__": "c70118b0-8da6-4ac6-a329-bd9aa47662b4"
+    },
+    "bust-BUST_4": {
+      "__uuid__": "624d760d-39fa-428f-aec5-30839d5ba9bd"
+    },
+    "bust-BUST_5": {
+      "__uuid__": "b272b94d-dbe2-4c43-ae41-96fd15260c6d"
+    },
+    "bust-BUST_6": {
+      "__uuid__": "1f4d3e89-fda5-4c04-94bf-831aaf4d2c11"
+    },
+    "bust-BUST_7": {
+      "__uuid__": "4e98314c-f4df-483d-892b-9488ee2a82d2"
+    },
+    "bust-BUST_8": {
+      "__uuid__": "ddc1ab43-c199-4535-9d25-7bc2e76e9775"
+    },
+    "bust-BUST_9": {
+      "__uuid__": "fdeef1a0-629e-4f0f-b786-3afc61cd2404"
+    }
+  }
+}

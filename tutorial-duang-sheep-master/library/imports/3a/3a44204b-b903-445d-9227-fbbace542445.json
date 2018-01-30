@@ -1,0 +1,22 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "fx_downfog04",
+    "texture": "f3305ec0-0c3f-4c47-94b5-3586c56ccbac",
+    "atlas": "",
+    "rect": [
+      28,
+      14,
+      142,
+      55
+    ],
+    "offset": [
+      1,
+      9.5
+    ],
+    "originalSize": [
+      196,
+      102
+    ]
+  }
+}

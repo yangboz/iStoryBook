@@ -1,0 +1,23 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "icon_usercp",
+    "texture": "ab053ea5-cc4e-4131-b540-51719b5d05f6",
+    "atlas": "017142ed-9ec2-486b-a8ab-fe28b0ea72cb",
+    "rect": [
+      448,
+      828,
+      55,
+      52
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      55,
+      52
+    ],
+    "rotated": 1
+  }
+}

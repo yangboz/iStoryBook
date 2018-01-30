@@ -1,0 +1,23 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "screen_rotation",
+    "texture": "c5f60c62-1ec5-4865-9a5b-25b3ec70f247",
+    "atlas": "4b29ac7e-f9ff-48be-a00d-4a3754645705",
+    "rect": [
+      1,
+      1,
+      700,
+      299
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      700,
+      299
+    ],
+    "rotated": 1
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "__type__": "cc.SpriteAtlas",
+  "_name": "shared.plist",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_spriteFrames": {
+    "bg_gold": {
+      "__uuid__": "452ec7a3-741d-4694-a48a-d9aa0459b7c2"
+    },
+    "bg_icon": {
+      "__uuid__": "0cfd3579-5c2b-4aa7-b79b-24624157ad57"
+    },
+    "icon_": {
+      "__uuid__": "fd0294dc-58f6-4a10-9ce7-7bf62aa7fbb7"
+    },
+    "icon_back": {
+      "__uuid__": "64914ff3-8f52-4efd-b510-df999f32f6e5"
+    },
+    "icon_diamond": {
+      "__uuid__": "0782c987-9c61-4d86-a947-1178b5187c46"
+    },
+    "icon_gold_big": {
+      "__uuid__": "c5a9960a-8da4-4e9d-9be3-fbe913b46f5b"
+    },
+    "icon_message": {
+      "__uuid__": "ddab882c-d47e-4b61-9f0a-4610d7e5c76a"
+    },
+    "screen_rotation": {
+      "__uuid__": "e6db4caa-bdec-4d90-805e-27790322111d"
+    },
+    "singleColor": {
+      "__uuid__": "9222faa4-e0b6-437b-88a6-1194180d9021"
+    },
+    "user_image": {
+      "__uuid__": "f30896fb-18d0-4e43-8cae-11594f05ef63"
+    }
+  }
+}

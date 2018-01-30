@@ -1,0 +1,22 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "fx_fog04",
+    "texture": "9079adee-3983-4431-ad95-5f1584bc27b4",
+    "atlas": "",
+    "rect": [
+      73,
+      20,
+      165,
+      109
+    ],
+    "offset": [
+      -15,
+      6
+    ],
+    "originalSize": [
+      341,
+      161
+    ]
+  }
+}

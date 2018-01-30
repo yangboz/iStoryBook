@@ -1,0 +1,22 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "bg_huaxin",
+    "texture": "ab053ea5-cc4e-4131-b540-51719b5d05f6",
+    "atlas": "017142ed-9ec2-486b-a8ab-fe28b0ea72cb",
+    "rect": [
+      328,
+      1131,
+      84,
+      91
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      84,
+      91
+    ]
+  }
+}

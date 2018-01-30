@@ -1,0 +1,77 @@
+{
+  "__type__": "cc.SpriteAtlas",
+  "_name": "menu.plist",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_spriteFrames": {
+    "Stroke_photo": {
+      "__uuid__": "e87d6f7c-d740-4855-88cb-b95c2c5c5ad4"
+    },
+    "Stroke_photo_oneself": {
+      "__uuid__": "3fc0925c-2d57-4b72-8c3a-98837e92eb73"
+    },
+    "bg_rankinglist": {
+      "__uuid__": "13907df0-6b1b-41d4-91a7-ffaceca619fe"
+    },
+    "bg_xiamian": {
+      "__uuid__": "eb2fdbd1-71b3-4699-81eb-271e74852a83"
+    },
+    "button_jjc": {
+      "__uuid__": "2ab753be-bb77-4ed2-8607-28c0aa57c4a9"
+    },
+    "button_ksks": {
+      "__uuid__": "198531e6-d139-4311-a74f-ffb725ab08b5"
+    },
+    "button_zbc": {
+      "__uuid__": "a051e685-d695-4a0e-9a53-7ea92facaaf6"
+    },
+    "circle_2": {
+      "__uuid__": "db21b784-140e-40ae-86ec-3aec7cf01946"
+    },
+    "fengexian": {
+      "__uuid__": "97225206-0050-4673-9be8-2fad44cb74db"
+    },
+    "icon_guizhe": {
+      "__uuid__": "4b9e9480-b5a7-4e6c-9ccf-b809a7c0a470"
+    },
+    "icon_set": {
+      "__uuid__": "761e1509-4cd1-448d-9971-b611c7908a87"
+    },
+    "rankinglist_1": {
+      "__uuid__": "a5ccb1f0-0a66-4cd1-b132-4b2f9f782490"
+    },
+    "rankinglist_2": {
+      "__uuid__": "58c0c3e4-de91-44a0-b0ad-f84e8abd6aac"
+    },
+    "rankinglist_3": {
+      "__uuid__": "0b3c3b73-649f-4938-8a80-54378021df91"
+    },
+    "rankinglist_bg": {
+      "__uuid__": "a68298ee-2a99-4127-981d-d0babe7d3ae7"
+    },
+    "rankinglist_title": {
+      "__uuid__": "f8b268d7-7051-444f-9651-8da9d13391d9"
+    },
+    "user-image": {
+      "__uuid__": "09dd07ea-ab93-4f14-9b26-d5fd5707bd35"
+    },
+    "user-image2": {
+      "__uuid__": "b34f2a7f-3cf2-41c7-9dc9-8cdb6313e858"
+    },
+    "user-image3": {
+      "__uuid__": "92415d24-9aac-4c28-ac96-4d4eec6e3810"
+    },
+    "user-image4": {
+      "__uuid__": "faee4e01-1586-41a1-bb60-fdcf5392bd00"
+    },
+    "user-image5": {
+      "__uuid__": "daa7d09e-b7c7-4778-9d2f-6a2e7c654715"
+    },
+    "user-image6": {
+      "__uuid__": "d777d5e7-b2e6-4dac-a6eb-92a5362d8e9a"
+    },
+    "user-image7": {
+      "__uuid__": "51cc83b9-832e-4f75-bfc7-dd7fe409fff1"
+    }
+  }
+}
