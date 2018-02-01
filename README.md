@@ -25,4 +25,7 @@ https://www.cryptokitties.co/about
 
 https://www.theverge.com/2017/12/13/16754266/cryptokitties-ethereum-ether-game-cats
 
-http://jenetics.io/
+http://jenetics.io
+
+## FAQ
+How are CryptoStoryBooks created?
