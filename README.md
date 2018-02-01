@@ -17,7 +17,7 @@ While CryptoStoryBooks isn’t a digital currency, it does offer the same securi
 
 It cannot be replicated, taken away, or destroyed. 
 
-But It can be selled to buyers, support offline print, drawing.
+But It can be selled to offline buyers, support printing, drawing.
 
 ## Reference
 
