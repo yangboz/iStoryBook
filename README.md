@@ -19,6 +19,8 @@ It cannot be replicated, taken away, or destroyed.
 
 But It can be selled to offline buyers, support printing, drawing.
 
+![CypytoStoryBook](https://raw.githubusercontent.com/yangboz/iStoryBook/master/assets/%E9%AA%91%E5%A3%AB%E5%86%92%E9%99%A9Begin01.png)
+
 ## Reference
 
 https://www.cryptokitties.co/about
