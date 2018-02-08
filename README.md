@@ -1,9 +1,9 @@
 # iStoryBook
-a funny storybook with Benny and Nick.
+a funny storybook with Benny and Nick at first.
 
 ## CryptoStoryBooks
 
-In CryptoStoryBooks, users collect and breed oh-so-adorable StoryBook that we call CryptoStoryBooks! 
+Now, In CryptoStoryBooks, users collect and breed oh-so-adorable StoryBook that we call CryptoStoryBooks! 
 
 Each StoryBook has a unique genome that defines its appearance and traits. 
 
