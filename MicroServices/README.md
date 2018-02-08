@@ -1,4 +1,4 @@
-# Crypto-StoryBook-microservices
+# Crypto-StoryBook-Microservices
 
 Referenced Demo application to go with [Microservices Blog](https://spring.io/blog/2015/07/14/microservices-with-spring) on the spring.io website.
 
