@@ -1,8 +1,9 @@
 # microservices-demo
 
-Demo application to go with my [Microservices Blog](https://spring.io/blog/2015/07/14/microservices-with-spring) on the spring.io website.
+Referenced Demo application to go with [Microservices Blog](https://spring.io/blog/2015/07/14/microservices-with-spring) on the spring.io website.
 
-![Demo System Schematic](https://github.com/paulc4/microservices-demo/blob/master/mini-system.jpg)
+![CryptoStoryBookService](https://raw.githubusercontent.com/yangboz/iStoryBook/master/MicroServices/shopping-system.jpg)
+
 
 Clone it and either load into your favorite IDE or use maven directly.
 
