@@ -31,3 +31,7 @@ http://jenetics.io
 
 ## FAQ
 How are CryptoStoryBooks created?
+
+## Wiki
+
+https://github.com/yangboz/iStoryBook/wiki
