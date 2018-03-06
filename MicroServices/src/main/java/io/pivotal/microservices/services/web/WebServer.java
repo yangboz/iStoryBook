@@ -1,5 +1,6 @@
 package io.pivotal.microservices.services.web;
 
+import io.pivotal.microservices.blockchain.BlockChainController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -73,4 +74,5 @@ public class WebServer {
 	public HomeController homeController() {
 		return new HomeController();
 	}
+
 }
