@@ -1,11 +1,14 @@
 package io.pivotal.microservices.services.products;
 
+import io.pivotal.microservices.products.GroupController;
 import io.pivotal.microservices.products.ProductController;
 import io.pivotal.microservices.services.registration.RegistrationServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import org.springframework.context.annotation.Bean;
+
+import java.security.acl.Group;
 
 @SpringBootApplication
 @EnableEurekaServer
@@ -31,6 +34,16 @@ public class ProductServer {
     @Bean
     public ProductController productController() {
         return new ProductController();
+    }
+
+    /**
+     * Create the controller, passing it the {@link } to use.
+     *
+     * @return
+     */
+    @Bean
+    public GroupController groupController() {
+        return new GroupController();
     }
 }
 
