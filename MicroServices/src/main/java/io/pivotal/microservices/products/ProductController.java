@@ -28,7 +28,7 @@ public class ProductController {
         }
 
         /**
-         * Connecting to a node on the Ethereum network.
+         * View product by id.
          */
         @RequestMapping("/product/{id}")
         public void connect(@PathVariable("id") String id) {
