@@ -1,12 +1,12 @@
 # Spring properties
 spring:
   application:
-    name: blockchain-service  # Identify this application
+    name: product-service  # Identify this application
   freemarker:
     enabled: false     # Ignore Eureka dashboard FreeMarker templates
   thymeleaf:
     cache: false       # Allow Thymeleaf templates to be reloaded at runtime
-#    prefix: classpath:/blockchain-server/templates/    # Trailing / mandatory
+#    prefix: classpath:/product-server/templates/    # Trailing / mandatory
                        # Template location for this application only
 
 # Map the error path to error template (for Thymeleaf)
@@ -25,4 +25,4 @@ eureka:
 
 # HTTP Server
 server:
-  port: 4444   # HTTP (Tomcat) port
+  port: 5555   # HTTP (Tomcat) port

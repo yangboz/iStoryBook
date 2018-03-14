@@ -106,7 +106,7 @@ public class ProductController extends CoreController{
         session.close();
 
         // Relative path to StorageProperties.rootLocation
-        String path = "product-images/" + image.getProductId() + "/";
+        String path = "products-images/" + image.getProductId() + "/";
 
         Resource file = storageService.loadAsResource(path+image.getPath());
         String mimeType = "image/png";
@@ -126,7 +126,7 @@ public class ProductController extends CoreController{
     public String handleFileUpload(@PathVariable("id") String id, @RequestParam("file") MultipartFile file) {
 
         // Relative path to the rootLocation in storageService
-        String path = "/product-images/" + id;
+        String path = "/products-images/" + id;
         String filename = storageService.store(file, path);
 
         return ecommerceService.addProductImage(id, filename);

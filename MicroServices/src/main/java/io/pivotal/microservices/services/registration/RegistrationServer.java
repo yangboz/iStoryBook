@@ -2,6 +2,7 @@ package io.pivotal.microservices.services.registration;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 /**
@@ -10,6 +11,7 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
  * @author Paul Chapman
  */
 @SpringBootApplication
+//@SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
 @EnableEurekaServer
 public class RegistrationServer {
 

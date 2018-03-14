@@ -1,8 +1,7 @@
-package io.pivotal.microservices.services.blockchain;
+package io.pivotal.microservices.services.products;
 
-import io.pivotal.microservices.blockchain.BlockChainController;
+import io.pivotal.microservices.products.ProductController;
 import io.pivotal.microservices.services.registration.RegistrationServer;
-import io.pivotal.microservices.services.web.WebAccountsService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
@@ -10,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 @EnableEurekaServer
-public class BlockChainServer {
+public class ProductServer {
     /**
      * Run the application using Spring Boot and an embedded servlet engine.
      *
@@ -19,9 +18,9 @@ public class BlockChainServer {
      */
     public static void main(String[] args) {
         // Tell server to look for registration.properties or registration.yml
-        System.setProperty("spring.config.name", "blockchain-server");
+        System.setProperty("spring.config.name", "product-server");
 
-        SpringApplication.run(BlockChainServer.class, args);
+        SpringApplication.run(ProductServer.class, args);
     }
 
     /**
@@ -30,7 +29,8 @@ public class BlockChainServer {
      * @return
      */
     @Bean
-    public BlockChainController blockChainController() {
-        return new BlockChainController();
+    public ProductController productController() {
+        return new ProductController();
     }
 }
+

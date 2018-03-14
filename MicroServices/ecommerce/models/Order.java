@@ -106,7 +106,7 @@ public class Order {
         this.created = created;
     }
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "orders", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonManagedReference
 //    @JsonIgnore
     public List<OrderItem> getItems() {

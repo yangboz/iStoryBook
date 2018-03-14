@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -42,10 +43,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .sessionManagement().sessionCreationPolicy( SessionCreationPolicy.STATELESS ).and()
                 .addFilterBefore(jwtAuthenticationTokenFilter(), BasicAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/product/image/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/product/**").permitAll()
+                .antMatchers("/products/image/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/products/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/group/**").permitAll()
-                .antMatchers("/cart/**").permitAll()
+                .antMatchers("/carts/**").permitAll()
                 .antMatchers("/v2/**").permitAll()
                 .antMatchers("/swagger-ui.html").permitAll()
                 .antMatchers("/webjars/**").permitAll()
@@ -61,5 +62,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // From https://github.com/bfwg/springboot-jwt-starter
                 .and().csrf().disable();
+    }
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .inMemoryAuthentication()
+                .withUser("user").password("password").roles("admin");
     }
 }

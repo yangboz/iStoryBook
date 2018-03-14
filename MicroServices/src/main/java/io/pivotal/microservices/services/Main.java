@@ -2,6 +2,7 @@ package io.pivotal.microservices.services;
 
 import io.pivotal.microservices.services.accounts.AccountsServer;
 import io.pivotal.microservices.services.blockchain.BlockChainServer;
+import io.pivotal.microservices.services.products.ProductServer;
 import io.pivotal.microservices.services.registration.RegistrationServer;
 import io.pivotal.microservices.services.web.WebServer;
 
@@ -41,7 +42,10 @@ public class Main {
 			WebServer.main(args);
 		} else if (serverName.equals("blockchain")) {
 			BlockChainServer.main(args);
-		} else {
+		} else if (serverName.equals("product")) {
+			ProductServer.main(args);
+		}
+		else {
 			System.out.println("Unknown server type: " + serverName);
 			usage();
 		}

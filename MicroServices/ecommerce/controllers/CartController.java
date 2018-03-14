@@ -60,7 +60,7 @@ public class CartController extends CoreController{
         return "OK";
     }
 
-    @PostMapping("{id}/order")
+    @PostMapping("{id}/orders")
     public OrderResource createOrder(@PathVariable("id") String cartId, @RequestBody @Valid Order order){
         if(order == null){
             System.out.println("Order not in POST");

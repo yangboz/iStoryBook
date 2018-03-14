@@ -34,7 +34,7 @@ public class CartServiceImpl implements CartService{
     public void removeProduct(String cartId, String productId) {
         CartItem itemToRemove = new CartItem();
 
-        // We use only product ID since it's the one being compared in CartItem.equals() method:
+        // We use only products ID since it's the one being compared in CartItem.equals() method:
         itemToRemove.setProductId(Long.parseLong(productId));
 
         cache.removeItemFromList(cartId, itemToRemove);
@@ -103,6 +103,6 @@ public class CartServiceImpl implements CartService{
     }
 
     private String generateCartRedisId(String cartId){
-        return "cart#"+cartId+"#items";
+        return "carts#"+cartId+"#items";
     }
 }
