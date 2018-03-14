@@ -23,7 +23,7 @@ public class OrderValidator implements Validator {
         }
 
         if(order.getItems()==null || order.getItems().size() < 1){
-            errors.rejectValue("items", "items.required");
+            errors.rejectValue("carts", "carts.required");
         }
     }
 }

@@ -103,6 +103,6 @@ public class CartServiceImpl implements CartService{
     }
 
     private String generateCartRedisId(String cartId){
-        return "carts#"+cartId+"#items";
+        return "carts#"+cartId+"#carts";
     }
 }
