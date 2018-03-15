@@ -20,6 +20,9 @@ public class ProductController {
          GET /{id}/images - View product images
          GET /image/{id}- View image
          POST /{id}/uploadimage - Upload product image
+         GET /montage
+         https://imagemagick.org/script/montage.php
+         http://im4java.sourceforge.net/docs/dev-guide.html
          *
          */
         @RequestMapping("/product/")
@@ -35,4 +38,14 @@ public class ProductController {
                 logger.info(" View product, for "
                         + id);
         }
+
+        /**
+         * View product's montage.
+         */
+        @RequestMapping("/product/{id}/montage")
+        public void montage(@PathVariable("id") String id) {
+                logger.info(" View product's montage, for "
+                        + id);
+        }
+
 }
