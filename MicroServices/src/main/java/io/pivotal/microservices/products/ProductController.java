@@ -1,6 +1,7 @@
 package io.pivotal.microservices.products;
 
 
+import org.im4java.core.MontageCmd;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,11 +42,14 @@ public class ProductController {
 
         /**
          * View product's montage.
+         * @see http://im4java.sourceforge.net/tools/index.html
+         * @see https://imagemagick.org/script/montage.php
          */
         @RequestMapping("/product/{id}/montage")
         public void montage(@PathVariable("id") String id) {
                 logger.info(" View product's montage, for "
                         + id);
+//TODO:                org.im4java.core.MontageCmd
         }
 
 }

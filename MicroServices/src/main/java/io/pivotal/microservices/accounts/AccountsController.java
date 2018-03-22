@@ -85,4 +85,18 @@ public class AccountsController {
 			return accounts;
 		}
 	}
+
+	/**
+	 * Fetch an accounts count number.
+	 *
+	 * @return The total counts.
+	 */
+	@RequestMapping("/accounts/counts")
+	public int counts() {
+
+		logger.info("accounts-service counts() invoked: ");
+		int counts = accountRepository.countAccounts();
+		logger.info("accounts-service counts() found: " + counts);
+		return counts;
+	}
 }
