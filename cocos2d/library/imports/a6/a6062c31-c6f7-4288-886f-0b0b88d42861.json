@@ -1,0 +1,22 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "E04_role",
+    "texture": "09104f65-88fa-4c75-9c6f-a40a948a31e2",
+    "atlas": "",
+    "rect": [
+      0,
+      0,
+      1278,
+      1005
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      1278,
+      1005
+    ]
+  }
+}

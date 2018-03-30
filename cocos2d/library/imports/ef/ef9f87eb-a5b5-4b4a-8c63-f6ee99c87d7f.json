@@ -1,0 +1,22 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "Menu_UL2",
+    "texture": "3ad66f26-b129-4d13-bfe5-df50d28d8ea6",
+    "atlas": "",
+    "rect": [
+      0,
+      0,
+      2600,
+      341
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      2600,
+      341
+    ]
+  }
+}

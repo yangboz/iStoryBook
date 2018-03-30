@@ -1,0 +1,22 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "Menu_Branches",
+    "texture": "4de01e04-ef46-44ab-9918-c56d8b614f14",
+    "atlas": "",
+    "rect": [
+      0,
+      0,
+      127,
+      849
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      127,
+      849
+    ]
+  }
+}
