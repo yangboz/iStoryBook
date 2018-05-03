@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout id="null" sceneSize="2600,1299" next="" previous="MainScene" eventSheet="StorySceneEventSheet" version="2.2">
+  <layer index="0" parallaxX="100" parallaxY="100" layerAlpha="1" layerVisible="true" cacheAsBitmap="false" bgColor="" bgColorAlpha="" layerScaleX="100" layerScaleY="100"/>
+</layout>
