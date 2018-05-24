@@ -26,3 +26,14 @@ eureka:
 # HTTP Server
 server:
   port: 4444   # HTTP (Tomcat) port
+# Web3J
+web3j:
+# An infura endpoint
+  client-address : https://rinkeby.infura.io/udBxuyCvHOqvmFhEEi4S
+# Or, an IPC endpoing
+#  client-address :  /path/to/file.ipc
+  admin-client : true
+#This sets all three OkHttp3 timeouts: connect, read, and write.
+#Valid values are any non-negative integer.A value of '0' means: no timeout.
+#Note: This is not required for transacting with web3j.
+  httpTimeoutSeconds : 600
