@@ -17,7 +17,7 @@
     "window": {
         "backgroundTextStyle": "dark",
         "navigationBarBackgroundColor": "#118fff",
-        "navigationBarTitleText": "绘本王国",
+        "navigationBarTitleText": "cStoryBook",
         "navigationBarTextStyle": "white"
     },
     "tabBar": {
