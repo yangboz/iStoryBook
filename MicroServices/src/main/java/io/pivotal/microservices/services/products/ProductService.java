@@ -43,8 +43,15 @@ public class ProductService {
                 + restTemplate.getRequestFactory().getClass());
     }
 
+    //http://www.imagemagick.org/Usage/montage/#montage
     public String montage(String id) {
         logger.info("ImageMagick montage() invoked: for " + id);
+        return restTemplate.getForObject(serviceUrl + "/product/{id}",
+                Product.class, id).url;
+    }
+    //http://www.imagemagick.org/Usage/compose/
+    public String composite(String id) {
+        logger.info("ImageMagick composite() invoked: for " + id);
         return restTemplate.getForObject(serviceUrl + "/product/{id}",
                 Product.class, id).url;
     }

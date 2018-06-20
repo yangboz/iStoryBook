@@ -1,0 +1,9 @@
+montage Begin00_face.png Begin00_role.png Begin00_UL.png Begin00_BG.png \
+          -geometry +2+2   montage_geom.png
+
+convert -size 2600x1299 xc:skyblue \
+          Begin00_BG.png  -geometry  +0+0  -composite \
+          Begin00_UL.png  -geometry +35+725  -composite \
+          Begin00_role.png  -geometry +20+20  -composite \
+          Begin00_face.png  -geometry +30+30  -composite \
+          compose.png

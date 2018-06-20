@@ -13,7 +13,7 @@ contract StoryBookFactory {
     StoryBook[] public storyBooks;
 
     function _createStoryBook(string _name, uint _dna) private {
-        storyBooks.push(Zombie(_name, _dna));
+        storyBooks.push(StoryBook(_name, _dna));
         // 这里触发事件
     }
 
