@@ -35,8 +35,8 @@
       <file leaf-file-name="ProductService.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/pivotal/microservices/services/products/ProductService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="436">
-              <caret line="53" column="42" lean-forward="false" selection-start-line="53" selection-start-column="42" selection-end-line="53" selection-end-column="42" />
+            <state relative-caret-position="391">
+              <caret line="50" column="5" lean-forward="true" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -560,12 +560,12 @@
       <workItem from="1527132866358" duration="5155000" />
       <workItem from="1528877280882" duration="655000" />
       <workItem from="1528937244578" duration="830000" />
-      <workItem from="1529459999036" duration="1569000" />
+      <workItem from="1529459999036" duration="2111000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39010000" />
+    <option name="totallyTimeSpent" value="39552000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="20" y="23" width="1420" height="796" extended-state="0" />
@@ -976,8 +976,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/pivotal/microservices/services/products/ProductService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="436">
-          <caret line="53" column="42" lean-forward="false" selection-start-line="53" selection-start-column="42" selection-end-line="53" selection-end-column="42" />
+        <state relative-caret-position="391">
+          <caret line="50" column="5" lean-forward="true" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
           <folding />
         </state>
       </provider>
