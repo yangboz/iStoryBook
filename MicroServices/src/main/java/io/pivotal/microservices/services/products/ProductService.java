@@ -56,4 +56,24 @@ public class ProductService {
                 Product.class, id).url;
     }
 
+    //http://www.imagemagick.org/Usage/montage/#convert
+    public String convert(String id) {
+        logger.info("ImageMagick montage() invoked: for " + id);
+        return restTemplate.getForObject(serviceUrl + "/product/{id}",Product.class, id).url;
+    }
+
+
+    //http://www.imagemagick.org/Usage/montage/#convert
+    public String label(String id) {
+        logger.info("ImageMagick montage() invoked: for " + id);
+        return restTemplate.getForObject(serviceUrl + "/product/{id}",
+                Product.class, id).url;
+    }
+
+    //http://www.imagemagick.org/Usage/montage/#convert
+    public String watermark(String id) {
+        logger.info("ImageMagick montage() invoked: for " + id);
+        return restTemplate.getForObject(serviceUrl + "/product/{id}",
+                Product.class, id).url;
+    }
 }
