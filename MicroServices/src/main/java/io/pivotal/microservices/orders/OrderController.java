@@ -20,16 +20,18 @@ public class OrderController {
      *
      */
     @RequestMapping("/order/")
-    public void listOrders() {
-        logger.info("List of orders:");
+    public void listAllOrders() {
+        logger.info("List all of orders:");
     }
 
     /**
      * View order by id.
+     * @see: http://wx764fa42b23cd341f.97866.com/wp-admin/admin.php?page=shop-open&tab=order
      */
     @RequestMapping("/order/{id}")
-    public void connect(@PathVariable("id") String id) {
-        logger.info(" View product, for "
+    public void listOrders(@PathVariable("id") String id) {
+        logger.info(" View orders, for "
                 + id);
+        
     }
 }

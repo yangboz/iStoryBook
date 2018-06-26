@@ -22,7 +22,12 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:1111/eureka/
-
+# @see: http://wx764fa42b23cd341f.97866.com/wp-admin/admin.php?page=shop-open
+wxShop:
+  appID:
+    jamqxbnk9lsyl8d7sg
+  appSecret:
+    dmfztlxbe7wzydurexme3icijwqj6z11
 # HTTP Server
 server:
   port: 5555   # HTTP (Tomcat) port
