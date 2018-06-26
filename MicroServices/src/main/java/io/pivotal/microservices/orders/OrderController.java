@@ -32,6 +32,6 @@ public class OrderController {
     public void listOrders(@PathVariable("id") String id) {
         logger.info(" View orders, for "
                 + id);
-        
+
     }
 }
