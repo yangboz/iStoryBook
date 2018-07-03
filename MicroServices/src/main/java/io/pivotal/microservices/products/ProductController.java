@@ -35,10 +35,11 @@ public class ProductController {
          * View product by id.
          */
         @RequestMapping("/product/{id}")
-        public void connect(@PathVariable("id") String id) {
+        public void getProduct(@PathVariable("id") String id) {
                 logger.info(" View product, for "
                         + id);
         }
+
 
         /**
          * View product's montage.
