@@ -2,7 +2,7 @@
  * Copyright (c) 2018. SMARTKIT.INFO.
  */
 
-package io.pivotal.microservices.services.products;
+package io.pivotal.microservices.products;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 

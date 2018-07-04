@@ -1,4 +1,8 @@
-package io.pivotal.microservices.services.products;
+/*
+ * Copyright (c) 2018. SMARTKIT.INFO.
+ */
+
+package io.pivotal.microservices.products;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -22,7 +26,7 @@ public class ProductService {
 
     protected String serviceUrl;
 
-    protected Logger logger = Logger.getLogger(io.pivotal.microservices.services.products.ProductService.class
+    protected Logger logger = Logger.getLogger(ProductService.class
             .getName());
 
     public ProductService(String serviceUrl) {
@@ -75,5 +79,15 @@ public class ProductService {
         logger.info("ImageMagick montage() invoked: for " + id);
         return restTemplate.getForObject(serviceUrl + "/product/{id}",
                 Product.class, id).url;
+    }
+    //@see:https://developer.github.com/v3/repos/forks/
+    public String fork(String pid,String uid,String name) {
+        logger.info("ImageMagick fork() invoked: pid: " + pid + ",uid:"+uid);
+        //1.same template,same card,just replace the name,
+        //TODO:
+        //2.replace face photo.
+        //3.dynamic gene.
+        //4.https://github.com/yangboz/iStoryBook/wiki/Vladimir_Propp
+        return "fork status";
     }
 }

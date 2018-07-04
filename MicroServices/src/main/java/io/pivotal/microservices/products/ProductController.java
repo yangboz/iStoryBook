@@ -1,11 +1,14 @@
 package io.pivotal.microservices.products;
 
-
-import org.im4java.core.MontageCmd;
+import com.afrozaar.wordpress.wpapi.v2.Wordpress;
+import com.afrozaar.wordpress.wpapi.v2.config.ClientConfig;
+import com.afrozaar.wordpress.wpapi.v2.config.ClientFactory;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.MalformedURLException;
+import java.util.List;
 import java.util.logging.Logger;
 
 @RestController
@@ -38,6 +41,28 @@ public class ProductController {
         public void getProduct(@PathVariable("id") String id) {
                 logger.info(" View product, for "
                         + id);
+        }
+        /**
+         * Fork product by id,name,.
+         * @see:https://developer.github.com/v3/repos/forks/
+         */
+        @RequestMapping("/product/{pid}/fork/{uid}")
+        public String fork(@PathVariable("pid") String pid,@PathVariable("uid") String uid) {
+                logger.info("ImageMagick fork() invoked: pid: " + pid + ",uid:"+uid);
+                //1.same template,same card,just replace the name,
+                //TODO:post to wordpress,@see: https://1dir1.net/doc/wordpress-java/
+                //https://github.com/Afrozaar/wp-api-v2-client-java
+                String baseUrl = "https://knighter.cn/";
+                String username = "user";
+                String password = "bitnami";
+                boolean debug = false;
+
+                final Wordpress client = ClientFactory.fromConfig(ClientConfig.of(baseUrl, username, password, false,debug));
+                logger.info(client.getTags().toString());
+                //2.replace face photo.
+                //3.dynamic gene.
+                //4.https://github.com/yangboz/iStoryBook/wiki/Vladimir_Propp
+                return "fork status";
         }
 
 
