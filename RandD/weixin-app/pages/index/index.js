@@ -295,6 +295,10 @@ Page({
       url: url
     })
   },
+    forkDetail: function (e) {
+        console.log('forkDetail');
+        //
+    },
   //首页图标跳转
   onNavRedirect:function(e){      
       var redicttype = e.currentTarget.dataset.redicttype;

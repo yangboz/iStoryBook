@@ -51,7 +51,7 @@ Page({
   },
   onShareAppMessage: function () {
 
-    var title = "分享“守望轩”";
+    var title = "分享“绘本王国”";
     var path =""
 
     if (this.data.categories && this.data.categories != 0)
@@ -261,7 +261,11 @@ Page({
     wx.navigateTo({
       url: url
     })
-  },
+  }, forkDetail: function (e) {
+        console.log('forkDetail');
+        //
+        wx.showLoading();
+    },
 
   //获取分类列表
   fetchCategoriesData: function (id) {
