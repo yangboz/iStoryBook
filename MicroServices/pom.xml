@@ -14,7 +14,7 @@
 
 	<properties>
 		<!-- Stand-alone RESTFul application for testing only -->
-		<start-class>io.pivotal.microservices.mservices.Main</start-class>
+		<start-class>tech.smartkit.microservices.mservices.Main</start-class>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
@@ -73,13 +73,6 @@
 			<!-- Eureka service registration -->
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-eureka-server</artifactId>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.im4java/im4java -->
-		<dependency>
-			<groupId>org.im4java</groupId>
-			<artifactId>im4java</artifactId>
-			<version>1.4.0</version>
 		</dependency>
 
 		<dependency>

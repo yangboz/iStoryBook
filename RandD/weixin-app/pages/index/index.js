@@ -15,7 +15,7 @@ var util = require('../../utils/util.js');
 var WxParse = require('../../wxParse/wxParse.js');
 var wxApi = require('../../utils/wxApi.js')
 var wxRequest = require('../../utils/wxRequest.js')
-
+var that;
 import config from '../../utils/config.js'
 
 var pageCount = config.getPageCount;
@@ -71,7 +71,7 @@ Page({
   },
   onShareAppMessage: function () {
     return {
-      title: '“' + config.getWebsiteName+'”网站微信小程序,基于WordPress版小程序构建.技术支持：www.watch-life.net',
+      title: '“' + config.getWebsiteName+'”网站微信小程序,基于WordPress版小程序构建.',
       path: 'pages/index/index',
       success: function (res) {
         // 转发成功
@@ -384,5 +384,37 @@ Page({
     wx.switchTab({
       url: url
     });
+  },
+  forkStorybook: function (e) {
+    // wx.showLoading({
+    //   title: 'forkStoryBook',
+    // })
+    //TODO:call forkStorybook api.
+    that = this;
+    wx.request({
+      url: "http://op.juhe.cn/onebox/weather/query",
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      method: "POST",
+      //data: { cityname: "上海", key: "1430ec127e097e1113259c5e1be1ba70" },
+      data: util.json2Form({ cityname: "上海", key: "1430ec127e097e1113259c5e1be1ba70" }),
+      complete: function (res) {
+        that.setData({
+          toastHidden: false,
+          toastText: res.data,
+          city_name: res,
+          date: res,
+          info: res,
+        });
+        if (res == null || res.data == null) {
+          console.error('网络请求失败');
+          return;
+        }
+      }
+    })
+  },
+  onToastChanged: function () {
+    that.setData({ toastHidden: true });
   }
 })

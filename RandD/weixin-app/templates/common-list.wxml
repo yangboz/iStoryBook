@@ -2,7 +2,7 @@
 
   <view class="common-list">
     <block wx:key="id" wx:for="{{postsList}}">
-      <view class="list-item has-img" index="{{index}}" id="{{item.id}}" bindtap="redictDetail" bindlongpress="alert('longpress')">
+      <view class="list-item has-img" index="{{index}}" id="{{item.id}}" bindtap="forkStorybook" bindlongpress="alert('longpress')">
         <view class="content-title">
           <text>{{item.title.rendered}}</text>
         </view>

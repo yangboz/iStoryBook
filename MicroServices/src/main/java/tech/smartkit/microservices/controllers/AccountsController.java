@@ -105,4 +105,17 @@ public class AccountsController {
 		logger.info("accounts-service counts() found: " + counts);
 		return counts;
 	}
+	/**
+	 * Save an accounts info.
+	 *
+	 * @return The update save.
+	 */
+	@RequestMapping("/accounts/save/")
+	public int save() {
+
+		logger.info("accounts-service save() invoked: ");
+		int counts = accountRepository.countAccounts();
+		logger.info("accounts-service save() status: " + counts);
+		return counts;
+	}
 }

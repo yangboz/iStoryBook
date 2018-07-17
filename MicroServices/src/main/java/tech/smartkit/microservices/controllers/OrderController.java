@@ -21,7 +21,9 @@ public class OrderController {
     protected Logger logger = Logger.getLogger(OrderController.class
             .getName());
 
-    private static final String URI_WxShopOrder = "http://wx764fa42b23cd341f.97866.com/api/mag.admin.order.list.json?access_token=";
+    private static final String URI_WxShopID = "wx764fa42b23cd341f";
+
+    private static final String URI_WxShopOrder = "http://"+URI_WxShopID+".97866.com/api/mag.admin.order.list.json?access_token=";
     private RestTemplate restTemplate = new RestTemplate();
 
 
@@ -39,7 +41,7 @@ public class OrderController {
 //        logger.info("wxShopConfig:"+wxShopConfig.toString());
 //    }
 
-    private static  final String URI_WxShopToken = "http://wx764fa42b23cd341f.97866.com/api/mag.token.json?";
+    private static  final String URI_WxShopToken = "http://"+URI_WxShopID+".97866.com/api/mag.token.json?";
     @RequestMapping("/wxshop/token")
     public String getWxShopToken(){
         WxShopToken wxShopToken = restTemplate.getForObject(URI_WxShopToken+"appid="+WxShopAppID+"&secret="+WxShopAppSecret, WxShopToken.class);
