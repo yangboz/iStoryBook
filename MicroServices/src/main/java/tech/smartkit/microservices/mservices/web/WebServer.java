@@ -11,6 +11,7 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.client.RestTemplate;
+import tech.smartkit.microservices.services.WebAccountsService;
 
 /**
  * Accounts web-server. Works as a microservice client, fetching data from the

@@ -8,13 +8,15 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import tech.smartkit.microservices.exceptions.AccountNotFoundException;
 import tech.smartkit.microservices.models.Account;
 import tech.smartkit.microservices.models.AccountRepository;
+import tech.smartkit.microservices.models.WxAccountRepository;
+import tech.smartkit.microservices.models.WxUserInfo;
 
 /**
  * A RESTFul controller for accessing account information.
@@ -26,18 +28,24 @@ public class AccountsController {
 
 	protected Logger logger = Logger.getLogger(AccountsController.class
 			.getName());
+	@Autowired
 	protected AccountRepository accountRepository;
+	@Autowired
+	protected WxAccountRepository wxAccountRepository;
 
 	/**
 	 * Create an instance plugging in the respository of Accounts.
-	 * 
-	 * @param accountRepository
+	 *
 	 *            An account repository implementation.
 	 */
-	@Autowired
-	public AccountsController(AccountRepository accountRepository) {
-		this.accountRepository = accountRepository;
-
+//	@Autowired
+//	public AccountsController(AccountRepository accountRepository) {
+//		this.accountRepository = accountRepository;
+//
+//		logger.info("AccountRepository says system has "
+//				+ accountRepository.countAccounts() + " accounts");
+//	}
+	public AccountsController() {
 		logger.info("AccountRepository says system has "
 				+ accountRepository.countAccounts() + " accounts");
 	}
@@ -105,17 +113,17 @@ public class AccountsController {
 		logger.info("accounts-service counts() found: " + counts);
 		return counts;
 	}
+
 	/**
 	 * Save an accounts info.
 	 *
 	 * @return The update save.
 	 */
-	@RequestMapping("/accounts/save/")
-	public int save() {
-
+	@RequestMapping(value="/accounts/save/",method = { RequestMethod.POST })
+	public WxUserInfo save(@RequestParam("userInfo") WxUserInfo wxUserInfo) {
 		logger.info("accounts-service save() invoked: ");
-		int counts = accountRepository.countAccounts();
-		logger.info("accounts-service save() status: " + counts);
-		return counts;
+		WxUserInfo saved = wxAccountRepository.save(wxUserInfo);
+		logger.info("accounts-service save() result: " + saved);
+		return saved;
 	}
 }

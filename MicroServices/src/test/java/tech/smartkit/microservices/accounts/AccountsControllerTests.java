@@ -45,8 +45,12 @@ public class AccountsControllerTests extends AbstractAccountControllerTests {
 
 	protected TestAccountRepository testRepo = new TestAccountRepository();
 
+//	@Before
+//	public void setup() {
+//		accountController = new AccountsController(testRepo);
+//	}
 	@Before
 	public void setup() {
-		accountController = new AccountsController(testRepo);
+		accountController = new AccountsController();
 	}
 }

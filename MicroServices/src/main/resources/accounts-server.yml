@@ -35,7 +35,13 @@ eureka:
 #     NOTE-2: Syntax ${x:${y}} = use $x if set, otherwise use $y
 #   metadataMap:
 #     instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}}
-      
+
+# app name and build version updated during build process from Maven properties.
+info:
+  app:
+    name: @project.artifactId@
+  build:
+    version: @project.version@
 
 
 

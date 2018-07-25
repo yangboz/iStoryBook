@@ -391,7 +391,7 @@ Page({
     // })
     //TODO:call forkStorybook api.
     that = this;
-    wx.request({
+      wxApi.request({
       url: "http://op.juhe.cn/onebox/weather/query",
       header: {
         "Content-Type": "application/x-www-form-urlencoded"

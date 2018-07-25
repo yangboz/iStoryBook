@@ -2,7 +2,7 @@
  * Copyright (c) 2018. SMARTKIT.INFO.
  */
 
-package tech.smartkit.microservices.mservices.web;
+package tech.smartkit.microservices.services;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import tech.smartkit.microservices.exceptions.AccountNotFoundException;
+import tech.smartkit.microservices.mservices.web.Account;
 
 
 /**

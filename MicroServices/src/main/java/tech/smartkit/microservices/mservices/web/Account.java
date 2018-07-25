@@ -7,6 +7,7 @@ package tech.smartkit.microservices.mservices.web;
 import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
+import tech.smartkit.microservices.services.WebAccountsService;
 
 /**
  * Account DTO - used to interact with the {@link WebAccountsService}.

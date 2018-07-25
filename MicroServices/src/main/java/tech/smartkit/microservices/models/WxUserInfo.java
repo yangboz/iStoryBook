@@ -3,8 +3,15 @@
  */
 
 package tech.smartkit.microservices.models;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.io.Serializable;
+
 //@see:https://github.com/apelegri/wechat-mini-program-wiki#get-user-information
-public class WxUserInfo {
+@Entity
+@Table(name = "T_WXACCOUNT_INFO")
+public class WxUserInfo extends ModelBase implements Serializable {
 
     private String avatarUrl;
     private String city;

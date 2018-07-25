@@ -36,16 +36,18 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {  
+  onLoad: function (options) {
     var self = this;
     if (!app.globalData.isGetOpenid) {
-        self.getUsreInfo();        
+        self.getUserInfo();
     }
     else
     {
         self.setData({
             userInfo: app.globalData.userInfo
         });
+        //
+        self.syncUserInfo();
     } 
     self.fetchPostsData('1');
     
@@ -405,7 +407,62 @@ Page({
             'dialog.content': ''
         })
     },
-    getUsreInfo: function () {
+    syncUserInfo: function () {
+        console.log("syncUserInfo called.");
+        wx.showLoading({
+          title: 'syncUserInfo...',
+        })
+        var self = this;
+        wx.request({
+            url: "http://localhost:2222/accounts/save/",
+            header: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            method: "POST",
+            //data: { cityname: "上海", key: "1430ec127e097e1113259c5e1be1ba70" },
+            data: util.json2Form(app.globalData.userInfo),
+            complete: function (res) {
+                console.log("saveUserInfo request complete:",res);
+                self.setData({
+                    toastHidden: false,
+                    toastText: res.data,
+                    info: res,
+                });
+                if (res == null || res.data == null) {
+                    console.error('网络请求失败');
+                    return;
+                }
+            }
+        })
+    },
+    a:function (userInfoJson) {
+        wx.showLoading({
+            title: 'saveUserInfo...',
+        })
+        var self = this;
+        wxApi.request({
+            url: "http://172.20.10.12:2222/accounts/save/",
+            header: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            method: "POST",
+            //data: { cityname: "上海", key: "1430ec127e097e1113259c5e1be1ba70" },
+            data: util.json2Form(userInfoJson),
+            complete: function (res) {
+                console.log("saveUserInfo request complete:",res);
+                self.setData({
+                    toastHidden: false,
+                    toastText: res.data,
+                    info: res,
+                });
+                if (res == null || res.data == null) {
+                    console.error('网络请求失败');
+                    return;
+                }
+            }
+        })
+    },
+    getUserInfo: function () {
         var self = this;
         var wxLogin = wxApi.wxLogin();
         var jscode = '';
@@ -416,9 +473,12 @@ Page({
         }).
             //获取用户信息
             then(response => {
-                console.log(response.userInfo);
-                console.log("成功获取用户信息(公开信息)");
                 app.globalData.userInfo = response.userInfo;
+                console.log("wxUserInfo:",app.globalData.userInfo);
+                //Sync user info
+                self.syncUserInfo();
+                //
+                console.log("成功获取用户信息(公开信息)");
                 app.globalData.isGetUserInfo = true;
                 self.setData({
                     userInfo: response.userInfo
@@ -467,5 +527,5 @@ Page({
             self.userAuthorization();
         }
 
-    } 
+    }
 })
