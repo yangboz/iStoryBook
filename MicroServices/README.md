@@ -45,4 +45,10 @@ in the second and third windows.
  1. Kill the first account-server and see the web-server switch to using the new account-server - no loss of service.
 
 ## TODO
-1.Learn how to use the Chaos Monkey library to test the resiliency and performance of your Spring Boot microservices: https://dzone.com/articles/chaos-monkey-for-spring-boot-microservices
+1.Learn how to use the Chaos Monkey library to test the resiliency and performance of your Spring Boot microservices: 
+
+https://dzone.com/articles/chaos-monkey-for-spring-boot-microservices
+
+2.Spring Cloud Series - Microservices using Spring Boot, Jersey, Swagger and Docker:
+
+https://tech.asimio.net/2016/04/05/Microservices-using-Spring-Boot-Jersey-Swagger-and-Docker.html
