@@ -17,7 +17,7 @@ public class AccountsControllerTests extends AbstractAccountControllerTests {
 	protected static final Account theAccount = new Account(ACCOUNT_1,
 			ACCOUNT_1_NAME);
 
-	protected static class TestAccountRepository implements AccountRepository {
+	protected static abstract class TestAccountRepository implements AccountRepository {
 
 		@Override
 		public Account findByNumber(String accountNumber) {

@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.springframework.samples.service.service</groupId>
-	<artifactId>microservice-demo</artifactId>
-	<version>1.1.0.RELEASE</version>
+	<groupId>tech.smartkit.microservices.iStoryBook</groupId>
+	<artifactId>microservice-iStoryBook</artifactId>
+	<version>0.0.1.RELEASE</version>
 	<packaging>jar</packaging>
 
 	<parent>
@@ -106,6 +106,18 @@
 			<version>2.3.1</version>
 		</dependency>
 
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.8.0</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.8.0</version>
+			<scope>compile</scope>
+		</dependency>
 
 	</dependencies>
 

@@ -7,6 +7,10 @@ package tech.smartkit.microservices.controllers;
 import java.util.List;
 import java.util.logging.Logger;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +26,12 @@ import tech.smartkit.microservices.models.WxUserInfo;
  * A RESTFul controller for accessing account information.
  * 
  * @author Paul Chapman
+ *
+ * @ref: https://springframework.guru/spring-boot-restful-api-documentation-with-swagger-2/
  */
 @RestController
+@RequestMapping("/accounts")
+@Api(value="iStoryBookAccounts", description="Operations pertaining to accounts in iStoryBook")
 public class AccountsController {
 
 	protected Logger logger = Logger.getLogger(AccountsController.class
@@ -49,17 +57,30 @@ public class AccountsController {
 		logger.info("AccountRepository says system has "
 				+ accountRepository.countAccounts() + " accounts");
 	}
-
+	//https://springframework.guru/spring-boot-restful-api-documentation-with-swagger-2/
+	@ApiOperation(value = "View a list of available accounts", response = Iterable.class)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Successfully retrieved list"),
+			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+	}
+	)
+	@RequestMapping(value = "/list", method= RequestMethod.GET, produces = "application/json")
+	public Iterable list(){
+		Iterable accountList = accountRepository.findAll();
+		return accountList;
+	}
 	/**
 	 * Fetch an account with the specified account number.
-	 * 
+	 *
 	 * @param accountNumber
 	 *            A numeric, 9 digit account number.
 	 * @return The account if found.
 	 * @throws AccountNotFoundException
 	 *             If the number is not recognised.
 	 */
-	@RequestMapping("/accounts/{accountNumber}")
+	@RequestMapping("/{accountNumber}")
 	public Account byNumber(@PathVariable("accountNumber") String accountNumber) {
 
 		logger.info("accounts-service byNumber() invoked: " + accountNumber);
@@ -83,7 +104,7 @@ public class AccountsController {
 	 * @throws AccountNotFoundException
 	 *             If there are no matches at all.
 	 */
-	@RequestMapping("/accounts/owner/{name}")
+	@RequestMapping("/owner/{name}")
 	public List<Account> byOwner(@PathVariable("name") String partialName) {
 		logger.info("accounts-service byOwner() invoked: "
 				+ accountRepository.getClass().getName() + " for "
@@ -119,7 +140,7 @@ public class AccountsController {
 	 *
 	 * @return The update save.
 	 */
-	@RequestMapping(value="/accounts/save/",method = { RequestMethod.POST })
+	@RequestMapping(value="/save/",method = { RequestMethod.POST })
 	public WxUserInfo save(@RequestParam("userInfo") WxUserInfo wxUserInfo) {
 		logger.info("accounts-service save() invoked: ");
 		WxUserInfo saved = wxAccountRepository.save(wxUserInfo);
