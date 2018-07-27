@@ -47,6 +47,9 @@ public class WxUserInfo extends ModelBase implements Serializable {
         this.avatarUrl = avatarUrl;
     }
 
+    public WxUserInfo() {
+    }
+
 
     public String getAvatarUrl() {
         return avatarUrl;

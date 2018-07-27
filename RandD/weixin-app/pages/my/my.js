@@ -420,15 +420,16 @@ Page({
                 "Content-Type":"application/json; charset=UTF-8"
             },
             method: "POST",
-            //data: { cityname: "上海", key: "1430ec127e097e1113259c5e1be1ba70" },
-            data: util.json2Form(app.globalData.userInfo),
+            data: app.globalData.userInfo,
+            // data: util.json2Form(app.globalData.userInfo),
             complete: function (res) {
                 console.log("saveUserInfo request complete:",res);
-                self.setData({
-                    toastHidden: false,
-                    toastText: res.data,
-                    info: res,
-                });
+                wx.hideLoading();
+                // self.setData({
+                //     toastHidden: true,
+                //     toastText: res.data,
+                //     info: res,
+                // });
                 if (res == null || res.data == null) {
                     console.error('网络请求失败');
                     return;

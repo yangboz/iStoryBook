@@ -31,7 +31,7 @@ import tech.smartkit.microservices.models.WxUserInfo;
  * @ref: https://springframework.guru/spring-boot-restful-api-documentation-with-swagger-2/
  */
 @RestController
-//@RequestMapping(value ="/account")
+@RequestMapping(value ="/account")
 @Api(value="iStoryBookAccounts", description="Operations pertaining to accounts in iStoryBook")
 public class AccountsController {
 
@@ -65,8 +65,9 @@ public class AccountsController {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
 	}
 	)
-	@RequestMapping(value = "/account/list", method= RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/list", method= RequestMethod.GET, produces = "application/json")
 	public Iterable list(){
+		logger.info("List of accounts:");
 		Iterable accountList = accountRepository.findAll();
 		return accountList;
 	}
@@ -79,10 +80,6 @@ public class AccountsController {
 	 DELETE /{id}/ - Delete one of accounts
 	 *
 	 */
-	@RequestMapping("/accounts/")
-	public void listAccounts() {
-		logger.info("List of accounts:");
-	}
 	/**
 	 * Fetch an account with the specified account number.
 	 *
@@ -154,14 +151,21 @@ public class AccountsController {
 	 *
 	 * @see: https://www.leveluplunch.com/java/tutorials/014-post-json-to-spring-rest-webservice/
 	 */
-	@RequestMapping(value="/account/save/",method = RequestMethod.POST
+	@RequestMapping(value="/save/",method = RequestMethod.POST
 			, consumes = MediaType.APPLICATION_JSON_VALUE
 			, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<WxUserInfo> save(
 			@RequestBody WxUserInfo wxUserInfo ){
 //			@RequestParam("userInfo") WxUserInfo wxUserInfo) {
 		logger.info("accounts-service save() invoked: ");
-		WxUserInfo saved = wxAccountRepository.save(wxUserInfo);
+		//if not existed?
+		List<WxUserInfo> find = wxAccountRepository.findByNickName(wxUserInfo.getNickName());
+		WxUserInfo saved = null;
+		if(find.size()==0){
+			saved = wxAccountRepository.save(wxUserInfo);
+		}{
+			logger.info("accounts-service save() already existed: " + find.toString());
+		}
 		logger.info("accounts-service save() result: " + saved);
 		return new ResponseEntity<WxUserInfo>(saved, HttpStatus.OK);
 	}
