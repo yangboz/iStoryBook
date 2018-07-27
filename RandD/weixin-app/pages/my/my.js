@@ -413,10 +413,11 @@ Page({
           title: 'syncUserInfo...',
         })
         var self = this;
+        // "Content-Type": "application/x-www-form-urlencoded"
         wx.request({
-            url: "http://localhost:2222/accounts/save/",
+            url: "http://localhost:2222/account/save/",
             header: {
-                "Content-Type": "application/x-www-form-urlencoded"
+                "Content-Type":"application/json; charset=UTF-8"
             },
             method: "POST",
             //data: { cityname: "上海", key: "1430ec127e097e1113259c5e1be1ba70" },

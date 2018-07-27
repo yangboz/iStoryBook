@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -30,7 +31,7 @@ import tech.smartkit.microservices.models.WxUserInfo;
  * @ref: https://springframework.guru/spring-boot-restful-api-documentation-with-swagger-2/
  */
 @RestController
-@RequestMapping("/accounts")
+@RequestMapping(value ="/account")
 @Api(value="iStoryBookAccounts", description="Operations pertaining to accounts in iStoryBook")
 public class AccountsController {
 
@@ -126,7 +127,7 @@ public class AccountsController {
 	 *
 	 * @return The total counts.
 	 */
-	@RequestMapping("/accounts/counts")
+	@RequestMapping("/counts")
 	public int counts() {
 
 		logger.info("accounts-service counts() invoked: ");
@@ -139,12 +140,16 @@ public class AccountsController {
 	 * Save an accounts info.
 	 *
 	 * @return The update save.
+	 *
+	 * @see: https://www.leveluplunch.com/java/tutorials/014-post-json-to-spring-rest-webservice/
 	 */
-	@RequestMapping(value="/save/",method = { RequestMethod.POST })
-	public WxUserInfo save(@RequestParam("userInfo") WxUserInfo wxUserInfo) {
+	@RequestMapping(value="/save/",method = RequestMethod.POST)
+	public ResponseEntity<WxUserInfo> save(
+			@RequestBody WxUserInfo wxUserInfo ){
+//			@RequestParam("userInfo") WxUserInfo wxUserInfo) {
 		logger.info("accounts-service save() invoked: ");
 		WxUserInfo saved = wxAccountRepository.save(wxUserInfo);
 		logger.info("accounts-service save() result: " + saved);
-		return saved;
+		return new ResponseEntity<WxUserInfo>(saved, HttpStatus.OK);
 	}
 }

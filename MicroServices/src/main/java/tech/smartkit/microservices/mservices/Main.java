@@ -42,17 +42,17 @@ public class Main {
 
 		if (serverName.equals("registration") || serverName.equals("reg")) {
 			RegistrationServer.main(args);
-		} else if (serverName.equals("account")) {
+		} else if (serverName.equals("account") || serverName.equals("accounts")) {
 			AccountsServer.main(args);
 		} else if (serverName.equals("web")) {
 			WebServer.main(args);
 		} else if (serverName.equals("blockchain")) {
 			BlockChainServer.main(args);
-		} else if (serverName.equals("product")) {
+		} else if (serverName.equals("product") || serverName.equals("products")) {
 			ProductServer.main(args);
-		} else if (serverName.equals("order")) {
+		} else if (serverName.equals("order") || serverName.equals("orders")) {
 			OrderServer.main(args);
-		} else if (serverName.equals("cart")) {
+		} else if (serverName.equals("cart") || serverName.equals("carts")) {
 			CartServer.main(args);
 		}
 		else {
