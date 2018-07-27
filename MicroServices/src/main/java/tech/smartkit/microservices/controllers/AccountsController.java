@@ -13,14 +13,14 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import tech.smartkit.microservices.exceptions.AccountNotFoundException;
 import tech.smartkit.microservices.models.Account;
-import tech.smartkit.microservices.models.AccountRepository;
-import tech.smartkit.microservices.models.WxAccountRepository;
+import tech.smartkit.microservices.models.dao.AccountRepository;
+import tech.smartkit.microservices.models.dao.WxAccountRepository;
 import tech.smartkit.microservices.models.WxUserInfo;
 
 /**
@@ -31,7 +31,7 @@ import tech.smartkit.microservices.models.WxUserInfo;
  * @ref: https://springframework.guru/spring-boot-restful-api-documentation-with-swagger-2/
  */
 @RestController
-@RequestMapping(value ="/account")
+//@RequestMapping(value ="/account")
 @Api(value="iStoryBookAccounts", description="Operations pertaining to accounts in iStoryBook")
 public class AccountsController {
 
@@ -47,17 +47,15 @@ public class AccountsController {
 	 *
 	 *            An account repository implementation.
 	 */
-//	@Autowired
-//	public AccountsController(AccountRepository accountRepository) {
-//		this.accountRepository = accountRepository;
-//
+	@Autowired
+	public AccountsController(WxAccountRepository wxAccountRepository) {
+		this.wxAccountRepository = wxAccountRepository;
+		logger.info("AccountRepository autowired.");
+	}
+//	public AccountsController() {
 //		logger.info("AccountRepository says system has "
 //				+ accountRepository.countAccounts() + " accounts");
 //	}
-	public AccountsController() {
-		logger.info("AccountRepository says system has "
-				+ accountRepository.countAccounts() + " accounts");
-	}
 	//https://springframework.guru/spring-boot-restful-api-documentation-with-swagger-2/
 	@ApiOperation(value = "View a list of available accounts", response = Iterable.class)
 	@ApiResponses(value = {
@@ -67,10 +65,23 @@ public class AccountsController {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
 	}
 	)
-	@RequestMapping(value = "/list", method= RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/account/list", method= RequestMethod.GET, produces = "application/json")
 	public Iterable list(){
 		Iterable accountList = accountRepository.findAll();
 		return accountList;
+	}
+
+	/**
+	 GET / - List of accounts
+	 POST / - Add product - required : String name , String groupId, String userId
+	 GET /{id} - View product
+	 POST /{id} - Update product
+	 DELETE /{id}/ - Delete one of accounts
+	 *
+	 */
+	@RequestMapping("/accounts/")
+	public void listAccounts() {
+		logger.info("List of accounts:");
 	}
 	/**
 	 * Fetch an account with the specified account number.
@@ -143,7 +154,9 @@ public class AccountsController {
 	 *
 	 * @see: https://www.leveluplunch.com/java/tutorials/014-post-json-to-spring-rest-webservice/
 	 */
-	@RequestMapping(value="/save/",method = RequestMethod.POST)
+	@RequestMapping(value="/account/save/",method = RequestMethod.POST
+			, consumes = MediaType.APPLICATION_JSON_VALUE
+			, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<WxUserInfo> save(
 			@RequestBody WxUserInfo wxUserInfo ){
 //			@RequestParam("userInfo") WxUserInfo wxUserInfo) {

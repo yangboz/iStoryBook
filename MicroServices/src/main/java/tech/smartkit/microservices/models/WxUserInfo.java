@@ -11,19 +11,22 @@ import java.io.Serializable;
 
 //@see:https://github.com/apelegri/wechat-mini-program-wiki#get-user-information
 @Entity
-@Table(name = "T_WXACCOUNT_INFO")
+@Table(name = "T_WXUSER_INFO")
 public class WxUserInfo extends ModelBase implements Serializable {
 //Swagger 2 Annotations for Model
 //@see: https://springframework.guru/spring-boot-restful-api-documentation-with-swagger-2/
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @ApiModelProperty(notes = "The database generated product ID")
-//    private Integer id;
-//@Version
-//@ApiModelProperty(notes = "The auto-generated version of the product")
-//private Integer version;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @ApiModelProperty(notes = "The database generated product ID")
+    private Integer id;
+
+    @Version
+    @ApiModelProperty(notes = "The auto-generated version of the product")
+    private Integer version;
+
     @ApiModelProperty(notes = "The avatarUrl for WxUserInfo",required = true,readOnly = true)
     private String avatarUrl;
+
     private String city;
     private String country;
     private int gender;//sex => 0: unknown ; 1: male ; 2：female

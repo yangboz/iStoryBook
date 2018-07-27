@@ -2,13 +2,14 @@
  * Copyright (c) 2018. SMARTKIT.INFO.
  */
 
-package tech.smartkit.microservices.models;
+package tech.smartkit.microservices.models.dao;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.Repository;
+import tech.smartkit.microservices.models.Account;
 
 /**
  * Repository for Account data implemented using Spring Data JPA.

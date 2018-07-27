@@ -14,9 +14,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 
 import tech.smartkit.microservices.controllers.AccountsController;
-import tech.smartkit.microservices.controllers.OrderController;
-import tech.smartkit.microservices.models.AccountRepository;
 import tech.smartkit.microservices.configs.AccountsConfiguration;
+import tech.smartkit.microservices.models.dao.WxAccountRepository;
 
 /**
  * Run as a micro-service, registering with the Discovery Server (Eureka).
@@ -31,8 +30,8 @@ import tech.smartkit.microservices.configs.AccountsConfiguration;
 @Import(AccountsConfiguration.class)
 public class AccountsServer {
 
-//	@Autowired
-//	protected AccountRepository accountRepository;
+	@Autowired
+	protected WxAccountRepository wxAccountRepository;
 
 	protected Logger logger = Logger.getLogger(AccountsServer.class.getName());
 
@@ -49,13 +48,13 @@ public class AccountsServer {
 
 		SpringApplication.run(AccountsServer.class, args);
 	}
-//	/**
-//	 * Create the controller, passing it the {@link } to use.
-//	 *
-//	 * @return
-//	 */
-//	@Bean
-//	public AccountsController accountsController() {
-//		return new AccountsController();
-//	}
+	/**
+	 * Create the controller, passing it the {@link } to use.
+	 *
+	 * @return
+	 */
+	@Bean
+	public AccountsController accountsController() {
+		return new AccountsController(wxAccountRepository);
+	}
 }

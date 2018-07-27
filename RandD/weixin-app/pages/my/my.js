@@ -436,33 +436,6 @@ Page({
             }
         })
     },
-    a:function (userInfoJson) {
-        wx.showLoading({
-            title: 'saveUserInfo...',
-        })
-        var self = this;
-        wxApi.request({
-            url: "http://172.20.10.12:2222/accounts/save/",
-            header: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            method: "POST",
-            //data: { cityname: "上海", key: "1430ec127e097e1113259c5e1be1ba70" },
-            data: util.json2Form(userInfoJson),
-            complete: function (res) {
-                console.log("saveUserInfo request complete:",res);
-                self.setData({
-                    toastHidden: false,
-                    toastText: res.data,
-                    info: res,
-                });
-                if (res == null || res.data == null) {
-                    console.error('网络请求失败');
-                    return;
-                }
-            }
-        })
-    },
     getUserInfo: function () {
         var self = this;
         var wxLogin = wxApi.wxLogin();

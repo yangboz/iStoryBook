@@ -14,7 +14,7 @@ import tech.smartkit.microservices.services.ProductService;
  * @see https://imagemagick.org/script/montage.php
  * magick montage -label %f -frame 5 -background '#336699' -geometry +4+4 rose.jpg red-ball.png frame.jpg
  */
-@JsonRootName("Product")
+@JsonRootName("T_PRODUCT")
 public class Product {
     protected Long id;
     protected Long groupId;

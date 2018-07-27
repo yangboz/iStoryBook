@@ -10,7 +10,7 @@ import java.util.List;
 import org.junit.Before;
 import tech.smartkit.microservices.controllers.AccountsController;
 import tech.smartkit.microservices.models.Account;
-import tech.smartkit.microservices.models.AccountRepository;
+import tech.smartkit.microservices.models.dao.AccountRepository;
 
 public class AccountsControllerTests extends AbstractAccountControllerTests {
 

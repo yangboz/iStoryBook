@@ -11,6 +11,8 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.client.RestTemplate;
+import tech.smartkit.microservices.controllers.HomeController;
+import tech.smartkit.microservices.controllers.WebAccountsController;
 import tech.smartkit.microservices.services.WebAccountsService;
 
 /**

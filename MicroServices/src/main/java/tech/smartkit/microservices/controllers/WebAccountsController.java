@@ -2,7 +2,7 @@
  * Copyright (c) 2018. SMARTKIT.INFO.
  */
 
-package tech.smartkit.microservices.mservices.web;
+package tech.smartkit.microservices.controllers;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import tech.smartkit.microservices.mservices.web.Account;
+import tech.smartkit.microservices.mservices.web.SearchCriteria;
 import tech.smartkit.microservices.services.WebAccountsService;
 
 /**

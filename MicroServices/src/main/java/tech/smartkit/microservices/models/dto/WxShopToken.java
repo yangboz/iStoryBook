@@ -2,7 +2,7 @@
  * Copyright (c) 2018. SMARTKIT.INFO.
  */
 
-package tech.smartkit.microservices.models;
+package tech.smartkit.microservices.models.dto;
 
 public class WxShopToken {
 

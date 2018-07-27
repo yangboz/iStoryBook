@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import tech.smartkit.microservices.models.WxShopToken;
+import tech.smartkit.microservices.models.dto.WxShopToken;
 
 import java.util.logging.Logger;
 

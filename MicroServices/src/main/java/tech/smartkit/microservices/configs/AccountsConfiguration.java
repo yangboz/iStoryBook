@@ -29,8 +29,8 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
  */
 @Configuration
 @ComponentScan
-@EntityScan("io.pivotal.microservices.accounts")
-@EnableJpaRepositories("io.pivotal.microservices.accounts")
+@EntityScan("tech.smartkit.microservices.models")
+@EnableJpaRepositories("tech.smartkit.microservices.models.dao")
 @PropertySource("classpath:db-config.properties")
 public class AccountsConfiguration {
 

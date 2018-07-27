@@ -31,7 +31,7 @@ public class Account implements Serializable {
 
 	protected String number;
 
-//	@Column(name = "name")
+	@Column(name = "name")
 	protected String owner;
 
 	protected BigDecimal balance;
