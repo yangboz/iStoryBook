@@ -119,6 +119,12 @@
 			<version>2.8.0</version>
 		</dependency>
 
+		<dependency>
+			<groupId>io.ipfs</groupId>
+			<artifactId>java-ipfs-api</artifactId>
+			<version>v1.2.1-SNAPSHOT</version>
+		</dependency>
+
 	</dependencies>
 
 	<dependencyManagement>
@@ -173,4 +179,10 @@
 			</resource>
 		</resources>
 	</build>
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
 </project>

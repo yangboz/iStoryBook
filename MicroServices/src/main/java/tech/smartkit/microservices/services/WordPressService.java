@@ -10,8 +10,11 @@ import com.afrozaar.wordpress.wpapi.v2.config.ClientConfig;
 import com.afrozaar.wordpress.wpapi.v2.config.ClientFactory;
 import com.afrozaar.wordpress.wpapi.v2.exception.PostCreateException;
 import com.afrozaar.wordpress.wpapi.v2.exception.PostNotFoundException;
+import com.afrozaar.wordpress.wpapi.v2.exception.WpApiParsedException;
+import com.afrozaar.wordpress.wpapi.v2.model.Media;
 import com.afrozaar.wordpress.wpapi.v2.model.Post;
 import com.afrozaar.wordpress.wpapi.v2.model.PostStatus;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import sun.java2d.Disposer;
 
@@ -38,7 +41,7 @@ public class WordPressService {
         logger.warning("hard code wordpress info: "
                 + baseUrl + username + password);
     }
-
+////Post
     public Wordpress getWpClient(boolean debug){
         this.debug = debug;
         Wordpress client = ClientFactory.fromConfig(ClientConfig.of(baseUrl, username, password, false,debug));
@@ -59,7 +62,7 @@ public class WordPressService {
 
     public Post updatePost(Post post){
         Post result = this.getWpClient(debug).updatePost(post);
-        logger.info("deletePost:"+result.toString());
+        logger.info("updatePost:"+result.toString());
         return result;
     }
 
@@ -68,6 +71,30 @@ public class WordPressService {
         logger.info("deletePost:"+result.toString());
         return post;
     }
+////Media
+public Media createMedia(Media media) throws WpApiParsedException {
+    Media result = this.getWpClient(debug).createMedia(media,null);
+    logger.info("createMedia:"+result.toString());
+    return result;
+}
 
-    //TODO:page,media,tag,category...
+    public Media getMedia(Long id) throws PostNotFoundException{
+        Media result = this.getWpClient(debug).getMedia(id);
+        logger.info("getMedia:"+result.toString());
+        return result;
+    }
+
+    public Media updateMedia(Media media){
+        Media result = this.getWpClient(debug).updateMedia(media);
+        logger.info("updateMedia:"+result.toString());
+        return result;
+    }
+
+    public boolean deleteMedia(Media media){
+        boolean result = this.getWpClient(debug).deleteMedia(media);
+        logger.info("deleteMedia:"+result);
+        return result;
+    }
+
+    //TODO:page,tag,category...
 }
