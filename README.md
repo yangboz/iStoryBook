@@ -34,6 +34,19 @@ http://jenetics.io
 ## FAQ
 How are CryptoStoryBooks created?
 
+1.From WeChat mini-program(Wordpress), WeChat user login and allow sync user info under GDPR;
+
+2.WeChat user can (quickly) fork storybook card from template(rentable,sellable) list;
+
+3.WeChat user also can buy storybook assets from WeChat shop for enhanced forking;
+
+4.WeChat user can store his/her forked storybook card in IPFS with hash ID result;
+
+5.WeChat user then can insert into  WeChat mini-program(Wordpress) template list by ranking system;
+
+6.Now, WeChat user can exchange his/her storybook card in crypto market with verified hash ID;
+
+
 ## Wiki
 
 https://github.com/yangboz/iStoryBook/wiki
