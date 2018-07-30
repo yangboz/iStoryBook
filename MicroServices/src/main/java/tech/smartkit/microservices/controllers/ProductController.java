@@ -7,10 +7,19 @@ package tech.smartkit.microservices.controllers;
 import com.afrozaar.wordpress.wpapi.v2.Wordpress;
 import com.afrozaar.wordpress.wpapi.v2.config.ClientConfig;
 import com.afrozaar.wordpress.wpapi.v2.config.ClientFactory;
+import com.afrozaar.wordpress.wpapi.v2.exception.PostCreateException;
+import com.afrozaar.wordpress.wpapi.v2.model.Post;
+import org.im4java.core.IM4JavaException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import tech.smartkit.microservices.models.dto.IMMontageInfo;
+import tech.smartkit.microservices.services.ImageMagickService;
+import tech.smartkit.microservices.services.WordPressService;
 
+import javax.jws.Oneway;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
 import java.util.logging.Logger;
@@ -20,6 +29,10 @@ public class ProductController {
         protected Logger logger = Logger.getLogger(tech.smartkit.microservices.controllers.ProductController.class
                 .getName());
 
+        @Autowired
+        ImageMagickService imageMagickService;
+        @Autowired
+        WordPressService wordPressService;
         /**
          GET / - List of products
          POST / - Add product - required : String name , String groupId, String userId
@@ -28,6 +41,7 @@ public class ProductController {
          GET /{id}/images - View product images
          GET /image/{id}- View image
          POST /{id}/uploadimage - Upload product image
+         GET /fork quick fork a product
          GET /montage
          https://imagemagick.org/script/montage.php
          http://im4java.sourceforge.net/docs/dev-guide.html
@@ -51,24 +65,15 @@ public class ProductController {
          * @see:https://developer.github.com/v3/repos/forks/
          */
         @RequestMapping("/product/{pid}/fork/{uid}")
-        public String fork(@PathVariable("pid") String pid,@PathVariable("uid") String uid) {
+        public String fork(@PathVariable("pid") String pid,@PathVariable("uid") String uid) throws PostCreateException {
                 logger.info("ImageMagick fork() invoked: pid: " + pid + ",uid:"+uid);
                 //1.same template,same card,just replace the name,
-                //TODO:post to wordpress,@see: https://1dir1.net/doc/wordpress-java/
-                //https://github.com/Afrozaar/wp-api-v2-client-java
-                String baseUrl = "https://knighter.cn/";
-                String username = "user";
-                String password = "bitnami";
-                boolean debug = false;
-
-                final Wordpress client = ClientFactory.fromConfig(ClientConfig.of(baseUrl, username, password, false,debug));
-                logger.info(client.getTags().toString());
+                wordPressService.createPost(new Post());
                 //2.replace face photo.
                 //3.dynamic gene.
                 //4.https://github.com/yangboz/iStoryBook/wiki/Vladimir_Propp
                 return "fork status";
         }
-
 
         /**
          * View product's montage.
@@ -76,10 +81,11 @@ public class ProductController {
          * @see https://imagemagick.org/script/montage.php
          */
         @RequestMapping("/product/{id}/montage")
-        public void montage(@PathVariable("id") String id) {
+        public void montage(@PathVariable("id") String id) throws InterruptedException, IOException, IM4JavaException {
                 logger.info(" View product's montage, for "
                         + id);
-//TODO:                org.im4java.core.MontageCmd
+                imageMagickService.montage(new IMMontageInfo());
+
         }
 
 }
