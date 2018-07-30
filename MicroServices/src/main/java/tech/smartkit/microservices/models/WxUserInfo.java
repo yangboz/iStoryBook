@@ -13,7 +13,11 @@ import java.io.Serializable;
 @Entity
 @Table(name = "T_WXUSER_INFO")
 public class WxUserInfo extends ModelBase implements Serializable {
-//Swagger 2 Annotations for Model
+    public Integer getId() {
+        return id;
+    }
+
+    //Swagger 2 Annotations for Model
 //@see: https://springframework.guru/spring-boot-restful-api-documentation-with-swagger-2/
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

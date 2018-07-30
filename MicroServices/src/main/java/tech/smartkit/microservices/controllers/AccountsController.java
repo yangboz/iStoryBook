@@ -65,7 +65,7 @@ public class AccountsController {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
 	}
 	)
-	@RequestMapping(value = "/list", method= RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/", method= RequestMethod.GET, produces = "application/json")
 	public Iterable list(){
 		logger.info("List of accounts:");
 		Iterable accountList = accountRepository.findAll();
@@ -83,21 +83,21 @@ public class AccountsController {
 	/**
 	 * Fetch an account with the specified account number.
 	 *
-	 * @param accountNumber
+	 * @param id
 	 *            A numeric, 9 digit account number.
 	 * @return The account if found.
 	 * @throws AccountNotFoundException
 	 *             If the number is not recognised.
 	 */
-	@RequestMapping("/{accountNumber}")
-	public Account byNumber(@PathVariable("accountNumber") String accountNumber) {
+	@RequestMapping("/{id}")
+	public Account byId(@PathVariable("id") String id) {
 
-		logger.info("accounts-service byNumber() invoked: " + accountNumber);
-		Account account = accountRepository.findByNumber(accountNumber);
-		logger.info("accounts-service byNumber() found: " + account);
+		logger.info("accounts-service byId() invoked: " + id);
+		Account account = accountRepository.findByNumber(id);
+		logger.info("accounts-service byId() found: " + account);
 
 		if (account == null)
-			throw new AccountNotFoundException(accountNumber);
+			throw new AccountNotFoundException(id);
 		else {
 			return account;
 		}
@@ -108,23 +108,22 @@ public class AccountsController {
 	 * is supported. So <code>http://.../accounts/owner/a</code> will find any
 	 * accounts with upper or lower case 'a' in their name.
 	 * 
-	 * @param partialName
+	 * @param nickName
 	 * @return A non-null, non-empty set of accounts.
 	 * @throws AccountNotFoundException
 	 *             If there are no matches at all.
 	 */
-	@RequestMapping("/owner/{name}")
-	public List<Account> byOwner(@PathVariable("name") String partialName) {
+	@RequestMapping("/nickName/{nickName}")
+	public List<WxUserInfo> byNickName(@PathVariable("nickName") String nickName) {
 		logger.info("accounts-service byOwner() invoked: "
 				+ accountRepository.getClass().getName() + " for "
-				+ partialName);
+				+ nickName);
 
-		List<Account> accounts = accountRepository
-				.findByOwnerContainingIgnoreCase(partialName);
+		List<WxUserInfo> accounts = wxAccountRepository.findByNickName(nickName);
 		logger.info("accounts-service byOwner() found: " + accounts);
 
 		if (accounts == null || accounts.size() == 0)
-			throw new AccountNotFoundException(partialName);
+			throw new AccountNotFoundException(nickName);
 		else {
 			return accounts;
 		}
@@ -139,9 +138,9 @@ public class AccountsController {
 	public int counts() {
 
 		logger.info("accounts-service counts() invoked: ");
-		int counts = accountRepository.countAccounts();
-		logger.info("accounts-service counts() found: " + counts);
-		return counts;
+		List<WxUserInfo> wxUserInfos = (List<WxUserInfo>) wxAccountRepository.findAll();
+		logger.info("accounts-service counts() found: " + wxUserInfos.size());
+		return wxUserInfos.size();
 	}
 
 	/**
