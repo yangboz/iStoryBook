@@ -21,9 +21,11 @@ import tech.smartkit.microservices.models.dao.WxAccountRepository;
 import tech.smartkit.microservices.models.dto.IMConvertInfo;
 import tech.smartkit.microservices.models.dto.IMMontageInfo;
 import tech.smartkit.microservices.services.ImageMagickService;
+import tech.smartkit.microservices.services.IpfsService;
 import tech.smartkit.microservices.services.WordPressService;
 
 import javax.jws.Oneway;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
@@ -40,6 +42,9 @@ public class ProductController {
         WordPressService wordPressService;
         @Autowired
         WxAccountRepository wxAccountRepository;
+
+        @Autowired
+        IpfsService ipfsService;
         /**
          GET / - List of products
          POST / - Add product - required : String name , String groupId, String userId
@@ -77,28 +82,26 @@ public class ProductController {
                 //1.Image magick convert a new card.
                 IMConvertInfo imConvertInfo = new IMConvertInfo();
                 imConvertInfo.setBackground("");//FIXME
-                imageMagickService.convert(imConvertInfo);
+                File imageMagickFileResult = imageMagickService.convert(imConvertInfo);
                 ///1.2.replace face photo.
                 WxUserInfo wxUserInfo = wxAccountRepository.findOne(uid);
                 logger.info("WxUserInfo:"+wxUserInfo.toString());
-
-                ///1.3.dynamic gene.
+                ///1.3.dynamic gene deployed by ETH smart contract.
                 ///1.4.https://github.com/yangboz/iStoryBook/wiki/Vladimir_Propp
                 //2.put on IPFS get pin hash ID,@see:https://github.com/ipfs/java-ipfs-api
-
-                String ipfsHashID = "";
+                String ipfsHashID = ipfsService.put(imageMagickFileResult);
                 //3.forking new post,same template,same card,just replace the name,
                 Post forkedPost = wordPressService.getPost(pid);
                 //5.publish to Wordpress, return status
                 Post newPost = new Post();
-                Title newTitle = new Title();
-                newTitle.setRaw(ipfsHashID);
-                newPost.setTitle(newTitle);
-                newPost.setAuthor(null);//FIXME
-
+                Title postTitle = new Title();
+                postTitle.setRaw(ipfsHashID);
+                newPost.setTitle(postTitle);
+//                newPost.setAuthor(new List<Number>(wxUserInfo.getId()) {
+//                });//FIXME
                 wordPressService.createPost(newPost);
                 //6.notify wechat mini-program refresh.
-                return "fork status";
+                return wordPressService.createPost(newPost).getPingStatus();
         }
 
         /**

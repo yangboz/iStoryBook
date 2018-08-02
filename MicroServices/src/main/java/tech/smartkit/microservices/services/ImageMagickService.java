@@ -12,6 +12,7 @@ import tech.smartkit.microservices.models.dto.IMConvertInfo;
 import tech.smartkit.microservices.models.dto.IMMontageInfo;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
 
@@ -28,7 +29,7 @@ public class ImageMagickService {
         // happens afterwards.
         // create command
         cmd = new ConvertCmd();
-        logger.warning("hard code imagemagick info: "+cmd.toString());
+        logger.warning("hard coded imagemagick info: "+cmd.toString());
     }
 
 
@@ -57,7 +58,7 @@ public class ImageMagickService {
      * @see http://im4java.sourceforge.net/tools/index.html
      * @see https://imagemagick.org/script/convert.php
      */
-    public void convert(IMConvertInfo convertInfo) throws InterruptedException, IOException, IM4JavaException {
+    public File convert(IMConvertInfo convertInfo) throws InterruptedException, IOException, IM4JavaException {
 
         logger.info(" montage info: " + convertInfo.toString());
 
@@ -71,6 +72,8 @@ public class ImageMagickService {
             dstImage = convertInfo.getInput().substring(1, lastDot - 1) + "_convert.jpg";
         }
         cmd.run(op,srcImage,dstImage);
+        //
+        return new File(dstImage);
     }
     //TODO:Identify,Mogrify,Compare,Composite,
 }

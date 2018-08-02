@@ -217,6 +217,10 @@
     <orderEntry type="library" name="Maven: org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.plugin:spring-plugin-metadata:1.2.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.mapstruct:mapstruct:1.2.0.Final" level="project" />
-    <orderEntry type="library" name="Maven: io.ipfs:java-ipfs-api:v1.2.1-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: com.github.ipfs:java-ipfs-api:v1.2.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.multiformats:java-multiaddr:v1.1.1" level="project" />
+    <orderEntry type="library" name="Maven: com.github.multiformats:java-multibase:v1.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.multiformats:java-multihash:v1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.ipld:java-cid:v1.1.0" level="project" />
   </component>
 </module>

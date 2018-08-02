@@ -38,7 +38,7 @@ public class WordPressService {
     public void main() {
         // Can't do this in the constructor because the RestTemplate injection
         // happens afterwards.
-        logger.warning("hard code wordpress info: "
+        logger.warning("hard coded wordpress info: "
                 + baseUrl + username + password);
     }
 ////Post

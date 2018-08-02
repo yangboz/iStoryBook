@@ -120,9 +120,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>io.ipfs</groupId>
+			<groupId>com.github.ipfs</groupId>
 			<artifactId>java-ipfs-api</artifactId>
-			<version>v1.2.1-SNAPSHOT</version>
+			<version>v1.2.0</version>
 		</dependency>
 
 	</dependencies>
