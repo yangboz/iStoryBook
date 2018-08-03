@@ -5,11 +5,12 @@
 package tech.smartkit.microservices.models.dao;
 
 import org.springframework.data.repository.CrudRepository;
-import tech.smartkit.microservices.models.Account;
+import org.springframework.stereotype.Repository;
 import tech.smartkit.microservices.models.WxUserInfo;
 
 import java.util.List;
 
+@Repository
 public interface WxAccountRepository extends CrudRepository<WxUserInfo,Long> {
 
     /**

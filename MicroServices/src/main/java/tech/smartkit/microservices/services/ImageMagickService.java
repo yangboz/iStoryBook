@@ -8,6 +8,7 @@ import org.im4java.core.ConvertCmd;
 import org.im4java.core.IM4JavaException;
 import org.im4java.core.IMOperation;
 import org.springframework.stereotype.Service;
+import tech.smartkit.microservices.models.Product;
 import tech.smartkit.microservices.models.dto.IMConvertInfo;
 import tech.smartkit.microservices.models.dto.IMMontageInfo;
 
@@ -15,10 +16,8 @@ import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
-
 @Service
 public class ImageMagickService {
-
     protected Logger logger = Logger.getLogger(ImageMagickService.class
             .getName());
 
@@ -76,4 +75,37 @@ public class ImageMagickService {
         return new File(dstImage);
     }
     //TODO:Identify,Mogrify,Compare,Composite,
+    //http://www.imagemagick.org/Usage/montage/#montage
+//    public String montage(String id) {
+//        logger.info("ImageMagick montage() invoked: for " + id);
+//        return restTemplate.getForObject(serviceUrl + "/product/{id}",
+//                Product.class, id).getUrl();
+//    }
+//    //http://www.imagemagick.org/Usage/compose/
+//    public String composite(String id) {
+//        logger.info("ImageMagick composite() invoked: for " + id);
+//        return restTemplate.getForObject(serviceUrl + "/product/{id}",
+//                Product.class, id).getUrl();
+//    }
+//
+//    //http://www.imagemagick.org/Usage/montage/#convert
+//    public String convert(String id) {
+//        logger.info("ImageMagick montage() invoked: for " + id);
+//        return restTemplate.getForObject(serviceUrl + "/product/{id}",Product.class, id).getUrl();
+//    }
+//
+//
+//    //http://www.imagemagick.org/Usage/montage/#convert
+//    public String label(String id) {
+//        logger.info("ImageMagick montage() invoked: for " + id);
+//        return restTemplate.getForObject(serviceUrl + "/product/{id}",
+//                Product.class, id).getUrl();
+//    }
+//
+//    //http://www.imagemagick.org/Usage/montage/#convert
+//    public String watermark(String id) {
+//        logger.info("ImageMagick montage() invoked: for " + id);
+//        return restTemplate.getForObject(serviceUrl + "/product/{id}",
+//                Product.class, id).getUrl();
+//    }
 }
