@@ -4,6 +4,7 @@
 
 package tech.smartkit.microservices.mservices.products;
 
+<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -27,6 +28,17 @@ import java.util.List;
 //@EnableEurekaServer
 //@EnableAutoConfiguration
 @EnableDiscoveryClient
+=======
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+import org.springframework.context.annotation.Bean;
+import tech.smartkit.microservices.controllers.GroupController;
+import tech.smartkit.microservices.controllers.ProductController;
+
+@SpringBootApplication
+@EnableEurekaServer
+>>>>>>> 527cf266896fef4bddf8fa79300609a205dd851a
 public class ProductServer {
     /**
      * Run the application using Spring Boot and an embedded servlet engine.
@@ -41,6 +53,7 @@ public class ProductServer {
         SpringApplication.run(ProductServer.class, args);
     }
 
+<<<<<<< HEAD
 //    @Autowired
 //    ImageMagickService imageMagickService;
 //    @Autowired
@@ -52,6 +65,8 @@ public class ProductServer {
 
 //    @Autowired
 //    ProductService productService;
+=======
+>>>>>>> 527cf266896fef4bddf8fa79300609a205dd851a
     /**
      * Create the controller, passing it the {@link } to use.
      *
@@ -59,8 +74,14 @@ public class ProductServer {
      */
     @Bean
     public ProductController productController() {
+<<<<<<< HEAD
         return new ProductController(this.productService());
     }
+=======
+        return new ProductController();
+    }
+
+>>>>>>> 527cf266896fef4bddf8fa79300609a205dd851a
     /**
      * Create the controller, passing it the {@link } to use.
      *
@@ -70,6 +91,7 @@ public class ProductServer {
     public GroupController groupController() {
         return new GroupController();
     }
+<<<<<<< HEAD
     //
     @Bean
     public ProductService productService(){ return new ProductService(this.wxAccountsService(),this.imageMagickService()
@@ -82,5 +104,7 @@ public class ProductServer {
     public WordPressService wordPressService(){ return new WordPressService();}
     @Bean
     public WxAccountsService wxAccountsService(){ return new WxAccountsService(); }
+=======
+>>>>>>> 527cf266896fef4bddf8fa79300609a205dd851a
 }
 
