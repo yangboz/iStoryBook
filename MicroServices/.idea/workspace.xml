@@ -35,9 +35,11 @@
       <file leaf-file-name="ImageMagickService.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/tech/smartkit/microservices/services/ImageMagickService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="674">
-              <caret line="238" column="5" lean-forward="false" selection-start-line="238" selection-start-column="5" selection-end-line="238" selection-end-column="5" />
-              <folding />
+            <state relative-caret-position="-822">
+              <caret line="147" column="29" lean-forward="true" selection-start-line="147" selection-start-column="29" selection-end-line="147" selection-end-column="29" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -1102,12 +1104,12 @@
       <workItem from="1533023189442" duration="3329000" />
       <workItem from="1533199932590" duration="1916000" />
       <workItem from="1533225065852" duration="24490000" />
-      <workItem from="1533556084064" duration="904000" />
+      <workItem from="1533556084064" duration="1688000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="147537000" />
+    <option name="totallyTimeSpent" value="148321000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="20" y="203" width="1420" height="796" extended-state="0" />
@@ -2026,9 +2028,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/tech/smartkit/microservices/services/ImageMagickService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="674">
-          <caret line="238" column="5" lean-forward="false" selection-start-line="238" selection-start-column="5" selection-end-line="238" selection-end-column="5" />
-          <folding />
+        <state relative-caret-position="-822">
+          <caret line="147" column="29" lean-forward="true" selection-start-line="147" selection-start-column="29" selection-end-line="147" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

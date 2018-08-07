@@ -163,59 +163,42 @@ public class ImageMagickService {
         return imageMagickInfo.getOutput();
     }
 
-    public void commandLine(){
+    public void watermarkWithImage(String input,String image,String output){
         // List of commands that we want to execute
         List commands = new ArrayList();
-
         // Executable file
         commands.add("convert");
-
+        commands.add(input);//"/Users/yangboz/git/iStoryBook/MicroServices/target/classes/assets/input/input.png
         // Executable file parameters
         commands.add("-gravity");
         commands.add("South-East");
         commands.add("-draw");
-        commands.add("/Users/yangboz/git/iStoryBook/MicroServices/target/classes/assets/watermark.png");
-        commands.add("/Users/yangboz/git/iStoryBook/MicroServices/target/classes/assets/input/input.png");
-        commands.add("/Users/yangboz/git/iStoryBook/MicroServices/target/classes/assets/output/output.png");
-
-        try {
-            // I also tried to use Runtime.getRuntime().exec(...), but got the same result and it doesn't wonder
-            // 'cause it use ProcessBuilder
-            ProcessBuilder processBuilder = new ProcessBuilder();
-            processBuilder.command(commands);
-            Process process = processBuilder.start();
-
-            BufferedReader error = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-
-            // Check if we have an error...
-            if (error.ready()) {
-                // ...then print them
-                String line;
-                while ((line = error.readLine()) != null) {
-                    System.out.println("error: " + line);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        commands.add(image);///Users/yangboz/git/iStoryBook/MicroServices/target/classes/assets/watermark.png
+        commands.add(output);///Users/yangboz/git/iStoryBook/MicroServices/target/classes/assets/output/output.png
+        //
+        this.processCommand(commands);
     }
 //
 
-    public void commandLine(){
+    public void watermarkWithText(String input,String label,String output){
         // List of commands that we want to execute
         List commands = new ArrayList();
-
         // Executable file
         commands.add("convert");
-
+        commands.add(input);//"/Users/yangboz/git/iStoryBook/MicroServices/target/classes/assets/input/input.png
+        commands.add(" -background Khaki");
         // Executable file parameters
         commands.add("-gravity");
-        commands.add("South-East");
-        commands.add("-draw");
-        commands.add("/Users/yangboz/git/iStoryBook/MicroServices/target/classes/assets/watermark.png");
-        commands.add("/Users/yangboz/git/iStoryBook/MicroServices/target/classes/assets/input/input.png");
-        commands.add("/Users/yangboz/git/iStoryBook/MicroServices/target/classes/assets/output/output.png");
+        commands.add("center");//South-East
+        commands.add("label:");
+        commands.add(label);
+        commands.add("-append");
+        commands.add(output);///Users/yangboz/git/iStoryBook/MicroServices/target/classes/assets/output/output.png
 
+        this.processCommand(commands);
+    }
+
+    private void processCommand(List commands){
         try {
             // I also tried to use Runtime.getRuntime().exec(...), but got the same result and it doesn't wonder
             // 'cause it use ProcessBuilder
