@@ -84,14 +84,18 @@ public class ProductService {
     //@see:https://developer.github.com/v3/repos/forks/
     public String fork(Long pid, Long uid) throws InterruptedException, IOException, IM4JavaException, PostNotFoundException, PostCreateException {
         logger.info("ImageMagick fork() invoked: pid: " + pid + ",uid:"+uid);
+        //0.ImageMagick test
+        imageMagickService.commandLine();
         //1.Image magick convert a new card.
         IMConvertInfo imConvertInfo = new IMConvertInfo();
         //1.1 get product related background.
         ClassPathResource bgImageFile = new ClassPathResource("assets/templates/1.jpg");
 //                response.setContentType(MediaType.IMAGE_JPEG_VALUE);
 //                StreamUtils.copy(imgFile.getInputStream(), response.getOutputStream());
-        imConvertInfo.setBackground(bgImageFile.getPath());//FIXME
-        File imageMagickFileResult = imageMagickService.convert(imConvertInfo);
+        imConvertInfo.setBackground("/Users/yangboz/git/iStoryBook/MicroServices/src/main/resources/assets/templates/1.jpg");//FIXME，bgImageFile.getDescription()
+//        String imageMagickFileStr = imageMagickService.convert(imConvertInfo);
+        String imageMagickFileStr = imageMagickService.watermark(imConvertInfo);
+        File imageMagickFile = new File(imageMagickFileStr);
         ///1.2.replace face photo，@see：a brand new way to verify physical identity
         //for blockchain transactions，https://www.kairos.com/protocol
         WxUserInfo wxUserInfo = wxAccountRepository.findOne(uid);
@@ -99,7 +103,7 @@ public class ProductService {
         ///1.3.dynamic gene deployed by ETH smart contract.
         ///1.4.https://github.com/yangboz/iStoryBook/wiki/Vladimir_Propp
         //2.put on IPFS get pin hash ID,@see:https://github.com/ipfs/java-ipfs-api
-        String ipfsHashID = ipfsService.put(imageMagickFileResult);
+        String ipfsHashID = ipfsService.put(imageMagickFile);
         //3.forking new post,same template,same card,just replace the name,
         Post forkedPost = wordPressService.getPost(pid);
         //5.publish to Wordpress, return status

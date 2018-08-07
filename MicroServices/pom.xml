@@ -151,6 +151,11 @@
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<compilerArgument>-XDignore.symbol.file</compilerArgument>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -169,6 +174,10 @@
 						<delimiter>@</delimiter>
 					</delimiters>
 					<useDefaultDelimiters>false</useDefaultDelimiters>
+					<encoding>UTF-8</encoding>
+					<nonFilteredFileExtensions>
+						<nonFilteredFileExtension>ttf</nonFilteredFileExtension>
+					</nonFilteredFileExtensions>
 				</configuration>
 			</plugin>
 		</plugins>

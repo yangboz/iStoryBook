@@ -8,10 +8,10 @@ import org.im4java.core.IMOperation;
 
 abstract public class ImageMagickInfo {
 
-    private String input;
-    private String output=null;
-    private int width;
-    private int height;
+    private String input="/Users/yangboz/git/iStoryBook/MicroServices/target/classes/assets/input/input.png";
+    private String output="/Users/yangboz/git/iStoryBook/MicroServices/target/classes/assets/output/output.png";
+    private int width=0;
+    private int height=0;
 
     public IMOperation getIMOperation(){
         return new IMOperation();
