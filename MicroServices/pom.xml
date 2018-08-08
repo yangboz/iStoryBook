@@ -151,14 +151,11 @@
 						</goals>
 					</execution>
 				</executions>
-<<<<<<< HEAD
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
 					<compilerArgument>-XDignore.symbol.file</compilerArgument>
 				</configuration>
-=======
->>>>>>> 527cf266896fef4bddf8fa79300609a205dd851a
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -177,13 +174,10 @@
 						<delimiter>@</delimiter>
 					</delimiters>
 					<useDefaultDelimiters>false</useDefaultDelimiters>
-<<<<<<< HEAD
 					<encoding>UTF-8</encoding>
 					<nonFilteredFileExtensions>
 						<nonFilteredFileExtension>ttf</nonFilteredFileExtension>
 					</nonFilteredFileExtensions>
-=======
->>>>>>> 527cf266896fef4bddf8fa79300609a205dd851a
 				</configuration>
 			</plugin>
 		</plugins>

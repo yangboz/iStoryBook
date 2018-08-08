@@ -52,11 +52,3 @@ https://dzone.com/articles/chaos-monkey-for-spring-boot-microservices
 2.Spring Cloud Series - Microservices using Spring Boot, Jersey, Swagger and Docker:
 
 https://tech.asimio.net/2016/04/05/Microservices-using-Spring-Boot-Jersey-Swagger-and-Docker.html
-
-3.Quick Guide to Microservices With Spring Boot 2.0, Eureka, and Spring Cloud：
-
-https://dzone.com/articles/quick-guide-to-microservices-with-spring-boot-20-e
-
-4.Quick Guide to Microservices With Kubernetes, Spring Boot 2.0, and Docker：
-
-https://dzone.com/articles/quick-guide-to-microservices-with-kubernetes-sprin

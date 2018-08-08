@@ -7,7 +7,6 @@ package tech.smartkit.microservices.services;
 import org.im4java.core.ConvertCmd;
 import org.im4java.core.IM4JavaException;
 import org.im4java.core.IMOperation;
-<<<<<<< HEAD
 import org.im4java.core.ImageCommand;
 import org.im4java.process.StandardStream;
 import org.springframework.stereotype.Service;
@@ -31,20 +30,6 @@ import static tech.smartkit.microservices.utils.ImageMagickTools.getImageCommand
 
 @Service
 public class ImageMagickService {
-=======
-import org.springframework.stereotype.Service;
-import tech.smartkit.microservices.models.dto.IMConvertInfo;
-import tech.smartkit.microservices.models.dto.IMMontageInfo;
-
-import javax.annotation.PostConstruct;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Logger;
-
-@Service
-public class ImageMagickService {
-
->>>>>>> 527cf266896fef4bddf8fa79300609a205dd851a
     protected Logger logger = Logger.getLogger(ImageMagickService.class
             .getName());
 
@@ -63,10 +48,7 @@ public class ImageMagickService {
      * Convert product's use IM montage.
      * @see http://im4java.sourceforge.net/tools/index.html
      * @see https://imagemagick.org/script/montage.php
-<<<<<<< HEAD
      * @see http://www.imagemagick.org/Usage/montage/#montage
-=======
->>>>>>> 527cf266896fef4bddf8fa79300609a205dd851a
      */
     public void montage(IMMontageInfo montageInfo) throws InterruptedException, IOException, IM4JavaException {
         logger.info(" montage info: "
@@ -76,17 +58,10 @@ public class ImageMagickService {
 
         String srcImage = montageInfo.getInput();
         String dstImage = montageInfo.getOutput();
-<<<<<<< HEAD
 //        if(dstImage.equals(null)) {
 //            int lastDot = montageInfo.getInput().lastIndexOf(".");
 //            dstImage = montageInfo.getInput().substring(1, lastDot - 1) + "_montage.jpg";
 //        }
-=======
-        if(dstImage.equals(null)) {
-            int lastDot = montageInfo.getInput().lastIndexOf(".");
-            dstImage = montageInfo.getInput().substring(1, lastDot - 1) + "_montage.jpg";
-        }
->>>>>>> 527cf266896fef4bddf8fa79300609a205dd851a
         cmd.run(op,srcImage,dstImage);
     }
 
@@ -95,22 +70,15 @@ public class ImageMagickService {
      * @see http://im4java.sourceforge.net/tools/index.html
      * @see https://imagemagick.org/script/convert.php
      */
-<<<<<<< HEAD
     public String convert(IMConvertInfo convertInfo) throws InterruptedException, IOException, IM4JavaException {
 
         logger.info(" convert info: " + convertInfo.toString());
-=======
-    public File convert(IMConvertInfo convertInfo) throws InterruptedException, IOException, IM4JavaException {
-
-        logger.info(" montage info: " + convertInfo.toString());
->>>>>>> 527cf266896fef4bddf8fa79300609a205dd851a
 
         // create the operation, add images and operators/options
         IMOperation op = convertInfo.getIMOperation();
 
         String srcImage = convertInfo.getInput();
         String dstImage = convertInfo.getOutput();
-<<<<<<< HEAD
 //        if(dstImage.equals(null)) {//default
 //            int lastDot = convertInfo.getInput().lastIndexOf(".");
 //            dstImage = convertInfo.getInput().substring(1, lastDot - 1) + "_convert.jpg";
@@ -253,15 +221,4 @@ public class ImageMagickService {
         }
     }
 
-=======
-        if(dstImage.equals(null)) {
-            int lastDot = convertInfo.getInput().lastIndexOf(".");
-            dstImage = convertInfo.getInput().substring(1, lastDot - 1) + "_convert.jpg";
-        }
-        cmd.run(op,srcImage,dstImage);
-        //
-        return new File(dstImage);
-    }
-    //TODO:Identify,Mogrify,Compare,Composite,
->>>>>>> 527cf266896fef4bddf8fa79300609a205dd851a
 }
