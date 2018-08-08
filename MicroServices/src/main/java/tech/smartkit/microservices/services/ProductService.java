@@ -10,6 +10,7 @@ import com.afrozaar.wordpress.wpapi.v2.exception.PostNotFoundException;
 import com.afrozaar.wordpress.wpapi.v2.model.Post;
 import com.afrozaar.wordpress.wpapi.v2.model.Title;
 import com.google.gson.Gson;
+import org.apache.commons.io.FileUtils;
 import org.hibernate.annotations.LazyToOne;
 import org.im4java.core.IM4JavaException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import tech.smartkit.microservices.models.Product;
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.logging.Logger;
 import tech.smartkit.microservices.models.WxUserInfo;
 import tech.smartkit.microservices.models.dao.WxAccountRepository;
@@ -85,24 +87,26 @@ public class ProductService {
     public String fork(Long pid, Long uid) throws InterruptedException, IOException, IM4JavaException, PostNotFoundException, PostCreateException {
         logger.info("ImageMagick fork() invoked: pid: " + pid + ",uid:"+uid);
         //0.ImageMagick test
-        imageMagickService.commandLine();
+//        String input = "/Users/yangboz/git/iStoryBook/MicroServices/src/main/resources/assets/input/input.jpg";//default.
+        String output = "/Users/yangboz/git/iStoryBook/MicroServices/src/main/resources/assets/output/output.jpg";//default.
+//        return "OK";
         //1.Image magick convert a new card.
         IMConvertInfo imConvertInfo = new IMConvertInfo();
         //1.1 get product related background.
-        ClassPathResource bgImageFile = new ClassPathResource("assets/templates/1.jpg");
-//                response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-//                StreamUtils.copy(imgFile.getInputStream(), response.getOutputStream());
-        imConvertInfo.setBackground("/Users/yangboz/git/iStoryBook/MicroServices/src/main/resources/assets/templates/1.jpg");//FIXME，bgImageFile.getDescription()
-//        String imageMagickFileStr = imageMagickService.convert(imConvertInfo);
-        String imageMagickFileStr = imageMagickService.watermark(imConvertInfo);
-        File imageMagickFile = new File(imageMagickFileStr);
+        String temmplateInput = "/Users/yangboz/git/iStoryBook/MicroServices/src/main/resources/assets/template/"+pid+".jpg";
+        imageMagickService.watermarkWithText(temmplateInput,"© smartkit.info 2018",output);
         ///1.2.replace face photo，@see：a brand new way to verify physical identity
         //for blockchain transactions，https://www.kairos.com/protocol
         WxUserInfo wxUserInfo = wxAccountRepository.findOne(uid);
         logger.info("WxUserInfo:"+wxUserInfo.toString());
+        File avatarImageFile = null;
+        FileUtils.copyURLToFile(new URL(wxUserInfo.getAvatarUrl()), avatarImageFile);
+        //image magick composite all.
+
         ///1.3.dynamic gene deployed by ETH smart contract.
         ///1.4.https://github.com/yangboz/iStoryBook/wiki/Vladimir_Propp
         //2.put on IPFS get pin hash ID,@see:https://github.com/ipfs/java-ipfs-api
+        File imageMagickFile = new File(output);
         String ipfsHashID = ipfsService.put(imageMagickFile);
         //3.forking new post,same template,same card,just replace the name,
         Post forkedPost = wordPressService.getPost(pid);

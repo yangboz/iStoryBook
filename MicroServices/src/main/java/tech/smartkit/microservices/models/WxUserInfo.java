@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "T_WXUSER_INFO")
 public class WxUserInfo extends ModelBase implements Serializable {
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -22,7 +22,7 @@ public class WxUserInfo extends ModelBase implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @ApiModelProperty(notes = "The database generated product ID")
-    private Integer id;
+    private Long id;
 
     @Version
     @ApiModelProperty(notes = "The auto-generated version of the product")

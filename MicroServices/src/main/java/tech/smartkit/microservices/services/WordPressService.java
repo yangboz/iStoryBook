@@ -16,7 +16,6 @@ import com.afrozaar.wordpress.wpapi.v2.model.Post;
 import com.afrozaar.wordpress.wpapi.v2.model.PostStatus;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
-import sun.java2d.Disposer;
 
 import javax.annotation.PostConstruct;
 import java.util.logging.Logger;

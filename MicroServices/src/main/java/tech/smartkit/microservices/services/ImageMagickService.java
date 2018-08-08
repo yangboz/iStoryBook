@@ -137,7 +137,7 @@ public class ImageMagickService {
     }
     //TODO:Identify,Mogrify,Compare,Composite,
 //    //http://www.imagemagick.org/Usage/montage/#convert
-    public String watermark(ImageMagickInfo imageMagickInfo) throws InterruptedException, IOException, IM4JavaException {
+    public String watermarkWithInfo(ImageMagickInfo imageMagickInfo) throws InterruptedException, IOException, IM4JavaException {
         logger.info(" watermark info: " + imageMagickInfo.toString());
         IMOperation op = new IMOperation();
 // 字型路徑
@@ -188,11 +188,10 @@ public class ImageMagickService {
         commands.add(input);//"/Users/yangboz/git/iStoryBook/MicroServices/target/classes/assets/input/input.png
         commands.add(" -background Khaki");
         // Executable file parameters
-        commands.add("-gravity");
-        commands.add("center");//South-East
-        commands.add("label:");
-        commands.add(label);
-        commands.add("-append");
+        commands.add(" -gravity");
+        commands.add(" center");//South-East
+        commands.add(" label:"+label);
+        commands.add(" -append");
         commands.add(output);///Users/yangboz/git/iStoryBook/MicroServices/target/classes/assets/output/output.png
 
         this.processCommand(commands);
@@ -203,6 +202,7 @@ public class ImageMagickService {
             // I also tried to use Runtime.getRuntime().exec(...), but got the same result and it doesn't wonder
             // 'cause it use ProcessBuilder
             ProcessBuilder processBuilder = new ProcessBuilder();
+            logger.info(commands.toString());
             processBuilder.command(commands);
             Process process = processBuilder.start();
 
@@ -213,7 +213,8 @@ public class ImageMagickService {
                 // ...then print them
                 String line;
                 while ((line = error.readLine()) != null) {
-                    System.out.println("error: " + line);
+//                    System.out.println("error: " + line);
+                    logger.warning("error: " + line);
                 }
             }
         } catch (IOException e) {

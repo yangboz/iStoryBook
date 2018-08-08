@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import tech.smartkit.microservices.models.Product;
 
 import javax.annotation.PostConstruct;
-import java.awt.peer.ChoicePeer;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
