@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.*;
 
 import tech.smartkit.microservices.exceptions.AccountNotFoundException;
 import tech.smartkit.microservices.models.Account;
+import tech.smartkit.microservices.models.WxAccount;
 import tech.smartkit.microservices.models.dao.AccountRepository;
 import tech.smartkit.microservices.models.dao.WxAccountRepository;
-import tech.smartkit.microservices.models.WxUserInfo;
 
 /**
  * A RESTFul controller for accessing account information.
@@ -114,12 +114,12 @@ public class AccountsController {
 	 *             If there are no matches at all.
 	 */
 	@RequestMapping("/nickName/{nickName}")
-	public List<WxUserInfo> byNickName(@PathVariable("nickName") String nickName) {
+	public List<WxAccount> byNickName(@PathVariable("nickName") String nickName) {
 		logger.info("accounts-service byOwner() invoked: "
 				+ accountRepository.getClass().getName() + " for "
 				+ nickName);
 
-		List<WxUserInfo> accounts = wxAccountRepository.findByNickName(nickName);
+		List<WxAccount> accounts = wxAccountRepository.findByNickName(nickName);
 		logger.info("accounts-service byOwner() found: " + accounts);
 
 		if (accounts == null || accounts.size() == 0)
@@ -138,7 +138,7 @@ public class AccountsController {
 	public int counts() {
 
 		logger.info("accounts-service counts() invoked: ");
-		List<WxUserInfo> wxUserInfos = (List<WxUserInfo>) wxAccountRepository.findAll();
+		List<WxAccount> wxUserInfos = (List<WxAccount>) wxAccountRepository.findAll();
 		logger.info("accounts-service counts() found: " + wxUserInfos.size());
 		return wxUserInfos.size();
 	}
@@ -153,19 +153,19 @@ public class AccountsController {
 	@RequestMapping(value="/save/",method = RequestMethod.POST
 			, consumes = MediaType.APPLICATION_JSON_VALUE
 			, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<WxUserInfo> save(
-			@RequestBody WxUserInfo wxUserInfo ){
-//			@RequestParam("userInfo") WxUserInfo wxUserInfo) {
+	public ResponseEntity<WxAccount> save(
+			@RequestBody WxAccount wxUserInfo ){
+//			@RequestParam("userInfo") WxAccount wxUserInfo) {
 		logger.info("accounts-service save() invoked: ");
 		//if not existed?
-		List<WxUserInfo> find = wxAccountRepository.findByNickName(wxUserInfo.getNickName());
-		WxUserInfo saved = null;
+		List<WxAccount> find = wxAccountRepository.findByNickName(wxUserInfo.getNickName());
+		WxAccount saved = null;
 		if(find.size()==0){
 			saved = wxAccountRepository.save(wxUserInfo);
 		}{
 			logger.info("accounts-service save() already existed: " + find.toString());
 		}
 		logger.info("accounts-service save() result: " + saved);
-		return new ResponseEntity<WxUserInfo>(saved, HttpStatus.OK);
+		return new ResponseEntity<WxAccount>(saved, HttpStatus.OK);
 	}
 }

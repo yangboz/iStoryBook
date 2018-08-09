@@ -6,12 +6,11 @@ package tech.smartkit.microservices.models.dao;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import tech.smartkit.microservices.models.WxUserInfo;
+import tech.smartkit.microservices.models.WxAccount;
 
 import java.util.List;
 
-@Repository
-public interface WxAccountRepository extends CrudRepository<WxUserInfo,Long> {
+public interface WxAccountRepository extends CrudRepository<WxAccount,Long> {
 
     /**
      * Find accounts whose nickname contains the specified string
@@ -21,5 +20,8 @@ public interface WxAccountRepository extends CrudRepository<WxUserInfo,Long> {
      * @return The list of matching accounts - always non-null, but may be
      *         empty.
      */
-    public List<WxUserInfo> findByNickName(String nickName);
+    public List<WxAccount> findByNickName(String nickName);
+
+    //
+    public WxAccount findById(Long id);
 }

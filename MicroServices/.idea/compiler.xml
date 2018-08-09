@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="microservice-demo" />
+        <module name="microservice-iStoryBook" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="microservice-demo" target="1.8" />
+      <module name="microservice-iStoryBook" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -8,6 +8,17 @@ spring:
     cache: false             # Allow Thymeleaf templates to be reloaded at runtime
     prefix: classpath:/accounts-server/templates/    # Trailing / mandatory
                              # Template location for this application only
+    jpa:
+      show-sql: true
+      hibernate:
+        ddl-auto: update
+    datasource:
+      url: jdbc\:hsqldb\:file\:/home/iStoryBook
+      username: sa
+      password: sa
+      driverClassName: org.hsqldb.jdbcDriver
+
+
 
 # Map the error path to error template (for Thymeleaf)
 error:
@@ -42,6 +53,5 @@ info:
     name: @project.artifactId@
   build:
     version: @project.version@
-
 
 

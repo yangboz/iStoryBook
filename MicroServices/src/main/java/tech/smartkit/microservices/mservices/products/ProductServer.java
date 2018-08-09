@@ -13,19 +13,18 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import tech.smartkit.microservices.configs.AccountsConfiguration;
 import tech.smartkit.microservices.controllers.GroupController;
 import tech.smartkit.microservices.controllers.ProductController;
-import tech.smartkit.microservices.models.WxUserInfo;
-import tech.smartkit.microservices.models.dao.WxAccountRepository;
 import tech.smartkit.microservices.services.*;
-
-import java.util.List;
+import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
 @EnableJpaRepositories("tech.smartkit.microservices.models.dao")
 @EntityScan("tech.smartkit.microservices.models")
 //@EnableEurekaServer
-//@EnableAutoConfiguration
+@EnableAutoConfiguration
+@Import(AccountsConfiguration.class)
 @EnableDiscoveryClient
 public class ProductServer {
     /**

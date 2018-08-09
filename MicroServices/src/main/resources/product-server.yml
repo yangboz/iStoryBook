@@ -31,3 +31,9 @@ wxShop:
 # HTTP Server
 server:
   port: 5555   # HTTP (Tomcat) port
+# app name and build version updated during build process from Maven properties.
+info:
+  app:
+    name: @project.artifactId@
+  build:
+    version: @project.version@

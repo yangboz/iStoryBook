@@ -12,7 +12,7 @@ import java.io.Serializable;
 //@see:https://github.com/apelegri/wechat-mini-program-wiki#get-user-information
 @Entity
 @Table(name = "T_WXUSER_INFO")
-public class WxUserInfo extends ModelBase implements Serializable {
+public class WxAccount extends ModelBase implements Serializable {
     public Long getId() {
         return id;
     }
@@ -28,7 +28,7 @@ public class WxUserInfo extends ModelBase implements Serializable {
     @ApiModelProperty(notes = "The auto-generated version of the product")
     private Integer version;
 
-    @ApiModelProperty(notes = "The avatarUrl for WxUserInfo",required = true,readOnly = true)
+    @ApiModelProperty(notes = "The avatarUrl for WxAccount",required = true,readOnly = true)
     private String avatarUrl;
 
     private String city;
@@ -38,7 +38,7 @@ public class WxUserInfo extends ModelBase implements Serializable {
     private String nickName;
     private String province;
 
-    public WxUserInfo(String avatarUrl, String city, String country, int gender, String language, String nickName, String province) {
+    public WxAccount(String avatarUrl, String city, String country, int gender, String language, String nickName, String province) {
         this.avatarUrl = avatarUrl;
         this.city = city;
         this.country = country;
@@ -47,11 +47,11 @@ public class WxUserInfo extends ModelBase implements Serializable {
         this.nickName = nickName;
         this.province = province;
     }
-    public WxUserInfo(String avatarUrl) {
+    public WxAccount(String avatarUrl) {
         this.avatarUrl = avatarUrl;
     }
 
-    public WxUserInfo() {
+    public WxAccount() {
     }
 
 
@@ -113,7 +113,7 @@ public class WxUserInfo extends ModelBase implements Serializable {
 
     @Override
     public String toString() {
-        return "WxUserInfo{" +
+        return "WxAccount{" +
                 "avatarUrl='" + avatarUrl + '\'' +
                 ", city='" + city + '\'' +
                 ", country='" + country + '\'' +

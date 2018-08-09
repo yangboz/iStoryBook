@@ -21,4 +21,4 @@ insert into T_ACCOUNT (NUMBER, NAME) values ('123456018', 'Julia DeLong');
 insert into T_ACCOUNT (NUMBER, NAME) values ('123456019', 'Mark T. Rizzoli');
 insert into T_ACCOUNT (NUMBER, NAME) values ('123456020', 'Maria J. Angelo');
 
-insert into T_WXUSER_INFO (ID,AVATAR_URL, NICK_NAME) values (1,'https://raw.githubusercontent.com/yangboz/iStoryBook/master/documents/team/knight.png', 'yangboz');
+insert into T_WXACCOUNT (ID,AVATAR_URL, NICK_NAME) values (1,'https://raw.githubusercontent.com/yangboz/iStoryBook/master/documents/team/knight.png', 'yangboz');

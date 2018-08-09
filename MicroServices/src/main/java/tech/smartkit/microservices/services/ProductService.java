@@ -18,15 +18,14 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import tech.smartkit.microservices.models.Product;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Logger;
-import tech.smartkit.microservices.models.WxUserInfo;
-import tech.smartkit.microservices.models.dao.WxAccountRepository;
+
+import tech.smartkit.microservices.models.WxAccount;
 import tech.smartkit.microservices.models.dto.IMConvertInfo;
 
 /**
@@ -54,8 +53,6 @@ public class ProductService {
     ImageMagickService imageMagickService;
 //    @Autowired
     WordPressService wordPressService;
-    @Autowired
-    WxAccountRepository wxAccountRepository;
 //    @Autowired
     IpfsService ipfsService;
     WxAccountsService wxAccountsService;
@@ -80,6 +77,10 @@ public class ProductService {
         this.imageMagickService = imageMagickService;
         this.ipfsService = ipfsService;
         this.wordPressService = wordPressService;
+        logger.info(wxAccountsService.toString());
+        logger.info(imageMagickService.toString());
+        logger.info(ipfsService.toString());
+        logger.info(wordPressService.toString());
 
     }
 
@@ -97,8 +98,10 @@ public class ProductService {
         imageMagickService.watermarkWithText(temmplateInput,"© smartkit.info 2018",output);
         ///1.2.replace face photo，@see：a brand new way to verify physical identity
         //for blockchain transactions，https://www.kairos.com/protocol
-        WxUserInfo wxUserInfo = wxAccountRepository.findOne(uid);
-        logger.info("WxUserInfo:"+wxUserInfo.toString());
+        Iterable wxAccountList = wxAccountsService.listAll();
+        logger.info("wxAccountList:"+wxAccountList.toString());
+        WxAccount wxUserInfo = wxAccountsService.findOne(uid);
+        logger.info("WxAccount:"+wxUserInfo.toString());
         File avatarImageFile = null;
         FileUtils.copyURLToFile(new URL(wxUserInfo.getAvatarUrl()), avatarImageFile);
         //image magick composite all.

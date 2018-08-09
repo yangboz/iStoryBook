@@ -13,8 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import tech.smartkit.microservices.controllers.AccountsController;
 import tech.smartkit.microservices.exceptions.AccountNotFoundException;
-import tech.smartkit.microservices.models.Account;
-import tech.smartkit.microservices.models.WxUserInfo;
+import tech.smartkit.microservices.models.WxAccount;
 
 public abstract class AbstractAccountControllerTests {
 
@@ -27,7 +26,7 @@ public abstract class AbstractAccountControllerTests {
 	@Test
 	public void validAccountNumber() {
 		Logger.getGlobal().info("Start validAccountNumber test");
-		List<WxUserInfo> accounts = accountController.byNickName(ACCOUNT_1_NAME);
+		List<WxAccount> accounts = accountController.byNickName(ACCOUNT_1_NAME);
 
 		Assert.assertNotNull(accounts.size());
 		Assert.assertEquals(ACCOUNT_1, accounts.get(0).getId());
@@ -38,13 +37,13 @@ public abstract class AbstractAccountControllerTests {
 	@Test
 	public void validAccountOwner() {
 		Logger.getGlobal().info("Start validAccount test");
-		List<WxUserInfo> accounts = accountController.byNickName(ACCOUNT_1_NAME);
+		List<WxAccount> accounts = accountController.byNickName(ACCOUNT_1_NAME);
 		Logger.getGlobal().info("In validAccount test");
 
 		Assert.assertNotNull(accounts);
 		Assert.assertEquals(1, accounts.size());
 
-		WxUserInfo account = accounts.get(0);
+		WxAccount account = accounts.get(0);
 		Assert.assertEquals(ACCOUNT_1, account.getId());
 		Assert.assertEquals(ACCOUNT_1_NAME, account.getNickName());
 		Logger.getGlobal().info("End validAccount test");
@@ -53,13 +52,13 @@ public abstract class AbstractAccountControllerTests {
 	@Test
 	public void validAccountOwnerMatches1() {
 		Logger.getGlobal().info("Start validAccount test");
-		List<WxUserInfo> accounts = accountController.byNickName("Keri");
+		List<WxAccount> accounts = accountController.byNickName("Keri");
 		Logger.getGlobal().info("In validAccount test");
 
 		Assert.assertNotNull(accounts);
 		Assert.assertEquals(1, accounts.size());
 
-		WxUserInfo account = accounts.get(0);
+		WxAccount account = accounts.get(0);
 		Assert.assertEquals(ACCOUNT_1, account.getId());
 		Assert.assertEquals(ACCOUNT_1_NAME, account.getNickName());
 		Logger.getGlobal().info("End validAccount test");
@@ -68,13 +67,13 @@ public abstract class AbstractAccountControllerTests {
 	@Test
 	public void validAccountOwnerMatches2() {
 		Logger.getGlobal().info("Start validAccount test");
-		List<WxUserInfo> accounts = accountController.byNickName("keri");
+		List<WxAccount> accounts = accountController.byNickName("keri");
 		Logger.getGlobal().info("In validAccount test");
 
 		Assert.assertNotNull(accounts);
 		Assert.assertEquals(1, accounts.size());
 
-		WxUserInfo account = accounts.get(0);
+		WxAccount account = accounts.get(0);
 		Assert.assertEquals(ACCOUNT_1, account.getId());
 		Assert.assertEquals(ACCOUNT_1_NAME, account.getNickName());
 		Logger.getGlobal().info("End validAccount test");

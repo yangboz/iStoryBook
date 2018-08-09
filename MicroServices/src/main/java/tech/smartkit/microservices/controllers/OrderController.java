@@ -4,7 +4,6 @@
 
 package tech.smartkit.microservices.controllers;
 
-import org.omg.CORBA.OBJ_ADAPTER;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -15,14 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import tech.smartkit.microservices.models.WxUserInfo;
 import tech.smartkit.microservices.models.dto.WxShopInfo;
 import tech.smartkit.microservices.models.dto.WxShopOrder;
 import tech.smartkit.microservices.models.dto.WxShopToken;
 
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 

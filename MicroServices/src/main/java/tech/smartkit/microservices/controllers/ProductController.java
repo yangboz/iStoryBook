@@ -17,21 +17,9 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tech.smartkit.microservices.models.WxUserInfo;
-import tech.smartkit.microservices.models.dao.WxAccountRepository;
-import tech.smartkit.microservices.models.dto.IMConvertInfo;
-import tech.smartkit.microservices.models.dto.IMMontageInfo;
-import tech.smartkit.microservices.mservices.products.ProductServer;
-import tech.smartkit.microservices.services.ImageMagickService;
-import tech.smartkit.microservices.services.IpfsService;
 import tech.smartkit.microservices.services.ProductService;
-import tech.smartkit.microservices.services.WordPressService;
 
-import javax.jws.Oneway;
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.List;
 import java.util.logging.Logger;
 
 @RestController
