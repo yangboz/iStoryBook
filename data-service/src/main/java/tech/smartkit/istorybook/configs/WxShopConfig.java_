@@ -1,0 +1,80 @@
+/*
+ * Copyright (c) 2018. SMARTKIT.INFO.
+ */
+
+package io.pivotal.microservices.orders;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+//@Component
+//@ConfigurationProperties(locations = {"classpath:order-server.yml"},prefix = "WxShop")
+//@ConfigurationProperties(prefix = "WxShop")
+//
+//@PropertySource("classpath:application.properties")
+//@ConfigurationProperties
+public class WxShopConfig {
+
+
+    @Value("${WxShopAppID}")
+    private String WxShopAppID;
+
+    @Value("${WxShopAppSecret}")
+    private String WxShopAppSecret;
+
+    private String appID;
+//    private String[] arrayProps;
+//    private List<Map<String, String>> listProp1 = new ArrayList<>();
+//    private List<String> listProp2 = new ArrayList<>();
+//    private Map<String, String> mapProps = new HashMap<>();
+    private String appSecret;
+
+    public String getAppID() {
+        return appID;
+    }
+
+    public void setAppID(String appID) {
+        this.appID = appID;
+    }
+
+    public String getAppSecret() {
+        return appSecret;
+    }
+
+    public void setAppSecret(String appSecret) {
+        this.appSecret = appSecret;
+    }
+
+    public String getWxShopAppID() {
+        return WxShopAppID;
+    }
+
+    public void setWxShopAppID(String wxShopAppID) {
+        WxShopAppID = wxShopAppID;
+    }
+
+    public String getWxShopAppSecret() {
+        return WxShopAppSecret;
+    }
+
+    public void setWxShopAppSecret(String wxShopAppSecret) {
+        WxShopAppSecret = wxShopAppSecret;
+    }
+
+    @Override
+    public String toString() {
+        return "WxShopConfig{" +
+                "WxShopAppID='" + WxShopAppID + '\'' +
+                ", WxShopAppSecret='" + WxShopAppSecret + '\'' +
+                ", appID='" + appID + '\'' +
+                ", appSecret='" + appSecret + '\'' +
+                '}';
+    }
+}
