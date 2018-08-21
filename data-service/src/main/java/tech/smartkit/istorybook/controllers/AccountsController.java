@@ -32,7 +32,7 @@ import tech.smartkit.istorybook.models.dao.WxAccountRepository;
  */
 @RestController
 @RequestMapping(value ="/account")
-@Api(value="iStoryBookAccounts", description="Operations pertaining to accounts in iStoryBook")
+@Api(value="AccountsController", description="Operations pertaining to accounts in iStoryBook")
 public class AccountsController {
 
 	protected Logger logger = Logger.getLogger(AccountsController.class

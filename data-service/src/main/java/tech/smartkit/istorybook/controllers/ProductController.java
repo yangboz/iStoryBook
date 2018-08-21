@@ -6,6 +6,7 @@ package tech.smartkit.istorybook.controllers;
 
 import com.afrozaar.wordpress.wpapi.v2.exception.PostCreateException;
 import com.afrozaar.wordpress.wpapi.v2.exception.PostNotFoundException;
+import io.swagger.annotations.Api;
 import org.im4java.core.IM4JavaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import java.util.logging.Logger;
 
 @RestController
 @RequestMapping(value ="/product")
+@Api(value="ProductController", description="Operations pertaining to product in iStoryBook")
 public class ProductController {
         //
         protected Logger logger = Logger.getLogger(ProductController.class

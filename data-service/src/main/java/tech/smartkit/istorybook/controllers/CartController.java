@@ -4,6 +4,7 @@
 
 package tech.smartkit.istorybook.controllers;
 
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.logging.Logger;
 
 @RestController
+@RequestMapping(value ="/cart")
+@Api(value="CartController", description="Operations pertaining to wxshop cart in iStoryBook")
 public class CartController {
     protected Logger logger = Logger.getLogger(CartController.class
             .getName());
@@ -25,7 +28,7 @@ public class CartController {
      POTS /{id}/order - Create order from cart
      *
      */
-    @RequestMapping("/cart/")
+    @RequestMapping("/")
     public void listProducts() {
         logger.info("List of carts:");
     }
@@ -33,7 +36,7 @@ public class CartController {
     /**
      * View cart by id.
      */
-    @RequestMapping("/cart/{id}")
+    @RequestMapping("/{id}")
     public void connect(@PathVariable("id") String id) {
         logger.info(" View cart, for "
                 + id);

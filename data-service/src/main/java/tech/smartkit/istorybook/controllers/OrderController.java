@@ -4,6 +4,7 @@
 
 package tech.smartkit.istorybook.controllers;
 
+import io.swagger.annotations.Api;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -23,6 +24,8 @@ import java.util.logging.Logger;
 
 
 @RestController
+@RequestMapping(value ="/order")
+@Api(value="OrderController", description="Operations pertaining to wxshop order in iStoryBook")
 public class OrderController {
 
     protected Logger logger = Logger.getLogger(OrderController.class

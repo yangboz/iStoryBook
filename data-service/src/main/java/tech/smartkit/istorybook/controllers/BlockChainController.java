@@ -5,6 +5,7 @@
 package tech.smartkit.istorybook.controllers;
 
 
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,8 @@ import java.math.BigDecimal;
 import java.util.logging.Logger;
 
 @RestController
+@RequestMapping(value ="/blockchain")
+@Api(value="BlockChainController", description="Operations pertaining to blockchain in iStoryBook")
 public class BlockChainController {
 
     protected Logger logger = Logger.getLogger(BlockChainController.class
@@ -41,7 +44,7 @@ public class BlockChainController {
     /**
      * Connecting to a node on the Ethereum network.
      */
-    @RequestMapping("/blockchain/ethereum/connect/{node}")
+    @RequestMapping("/ethereum/connect/{node}")
     public void connect(@PathVariable("node") String nodeName) throws IOException {
         logger.info("blockchain-service connect() invoked, for "
                 + nodeName);
@@ -56,7 +59,7 @@ public class BlockChainController {
     /**
      * Loading an Ethereum wallet file.
      */
-    @RequestMapping("/blockchain/ethereum/load/{wallet}")
+    @RequestMapping("/ethereum/load/{wallet}")
     public void loadWallet(@PathVariable("wallet") String walletFile){
         logger.info("blockchain-service loadWallet() invoked, for "
                 + walletFile);
@@ -74,7 +77,7 @@ public class BlockChainController {
     /**
      * Sending Ether from one address to another.
      */
-    @RequestMapping("/blockchain/ethereum/send/{ether}")
+    @RequestMapping("/ethereum/send/{ether}")
     public void sendEther(@PathVariable("ether") float ether) throws Exception {
         logger.info("blockchain-service sendEther() invoked, for "
                 + ether);
@@ -102,7 +105,7 @@ public class BlockChainController {
     /**
      * Deploying a smart contract to the network.
      */
-    @RequestMapping("/blockchain/ethereum/deploy/{smartContract}")
+    @RequestMapping("/ethereum/deploy/{smartContract}")
     public void deploySmartContract(@PathVariable("smartContract") String smartContract) throws Exception {
         logger.info("blockchain-service deploySmartContract() invoked, for "
                 + smartContract);
@@ -119,7 +122,7 @@ public class BlockChainController {
     /**
      * Reading a value from the deployed smart contract.
      */
-    @RequestMapping("/blockchain/ethereum/smartcontract/read/{value}")
+    @RequestMapping("/ethereum/smartcontract/read/{value}")
     public void readSmartContract(@PathVariable("value") String value) throws Exception {
         logger.info("blockchain-service readSmartContract() invoked, for "
                 + value);
@@ -144,7 +147,7 @@ public class BlockChainController {
     /**
      * Viewing an event logged by the smart contract.
      */
-    @RequestMapping("/blockchain/connect/ethereum/smartcontract/{node}")
+    @RequestMapping("/connect/ethereum/smartcontract/{node}")
     public void viewSmartContractEvent(@PathVariable("event") String event) throws Exception {
         logger.info("blockchain-service viewSmartContractEvent() invoked, for "
                 + event);
