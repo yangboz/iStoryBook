@@ -36,8 +36,8 @@ public class BlockChainController {
     @Autowired
     private Web3j web3j;
 
-    @Autowired
-    private Admin admin;
+//    @Autowired
+//    private Admin admin;
     /**
      * Connecting to a node on the Ethereum network.
      */

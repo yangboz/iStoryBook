@@ -61,9 +61,11 @@ public class ProductService {
         logger.info("ProductService invoked.");
     }
 
+    public ProductService(){
+    }
     public ProductService(WxAccountsService wxAccountsService,
-            ImageMagickService imageMagickService,
-            IpfsService ipfsService, WordPressService wordPressService){
+                          ImageMagickService imageMagickService,
+                          IpfsService ipfsService, WordPressService wordPressService){
         this.wxAccountsService = wxAccountsService;
         this.imageMagickService = imageMagickService;
         this.ipfsService = ipfsService;

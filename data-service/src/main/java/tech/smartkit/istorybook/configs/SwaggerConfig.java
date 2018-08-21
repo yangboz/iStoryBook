@@ -26,7 +26,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     @Bean
     public Docket productApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .select()                 .apis(RequestHandlerSelectors.basePackage("tech.smartkit.microservices.controllers"))
+                .select()                 .apis(RequestHandlerSelectors.basePackage("tech.smartkit.istorybook.controllers"))
 //                .paths(regex("/*.*"))
 //                .paths(PathSelectors.ant("**/*"))
                 .paths(PathSelectors.any())
@@ -44,8 +44,8 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     private ApiInfo metaData() {
         return new ApiInfoBuilder()
                 .title("iStoryBook Spring Boot REST API")
-                .description("\"Spring Boot REST API for Online StoryBook Service\"")
-                .version("1.0.0")
+                .description("\"Spring Boot REST API for iStoryBook Service\"")
+                .version("0.0.1")
                 .license("The Unlicense Version 1.0")
                 .licenseUrl("https://github.com/yangboz/iStoryBook/blob/master/LICENSE\"")
                 .contact(new Contact("yangboz", "http://smartkit.tech", "contact@smartkit.info"))
