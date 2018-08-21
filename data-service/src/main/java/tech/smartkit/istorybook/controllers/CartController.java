@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.logging.Logger;
 
 @RestController
-@RequestMapping(value ="/cart")
+@RequestMapping(value ="/wxshop/cart")
 @Api(value="CartController", description="Operations pertaining to wxshop cart in iStoryBook")
 public class CartController {
     protected Logger logger = Logger.getLogger(CartController.class
@@ -26,18 +26,20 @@ public class CartController {
      DELETE /{id}/{product_id} - Remove product with ID {product_id} from cart with ID {id}
      POST /{id}/quantity - Updates cart item, i.e. set product quantity
      POTS /{id}/order - Create order from cart
-     *
      */
-    @RequestMapping("/")
-    public void listProducts() {
-        logger.info("List of carts:");
+    /**
+     * View wxshop orders by id.
+     */
+    @RequestMapping("/byNickName/{nickName}")
+    public void listProducts(@PathVariable("nickName") String nickName) {
+        logger.info("List of cart by nickName:");
     }
 
     /**
-     * View cart by id.
+     * View wxshop orders by id.
      */
-    @RequestMapping("/{id}")
-    public void connect(@PathVariable("id") String id) {
+    @RequestMapping("/byId/{id}")
+    public void connect(@PathVariable("id") int id) {
         logger.info(" View cart, for "
                 + id);
     }

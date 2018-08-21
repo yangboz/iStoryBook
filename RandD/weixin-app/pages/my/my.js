@@ -49,8 +49,7 @@ Page({
         //
         self.syncUserInfo();
     } 
-    self.fetchPostsData('1');
-    
+    // self.fetchPostsData('1');
   },
   
 
@@ -91,10 +90,13 @@ Page({
           tab: tab
 
       })
-      if (tab !== 0) {
-          this.fetchPostsData(tab);
-      } else {
-          this.fetchPostsData("1");
+      //console.log("tab index:"+tab);
+      if (tab == 0) {
+        //this.fetchPostsData("1");
+      } else if(tab == 1) {//卡片
+        this.fetchMyPostsData(app.globalData.userInfo.nickName);
+      } else if(tab ==2){//素材
+        this.fetchMyOrdersData(app.globalData.userInfo.nickName);
       }
   },
   onShareAppMessage: function () {
@@ -110,6 +112,67 @@ Page({
               // 转发失败
           }
       }
+  },
+  fetchMyPostsData: function (nickName) {
+    console.log("fetchMyPostsData..." + app.globalData.openid);
+    wx.showLoading({
+      title: 'fetchMyPostsData...',
+    })
+    var self = this;
+    // var nickName = app.globalData.userInfo.nickName;
+    // "Content-Type": "application/x-www-form-urlencoded"
+    wx.request({
+      url: "http://localhost:8080/storybook/wp/post/byNickName/" + nickName,
+      header: {
+        "Content-Type": "application/json; charset=UTF-8"
+      },
+      method: "GET",
+      data: null,
+      // data: util.json2Form(app.globalData.userInfo),
+      complete: function (res) {
+        console.log("fetchMyPostsData request complete:", res);
+        wx.hideLoading();
+        // self.setData({
+        //     toastHidden: true,
+        //     toastText: res.data,
+        //     info: res,
+        // });
+        if (res == null || res.data == null) {
+          console.error('网络请求失败');
+          return;
+        }
+      }
+    })
+  },
+  fetchMyOrdersData: function (nickName) {
+    // console.log("fetchMyOrdersData..." + app.globalData.openid);
+    wx.showLoading({
+      title: 'fetchMyOrdersData...',
+    })
+    var self = this;
+    // "Content-Type": "application/x-www-form-urlencoded"
+    wx.request({
+      url: "http://localhost:8080/storybook/wxshop/order/byNickName/" + nickName,
+      header: {
+        "Content-Type": "application/json; charset=UTF-8"
+      },
+      method: "GET",
+      data: null,
+      // data: util.json2Form(app.globalData.userInfo),
+      complete: function (res) {
+        console.log("fetchMyOrdersData request complete:", res);
+        wx.hideLoading();
+        // self.setData({
+        //     toastHidden: true,
+        //     toastText: res.data,
+        //     info: res,
+        // });
+        if (res == null || res.data == null) {
+          console.error('网络请求失败');
+          return;
+        }
+      }
+    })
   },
   fetchPostsData: function (tab) {
       self = this;
@@ -407,15 +470,15 @@ Page({
             'dialog.content': ''
         })
     },
-    syncUserInfo: function () {
-        console.log("syncUserInfo called.");
+    saveUserInfo: function () {
+      // console.log("saveUserInfo...");
         wx.showLoading({
-          title: 'syncUserInfo...',
+          title: 'saveUserInfo...',
         })
         var self = this;
         // "Content-Type": "application/x-www-form-urlencoded"
         wx.request({
-            url: "http://localhost:2222/account/save/",
+            url: "http://localhost:8080/storybook/account/save/",
             header: {
                 "Content-Type":"application/json; charset=UTF-8"
             },
@@ -430,6 +493,7 @@ Page({
                 //     toastText: res.data,
                 //     info: res,
                 // });
+                self.fetchMyPostsData(app.globalData.userInfo.nickName);
                 if (res == null || res.data == null) {
                     console.error('网络请求失败');
                     return;
@@ -450,15 +514,15 @@ Page({
             then(response => {
                 app.globalData.userInfo = response.userInfo;
                 console.log("wxUserInfo:",app.globalData.userInfo);
-                //Sync user info
-                self.syncUserInfo();
                 //
                 console.log("成功获取用户信息(公开信息)");
                 app.globalData.isGetUserInfo = true;
                 self.setData({
                     userInfo: response.userInfo
                 });
-
+                //Save user info
+                self.saveUserInfo();
+                //OpenID related.
                 var url = Api.getOpenidUrl();
                 var data = {
                     js_code: jscode,
@@ -474,6 +538,8 @@ Page({
                         console.log("openid 获取成功");
                         app.globalData.openid = response.data.openid;
                         app.globalData.isGetOpenid = true;
+                        //Save user info
+                        self.saveUserInfo();
                     }
                     else {
                         console.log(response.data.message);

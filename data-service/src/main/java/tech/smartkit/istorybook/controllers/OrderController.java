@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 
 
 @RestController
-@RequestMapping(value ="/order")
+@RequestMapping(value ="/wxshop/order")
 @Api(value="OrderController", description="Operations pertaining to wxshop order in iStoryBook")
 public class OrderController {
 
