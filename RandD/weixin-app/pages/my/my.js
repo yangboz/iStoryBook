@@ -122,7 +122,7 @@ Page({
     // var nickName = app.globalData.userInfo.nickName;
     // "Content-Type": "application/x-www-form-urlencoded"
     wx.request({
-      url: "http://localhost:8080/storybook/wp/post/byNickName/" + nickName,
+      url: "http://localhost:8080/storybook/wordpress/post/byNickName/" + nickName,
       header: {
         "Content-Type": "application/json; charset=UTF-8"
       },
@@ -152,7 +152,7 @@ Page({
     var self = this;
     // "Content-Type": "application/x-www-form-urlencoded"
     wx.request({
-      url: "http://localhost:8080/storybook/wxshop/order/byNickName/" + nickName,
+      url: "http://localhost:8080/storybook/wxshop/order/byNickname/" + nickName,
       header: {
         "Content-Type": "application/json; charset=UTF-8"
       },

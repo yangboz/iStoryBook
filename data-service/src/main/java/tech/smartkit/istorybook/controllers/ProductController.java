@@ -7,10 +7,14 @@ package tech.smartkit.istorybook.controllers;
 import com.afrozaar.wordpress.wpapi.v2.exception.PostCreateException;
 import com.afrozaar.wordpress.wpapi.v2.exception.PostNotFoundException;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.im4java.core.IM4JavaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import tech.smartkit.istorybook.services.ProductService;
 
@@ -19,7 +23,7 @@ import java.util.logging.Logger;
 
 @RestController
 @RequestMapping(value ="/product")
-@Api(value="ProductController", description="Operations pertaining to product in iStoryBook")
+@Api(value="ProductController", description="Operations pertaining to product(cards of storybook) in iStoryBook")
 public class ProductController {
         //
         protected Logger logger = Logger.getLogger(ProductController.class
@@ -45,9 +49,19 @@ public class ProductController {
          http://im4java.sourceforge.net/docs/dev-guide.html
          *
          */
-        @RequestMapping("/list/")
-        public void list() {
+        @ApiOperation(value = "View a list of available accounts", response = Iterable.class)
+        @ApiResponses(value = {
+                @ApiResponse(code = 200, message = "Successfully retrieved list"),
+                @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+                @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+                @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+        }
+        )
+        @RequestMapping(value = "/", method= RequestMethod.GET, produces = "application/json")
+        public Iterable list(){
                 logger.info("List of products:");
+//                Iterable productList = accountRepository.findAll();
+                return null;
         }
 
         /**

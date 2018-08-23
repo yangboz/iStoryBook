@@ -13,6 +13,10 @@ import com.afrozaar.wordpress.wpapi.v2.exception.WpApiParsedException;
 import com.afrozaar.wordpress.wpapi.v2.model.Media;
 import com.afrozaar.wordpress.wpapi.v2.model.Post;
 import com.afrozaar.wordpress.wpapi.v2.model.PostStatus;
+import com.afrozaar.wordpress.wpapi.v2.model.User;
+import com.afrozaar.wordpress.wpapi.v2.request.Request;
+import com.afrozaar.wordpress.wpapi.v2.request.SearchRequest;
+import com.afrozaar.wordpress.wpapi.v2.response.PagedResponse;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -68,12 +72,24 @@ public class WordPressService {
         logger.info("deletePost:"+result.toString());
         return post;
     }
+
+    public PagedResponse<Post> getPostByAuthor(String authorName){
+        final PagedResponse<Post> response = this.getWpClient(debug).search(SearchRequest.Builder.aSearchRequest(Post.class)
+                .withUri(Request.POSTS)
+                .withParam("filter[meta_key]", "baobab_indexed")
+                .withParam("filter[meta_compare]", "NOT EXISTS") //RestTemplate takes care of escaping values ('space' -> '%20')
+                .build());
+        logger.info("aSearch response:" + response.toString());
+//        Post result = this.getWpClient(debug).search(SearchRequest.Builder.aSearchRequest(Post.class))
+//        logger.info("getPost:"+result.toString());
+        return response;
+    }
 ////Media
-public Media createMedia(Media media) throws WpApiParsedException {
-    Media result = this.getWpClient(debug).createMedia(media,null);
-    logger.info("createMedia:"+result.toString());
-    return result;
-}
+    public Media createMedia(Media media) throws WpApiParsedException {
+        Media result = this.getWpClient(debug).createMedia(media,null);
+        logger.info("createMedia:"+result.toString());
+        return result;
+    }
 
     public Media getMedia(Long id) throws PostNotFoundException{
         Media result = this.getWpClient(debug).getMedia(id);
@@ -91,6 +107,11 @@ public Media createMedia(Media media) throws WpApiParsedException {
         boolean result = this.getWpClient(debug).deleteMedia(media);
         logger.info("deleteMedia:"+result);
         return result;
+    }
+
+    public User createUser(User user) throws WpApiParsedException {
+        User createdUser = this.getWpClient(debug).createUser(user,"s","s1");
+        return createdUser;
     }
 
     //TODO:page,tag,category...

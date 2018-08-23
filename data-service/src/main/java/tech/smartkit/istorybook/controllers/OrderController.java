@@ -19,6 +19,7 @@ import tech.smartkit.istorybook.models.dto.WxShopOrder;
 import tech.smartkit.istorybook.models.dto.WxShopToken;
 
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -51,7 +52,7 @@ public class OrderController {
 //        logger.info("wxShopConfig:"+wxShopConfig.toString());
 //    }
 
-    @RequestMapping("/wxshop/connect/")
+    @RequestMapping("/connect/")
     public WxShopToken wxShopConnect(@RequestBody WxShopInfo wxShopInfo){
         this.wxShopInfo = wxShopInfo;
         logger.info("wxShopInfo:"+wxShopInfo.toString());
@@ -84,7 +85,7 @@ public class OrderController {
      *
      */
     private List<WxShopOrder> allOrders;
-    @RequestMapping("/wxshop/order/")
+    @RequestMapping("/")
     public List<WxShopOrder> listAllOrders() throws URISyntaxException {
         if(!isTokenExpired()) {
             //https://stackoverflow.com/questions/30936863/resttemplate-getforentity-map-to-list-of-objects
@@ -103,8 +104,8 @@ public class OrderController {
      * View order by id.
      * @see: http://wx764fa42b23cd341f.97866.com/wp-admin/admin.php?page=shop-open&tab=order
      */
-    @RequestMapping("/wxshop/order/{id}")
-    public WxShopOrder getOrder(@PathVariable("id") String id) throws URISyntaxException {
+    @RequestMapping("/{id}")
+    public WxShopOrder getOrderById(@PathVariable("id") String id) throws URISyntaxException {
         logger.info(" View orders, for " + id);
         allOrders = this.listAllOrders();
         //findOne
@@ -120,7 +121,7 @@ public class OrderController {
      * View order by status.
      * @see: http://wx764fa42b23cd341f.97866.com/wp-admin/admin.php?page=shop-open&tab=order
      */
-    @RequestMapping("/wxshop/order/status/{status}")
+    @RequestMapping("/byStatus/{status}")
     public WxShopOrder getOrderByStatus(@PathVariable("status") int status) throws URISyntaxException {
         logger.info(" View order by  status:"+status);
         allOrders = this.listAllOrders();
@@ -138,16 +139,36 @@ public class OrderController {
      * View order by id and status.
      * @see: http://wx764fa42b23cd341f.97866.com/wp-admin/admin.php?page=shop-open&tab=order
      */
-    @RequestMapping("/wxshop/order/{id}/{status}")
+    @RequestMapping("/byNickname/{nickName}")
+    public List<WxShopOrder> getOrderByNickname(@PathVariable("nickName") String nickName) throws URISyntaxException {
+        logger.info(" View order by nickName:"
+                + nickName );
+        allOrders = this.listAllOrders();
+        List<WxShopOrder> myOrders = new ArrayList<>();
+        //findAll
+        for(WxShopOrder wxShopOrder: allOrders) {
+            if (wxShopOrder.getBuyer_nickname().equals(nickName)){
+                logger.info("getOrderByNickname:" + wxShopOrder.toString());
+                myOrders.add(wxShopOrder);
+            }
+        }
+        return myOrders;
+    }
+    /**
+     * View order by nickName and status(4).
+     * @see: http://wx764fa42b23cd341f.97866.com/wp-admin/admin.php?page=shop-open&tab=order
+     */
+    @RequestMapping("/byIdAndStatus/{id}/{status}")
     public WxShopOrder getOrderByIdAndStatus(@PathVariable("id") String id,@PathVariable("status") int status) throws URISyntaxException {
         logger.info(" View order by id:"
                 + id +", znd status:"+status);
         allOrders = this.listAllOrders();
         //findOne
         for(WxShopOrder wxShopOrder: allOrders){
-            if(wxShopOrder.getId().equals(id) && wxShopOrder.getStatus()==status )
-                logger.info("findOneByIdAndStatus:"+wxShopOrder.toString());
-            return wxShopOrder;
+            if(wxShopOrder.getId().equals(id) && wxShopOrder.getStatus()==status ) {
+                logger.info("getOrderByIdAndStatus:" + wxShopOrder.toString());
+                return wxShopOrder;
+            }
         }
         return null;
     }
