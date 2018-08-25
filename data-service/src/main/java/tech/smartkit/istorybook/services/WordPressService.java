@@ -61,6 +61,14 @@ public class WordPressService {
         return result;
     }
 
+    public PagedResponse<Post> getAllPosts(){
+        final SearchRequest.Builder<Post> searchBuilder = SearchRequest.Builder.aSearchRequest(Post.class);
+        final SearchRequest searchRequest = searchBuilder.withOrderBy("date").withOrderAsc().build();
+        PagedResponse postsPagedResponse = this.getWpClient(debug).search(searchRequest);
+        return postsPagedResponse;
+    }
+
+
     public Post updatePost(Post post){
         Post result = this.getWpClient(debug).updatePost(post);
         logger.info("updatePost:"+result.toString());
@@ -76,10 +84,10 @@ public class WordPressService {
     public PagedResponse<Post> getPostByAuthor(String authorName){
         final PagedResponse<Post> response = this.getWpClient(debug).search(SearchRequest.Builder.aSearchRequest(Post.class)
                 .withUri(Request.POSTS)
-                .withParam("filter[meta_key]", "baobab_indexed")
+                .withParam("filter[author_name]", authorName)
                 .withParam("filter[meta_compare]", "NOT EXISTS") //RestTemplate takes care of escaping values ('space' -> '%20')
                 .build());
-        logger.info("aSearch response:" + response.toString());
+        logger.info("getPostByAuthor response:" + response.toString());
 //        Post result = this.getWpClient(debug).search(SearchRequest.Builder.aSearchRequest(Post.class))
 //        logger.info("getPost:"+result.toString());
         return response;

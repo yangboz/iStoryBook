@@ -4,6 +4,9 @@
 
 package tech.smartkit.istorybook.models.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class WxShopOrder {
     //@see:http://wx764fa42b23cd341f.97866.com/wp-admin/admin.php?page=shop-open&tab=order
     private String start_time;//	否	开始时间戳，默认为一天前

@@ -8,8 +8,9 @@ import org.springframework.data.repository.CrudRepository;
 import tech.smartkit.istorybook.models.WxAccount;
 
 import java.util.List;
+import java.util.Optional;
 
-public interface WxAccountRepository extends CrudRepository<WxAccount,Long> {
+public interface WxAccountRepository extends CrudRepository<WxAccount, Long> {
 
     /**
      * Find accounts whose nickname contains the specified string
@@ -22,5 +23,5 @@ public interface WxAccountRepository extends CrudRepository<WxAccount,Long> {
     public List<WxAccount> findByNickName(String nickName);
 
     //
-    public WxAccount findById(Long id);
+    public Optional<WxAccount> findById(Long id);
 }

@@ -47,7 +47,7 @@ public class WxAccountsService {
     }
 
     public WxAccount findOne(Long id){
-        return wxAccountRepository.findById(id);
+        return wxAccountRepository.findById(id).get();
     }
 
     public int counts() {

@@ -4,24 +4,43 @@
 
 package tech.smartkit.istorybook.controllers;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
+import net.spy.memcached.MemcachedClient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.converter.FormHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
+//import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import tech.smartkit.istorybook.models.dto.WxShopInfo;
 import tech.smartkit.istorybook.models.dto.WxShopOrder;
+import tech.smartkit.istorybook.models.dto.WxShopOrders;
 import tech.smartkit.istorybook.models.dto.WxShopToken;
+import tech.smartkit.istorybook.services.WxShopService;
+import tech.smartkit.istorybook.settings.MemcachedSettings;
+import tech.smartkit.istorybook.settings.WxShopSettings;
 
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
+
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.time;
 
 
 @RestController
@@ -37,43 +56,64 @@ public class OrderController {
 //    private static final String URI_WxShopOrder = "http://"+URI_WxShopID+".97866.com/api/mag.admin.order.list.json?access_token=";
     private RestTemplate restTemplate = new RestTemplate();
 
-    private WxShopInfo wxShopInfo;
-    private WxShopToken wxShopToken;
+    @Autowired
+    WxShopSettings wxShopSettings;
+    @Autowired
+    MemcachedSettings memcachedSettings;
 
-//    @Value("${WxShopAppID}")
-//    private String WxShopAppID = "jamqxbnk9lsyl8d7sg";
-//
-//    @Value("${WxShopAppSecret}")
-//    private String WxShopAppSecret = "dmfztlxbe7wzydurexme3icijwqj6z11";
+    @Autowired
+    WxShopService wxShopService;
 
-//    @Autowired
-//    public void setWxShopConfig(WxShopConfig wxShopConfig) {
-//        this.wxShopConfig = wxShopConfig;
-//        logger.info("wxShopConfig:"+wxShopConfig.toString());
-//    }
+    private WxShopInfo wxShopInfo = null;
+    private WxShopToken wxShopToken = null;
 
     @RequestMapping("/connect/")
-    public WxShopToken wxShopConnect(@RequestBody WxShopInfo wxShopInfo){
+    public WxShopToken wxShopConnect(@RequestBody WxShopInfo wxShopInfo) throws IOException, ExecutionException, InterruptedException {
+        return connectWxShop(wxShopInfo);
+    }
+
+    private WxShopToken connectWxShop(WxShopInfo wxShopInfo) throws IOException, ExecutionException, InterruptedException {
         this.wxShopInfo = wxShopInfo;
         logger.info("wxShopInfo:"+wxShopInfo.toString());
-        return this.getWxShopToken();
+        return this.refreshToken();
     }
 
-//    @RequestMapping("/wxshop/token")
-    public WxShopToken getWxShopToken(){
-        wxShopToken = restTemplate.getForObject(wxShopInfo.getShopTokenUrl(), WxShopToken.class);
-        logger.info("wxShopToken:"+wxShopToken);
-        return wxShopToken;
+    //TODO:access_token 是开放接口的全局唯一接口调用凭据，公众号调用各接口时都需使用 access_token。
+    // 开发者需要进行妥善保存。access_token 的有效期目前为2个小时，需定时刷新，
+    // 重复获取将导致上次获取的 access_token 失效。
+    //@see: http://wx764fa42b23cd341f.97866.com/wp-admin/admin.php?page=shop-open
+    private WxShopToken refreshToken() throws IOException, ExecutionException, InterruptedException {
+        this.wxShopToken = (WxShopToken) this.getMemcachedClient().get("wxshoptoken");
+        if(this.wxShopInfo == null){
+            this.wxShopInfo = new WxShopInfo(wxShopSettings.getShopId(),wxShopSettings.getAppId(),wxShopSettings.getAppSecret());
+        }
+        if(this.wxShopToken == null) {//using memcached to avoid duplication
+            // Start the clock
+            long start = System.currentTimeMillis();
+            // Kick of multiple, asynchronous lookups
+            CompletableFuture<WxShopToken> page1 = wxShopService.refreshToken();
+            // Wait until they are all done
+            CompletableFuture.allOf(page1).join();
+            // Print results, including elapsed time
+            logger.info("Elapsed time: " + (System.currentTimeMillis() - start));
+            this.wxShopToken = page1.get();
+            logger.info("wxShopToken:" +  this.wxShopToken);
+            this.getMemcachedClient().set("wxshoptoken", this.wxShopToken.getExpires_in(), this.wxShopToken);
+        }
+        return this.wxShopToken;
     }
 
-    //TODO:implementation
-    private boolean isTokenExpired(){
-        return false;//curToken
-    }
-
-    //TODO:implementation
-    private void refreshTokenString(){
-
+    private MemcachedClient getMemcachedClient() throws IOException {
+        MemcachedClient memcachedClient= new MemcachedClient(new InetSocketAddress(memcachedSettings.getServers().get(0), 11211));
+//        c.set("someKey_1", 2592000, users);
+//        Object myObject=c.get("someKey_1");
+//        System.out.println("Object 1: " + myObject);
+//        System.out.println("Statistics: " + c.getStats());
+//        System.out.println("Statistics of individual Items: " + c.getStats("items"));
+//        c.delete("someKey_2");
+//        c.shutdown();
+//        c=null ;
+        return memcachedClient;
     }
 
     /**
@@ -84,20 +124,22 @@ public class OrderController {
      POST /{id} - Update order
      *
      */
-    private List<WxShopOrder> allOrders;
-    @RequestMapping("/")
-    public List<WxShopOrder> listAllOrders() throws URISyntaxException {
-        if(!isTokenExpired()) {
-            //https://stackoverflow.com/questions/30936863/resttemplate-getforentity-map-to-list-of-objects
-            ParameterizedTypeReference<List<WxShopOrder>> responseType = new ParameterizedTypeReference<List<WxShopOrder>>() {};
-            HttpEntity<Object> requestEntity = null;
-            ResponseEntity<List<WxShopOrder>> resp = restTemplate.exchange(wxShopToken.getAccess_token(), HttpMethod.GET, requestEntity, responseType);
-            allOrders = resp.getBody();
-//            allOrders = restTemplate.getForEntity(wxShopInfo.getShopOrderUrl(,List<WxShopOrder>().getClass());
-            logger.info("List all of orders:"+allOrders.toString());
-            return allOrders;
-        }
-        return null;
+    private List<WxShopOrder> allOrders = new ArrayList<>();
+    @RequestMapping(value="/", method= RequestMethod.GET, produces = "application/json")
+    public List<WxShopOrder> listAllOrders() throws URISyntaxException, IOException, ExecutionException, InterruptedException {
+        this.refreshToken();
+        //https://stackoverflow.com/questions/30936863/resttemplate-getforentity-map-to-list-of-objects
+        ParameterizedTypeReference<String> responseType = new ParameterizedTypeReference<String>() {};
+        HttpEntity<Object> requestEntity = null;
+        URI wxShopOrdersUrl = this.wxShopInfo.getShopOrderUrl(this.wxShopToken.getAccess_token());
+        logger.info("wxShopOrdersUrl:"+wxShopOrdersUrl.toString());
+        ResponseEntity<String> jsonResp = restTemplate.exchange(wxShopOrdersUrl, HttpMethod.GET, requestEntity, responseType);
+        logger.info(jsonResp.toString());
+        WxShopOrders wxShopOrders = new ObjectMapper().readValue(jsonResp.getBody().toString(), new TypeReference<WxShopOrders>() { });
+        logger.info("wxShopOrders:"+wxShopOrders.toString());
+        allOrders = wxShopOrders.getOrders();
+        logger.info("List all of orders:"+allOrders.toString());
+        return allOrders;
     }
 
     /**
@@ -105,7 +147,7 @@ public class OrderController {
      * @see: http://wx764fa42b23cd341f.97866.com/wp-admin/admin.php?page=shop-open&tab=order
      */
     @RequestMapping("/{id}")
-    public WxShopOrder getOrderById(@PathVariable("id") String id) throws URISyntaxException {
+    public WxShopOrder getOrderById(@PathVariable("id") String id) throws URISyntaxException, IOException, ExecutionException, InterruptedException {
         logger.info(" View orders, for " + id);
         allOrders = this.listAllOrders();
         //findOne
@@ -122,7 +164,7 @@ public class OrderController {
      * @see: http://wx764fa42b23cd341f.97866.com/wp-admin/admin.php?page=shop-open&tab=order
      */
     @RequestMapping("/byStatus/{status}")
-    public WxShopOrder getOrderByStatus(@PathVariable("status") int status) throws URISyntaxException {
+    public WxShopOrder getOrderByStatus(@PathVariable("status") int status) throws URISyntaxException, IOException, ExecutionException, InterruptedException {
         logger.info(" View order by  status:"+status);
         allOrders = this.listAllOrders();
         //findOne
@@ -140,7 +182,7 @@ public class OrderController {
      * @see: http://wx764fa42b23cd341f.97866.com/wp-admin/admin.php?page=shop-open&tab=order
      */
     @RequestMapping("/byNickname/{nickName}")
-    public List<WxShopOrder> getOrderByNickname(@PathVariable("nickName") String nickName) throws URISyntaxException {
+    public List<WxShopOrder> getOrderByNickname(@PathVariable("nickName") String nickName) throws URISyntaxException, IOException, ExecutionException, InterruptedException {
         logger.info(" View order by nickName:"
                 + nickName );
         allOrders = this.listAllOrders();
@@ -159,7 +201,7 @@ public class OrderController {
      * @see: http://wx764fa42b23cd341f.97866.com/wp-admin/admin.php?page=shop-open&tab=order
      */
     @RequestMapping("/byIdAndStatus/{id}/{status}")
-    public WxShopOrder getOrderByIdAndStatus(@PathVariable("id") String id,@PathVariable("status") int status) throws URISyntaxException {
+    public WxShopOrder getOrderByIdAndStatus(@PathVariable("id") String id,@PathVariable("status") int status) throws URISyntaxException, IOException, ExecutionException, InterruptedException {
         logger.info(" View order by id:"
                 + id +", znd status:"+status);
         allOrders = this.listAllOrders();

@@ -15,6 +15,11 @@ public class WxShopInfo {
 
     private String appSerect;
 
+    public WxShopInfo(String shopId, String appId, String appSerect) {
+        this.shopId = shopId;
+        this.appId = appId;
+        this.appSerect = appSerect;
+    }
 
     public String getShopId() {
         return shopId;
@@ -43,6 +48,7 @@ public class WxShopInfo {
     public WxShopInfo() {
     }
 
+
     public URI getShopOrderUrl(String accessToken) throws URISyntaxException {
         return new URI("http://"+shopId+".97866.com/api/mag.admin.order.list.json?access_token="+accessToken);
     }
@@ -55,7 +61,7 @@ public class WxShopInfo {
     }
 
     public String getShopTokenUrl(){
-        return  "http://"+shopId+".97866.com/api/mag.token.json?";
+        return  "http://"+shopId+".97866.com/api/mag.token.json?appid="+this.getAppId()+"&secret="+this.getAppSerect();
     }
 
     @Override
