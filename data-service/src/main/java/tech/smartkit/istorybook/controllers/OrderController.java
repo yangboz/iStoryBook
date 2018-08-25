@@ -21,10 +21,7 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 //import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import tech.smartkit.istorybook.models.dto.WxShopInfo;
-import tech.smartkit.istorybook.models.dto.WxShopOrder;
-import tech.smartkit.istorybook.models.dto.WxShopOrders;
-import tech.smartkit.istorybook.models.dto.WxShopToken;
+import tech.smartkit.istorybook.models.dto.*;
 import tech.smartkit.istorybook.services.WxShopService;
 import tech.smartkit.istorybook.settings.MemcachedSettings;
 import tech.smartkit.istorybook.settings.WxShopSettings;
@@ -91,12 +88,12 @@ public class OrderController {
             // Start the clock
             long start = System.currentTimeMillis();
             // Kick of multiple, asynchronous lookups
-            CompletableFuture<WxShopToken> page1 = wxShopService.refreshToken();
+            CompletableFuture<WxShopToken> page_token = wxShopService.asyncRefreshToken();
             // Wait until they are all done
-            CompletableFuture.allOf(page1).join();
+            CompletableFuture.allOf(page_token).join();
             // Print results, including elapsed time
             logger.info("Elapsed time: " + (System.currentTimeMillis() - start));
-            this.wxShopToken = page1.get();
+            this.wxShopToken = page_token.get();
             logger.info("wxShopToken:" +  this.wxShopToken);
             this.getMemcachedClient().set("wxshoptoken", this.wxShopToken.getExpires_in(), this.wxShopToken);
         }
@@ -128,17 +125,10 @@ public class OrderController {
     @RequestMapping(value="/", method= RequestMethod.GET, produces = "application/json")
     public List<WxShopOrder> listAllOrders() throws URISyntaxException, IOException, ExecutionException, InterruptedException {
         this.refreshToken();
-        //https://stackoverflow.com/questions/30936863/resttemplate-getforentity-map-to-list-of-objects
-        ParameterizedTypeReference<String> responseType = new ParameterizedTypeReference<String>() {};
-        HttpEntity<Object> requestEntity = null;
-        URI wxShopOrdersUrl = this.wxShopInfo.getShopOrderUrl(this.wxShopToken.getAccess_token());
-        logger.info("wxShopOrdersUrl:"+wxShopOrdersUrl.toString());
-        ResponseEntity<String> jsonResp = restTemplate.exchange(wxShopOrdersUrl, HttpMethod.GET, requestEntity, responseType);
-        logger.info(jsonResp.toString());
-        WxShopOrders wxShopOrders = new ObjectMapper().readValue(jsonResp.getBody().toString(), new TypeReference<WxShopOrders>() { });
-        logger.info("wxShopOrders:"+wxShopOrders.toString());
-        allOrders = wxShopOrders.getOrders();
+        allOrders = wxShopService.asyncGetAllOrders().get();
         logger.info("List all of orders:"+allOrders.toString());
+//        List<WxShopProduct> allProducts= wxShopService.asyncGetAllProducts().get();
+//        logger.info("List all of products:"+allProducts.toString());
         return allOrders;
     }
 

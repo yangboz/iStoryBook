@@ -33,7 +33,7 @@ public class DataServiceApplication {
 		executor.setCorePoolSize(2);
 		executor.setMaxPoolSize(2);
 		executor.setQueueCapacity(500);
-		executor.setThreadNamePrefix("WxShopLookup-");
+		executor.setThreadNamePrefix("WxShopLookup-");//Order or product
 		executor.initialize();
 		return executor;
 	}
