@@ -22,29 +22,35 @@ public class WxShopOrder {
     private int fixed_fee;//	改价
     private String fixed_reason;//	改价理由
     private int amount;//	合计
-    private String coupon_title;//	使用的优惠券标题
-    private int coupon_discount_fee;//	优惠券优惠的金额
-    private String buyer_nickname;//	买家微信昵称
-    private String openid;//	买家微信OpenID
-    private String receiver_name;//	收件人姓名
-    private String receiver_phone;//	收件人电话
-    private String receiver_state;//	收件人省份
-    private String receiver_city;//	收件人城市
-    private String receiver_district;//	收件人区
-    private String receiver_address;//	收件人地址
-    private String buyer_message;//	买家留言
+//    private String coupon_title;//	使用的优惠券标题
+//    private int coupon_discount_fee;//	优惠券优惠的金额
+    private WxShopOrderCoupon coupon;
+
+//    private String buyer_nickname;//	买家微信昵称
+//    private String openid;//	买家微信OpenID
+//    private String buyer_message;//	买家留言
+    private WxShopOrderBuyer buyer;
+//    private String receiver_name;//	收件人姓名
+//    private String receiver_phone;//	收件人电话
+//    private String receiver_state;//	收件人省份
+//    private String receiver_city;//	收件人城市
+//    private String receiver_district;//	收件人区
+//    private String receiver_address;//	收件人地址
+    private WxShopOrderReceiver receiver;
     private String seller_message;//	卖家备注
-    private String logistic_company;//	快递公司
-    private String logistic_no;//	快递单号
+//    private String logistic_company;//	快递公司
+//    private String logistic_no;//	快递单号
+//private String consign_time;//	发货时间
+    private WxShopOrderLogistics logistics;
     private String time;//	下单时间
     private String paytime;//	支付时间
-    private String consign_time;//	发货时间
-    private String refund_state;//	退款给状态，1 - 没有退款 2 - 部分退款处理中 3 - 部分退款成功 4 - 部分退款失败 5 - 全额退款处理中 6 - 全额退款成功 7 - 全额退款失败
-    private String refund_type;//	申请退款类型，0 - 没有退款 1 - 仅退款 2 - 退款退货
-    private int refund_fee;//	退款费用
-    private String refund_reason;//	退款理由
-    private String refund_images;//	退款图片
-    private String refund_time;//	退款时间
+//    private String refund_state;//	退款给状态，1 - 没有退款 2 - 部分退款处理中 3 - 部分退款成功 4 - 部分退款失败 5 - 全额退款处理中 6 - 全额退款成功 7 - 全额退款失败
+//    private String refund_type;//	申请退款类型，0 - 没有退款 1 - 仅退款 2 - 退款退货
+//    private int refund_fee;//	退款费用
+//    private String refund_reason;//	退款理由
+//    private String refund_images;//	退款图片
+//    private String refund_time;//	退款时间
+    private WxShopOrderRefund refund;
     private String wx_transaction_id;//	微信流水号
     private String trade_no;//	交易号
     private String vendor;//	渠道
@@ -160,118 +166,6 @@ public class WxShopOrder {
         this.amount = amount;
     }
 
-    public String getCoupon_title() {
-        return coupon_title;
-    }
-
-    public void setCoupon_title(String coupon_title) {
-        this.coupon_title = coupon_title;
-    }
-
-    public int getCoupon_discount_fee() {
-        return coupon_discount_fee;
-    }
-
-    public void setCoupon_discount_fee(int coupon_discount_fee) {
-        this.coupon_discount_fee = coupon_discount_fee;
-    }
-
-    public String getBuyer_nickname() {
-        return buyer_nickname;
-    }
-
-    public void setBuyer_nickname(String buyer_nickname) {
-        this.buyer_nickname = buyer_nickname;
-    }
-
-    public String getOpenid() {
-        return openid;
-    }
-
-    public void setOpenid(String openid) {
-        this.openid = openid;
-    }
-
-    public String getReceiver_name() {
-        return receiver_name;
-    }
-
-    public void setReceiver_name(String receiver_name) {
-        this.receiver_name = receiver_name;
-    }
-
-    public String getReceiver_phone() {
-        return receiver_phone;
-    }
-
-    public void setReceiver_phone(String receiver_phone) {
-        this.receiver_phone = receiver_phone;
-    }
-
-    public String getReceiver_state() {
-        return receiver_state;
-    }
-
-    public void setReceiver_state(String receiver_state) {
-        this.receiver_state = receiver_state;
-    }
-
-    public String getReceiver_city() {
-        return receiver_city;
-    }
-
-    public void setReceiver_city(String receiver_city) {
-        this.receiver_city = receiver_city;
-    }
-
-    public String getReceiver_district() {
-        return receiver_district;
-    }
-
-    public void setReceiver_district(String receiver_district) {
-        this.receiver_district = receiver_district;
-    }
-
-    public String getReceiver_address() {
-        return receiver_address;
-    }
-
-    public void setReceiver_address(String receiver_address) {
-        this.receiver_address = receiver_address;
-    }
-
-    public String getBuyer_message() {
-        return buyer_message;
-    }
-
-    public void setBuyer_message(String buyer_message) {
-        this.buyer_message = buyer_message;
-    }
-
-    public String getSeller_message() {
-        return seller_message;
-    }
-
-    public void setSeller_message(String seller_message) {
-        this.seller_message = seller_message;
-    }
-
-    public String getLogistic_company() {
-        return logistic_company;
-    }
-
-    public void setLogistic_company(String logistic_company) {
-        this.logistic_company = logistic_company;
-    }
-
-    public String getLogistic_no() {
-        return logistic_no;
-    }
-
-    public void setLogistic_no(String logistic_no) {
-        this.logistic_no = logistic_no;
-    }
-
     public String getTime() {
         return time;
     }
@@ -286,62 +180,6 @@ public class WxShopOrder {
 
     public void setPaytime(String paytime) {
         this.paytime = paytime;
-    }
-
-    public String getConsign_time() {
-        return consign_time;
-    }
-
-    public void setConsign_time(String consign_time) {
-        this.consign_time = consign_time;
-    }
-
-    public String getRefund_state() {
-        return refund_state;
-    }
-
-    public void setRefund_state(String refund_state) {
-        this.refund_state = refund_state;
-    }
-
-    public String getRefund_type() {
-        return refund_type;
-    }
-
-    public void setRefund_type(String refund_type) {
-        this.refund_type = refund_type;
-    }
-
-    public int getRefund_fee() {
-        return refund_fee;
-    }
-
-    public void setRefund_fee(int refund_fee) {
-        this.refund_fee = refund_fee;
-    }
-
-    public String getRefund_reason() {
-        return refund_reason;
-    }
-
-    public void setRefund_reason(String refund_reason) {
-        this.refund_reason = refund_reason;
-    }
-
-    public String getRefund_images() {
-        return refund_images;
-    }
-
-    public void setRefund_images(String refund_images) {
-        this.refund_images = refund_images;
-    }
-
-    public String getRefund_time() {
-        return refund_time;
-    }
-
-    public void setRefund_time(String refund_time) {
-        this.refund_time = refund_time;
     }
 
     public String getWx_transaction_id() {
@@ -464,6 +302,54 @@ public class WxShopOrder {
         this.cost = cost;
     }
 
+    public WxShopOrderCoupon getCoupon() {
+        return coupon;
+    }
+
+    public void setCoupon(WxShopOrderCoupon coupon) {
+        this.coupon = coupon;
+    }
+
+    public WxShopOrderBuyer getBuyer() {
+        return buyer;
+    }
+
+    public void setBuyer(WxShopOrderBuyer buyer) {
+        this.buyer = buyer;
+    }
+
+    public WxShopOrderReceiver getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(WxShopOrderReceiver receiver) {
+        this.receiver = receiver;
+    }
+
+    public String getSeller_message() {
+        return seller_message;
+    }
+
+    public void setSeller_message(String seller_message) {
+        this.seller_message = seller_message;
+    }
+
+    public WxShopOrderLogistics getLogistics() {
+        return logistics;
+    }
+
+    public void setLogistics(WxShopOrderLogistics logistics) {
+        this.logistics = logistics;
+    }
+
+    public WxShopOrderRefund getRefund() {
+        return refund;
+    }
+
+    public void setRefund(WxShopOrderRefund refund) {
+        this.refund = refund;
+    }
+
     @Override
     public String toString() {
         return "WxShopOrder{" +
@@ -479,29 +365,14 @@ public class WxShopOrder {
                 ", fixed_fee=" + fixed_fee +
                 ", fixed_reason='" + fixed_reason + '\'' +
                 ", amount=" + amount +
-                ", coupon_title='" + coupon_title + '\'' +
-                ", coupon_discount_fee=" + coupon_discount_fee +
-                ", buyer_nickname='" + buyer_nickname + '\'' +
-                ", openid='" + openid + '\'' +
-                ", receiver_name='" + receiver_name + '\'' +
-                ", receiver_phone='" + receiver_phone + '\'' +
-                ", receiver_state='" + receiver_state + '\'' +
-                ", receiver_city='" + receiver_city + '\'' +
-                ", receiver_district='" + receiver_district + '\'' +
-                ", receiver_address='" + receiver_address + '\'' +
-                ", buyer_message='" + buyer_message + '\'' +
+                ", coupon=" + coupon +
+                ", buyer=" + buyer +
+                ", receiver=" + receiver +
                 ", seller_message='" + seller_message + '\'' +
-                ", logistic_company='" + logistic_company + '\'' +
-                ", logistic_no='" + logistic_no + '\'' +
+                ", logistics=" + logistics +
                 ", time='" + time + '\'' +
                 ", paytime='" + paytime + '\'' +
-                ", consign_time='" + consign_time + '\'' +
-                ", refund_state='" + refund_state + '\'' +
-                ", refund_type='" + refund_type + '\'' +
-                ", refund_fee=" + refund_fee +
-                ", refund_reason='" + refund_reason + '\'' +
-                ", refund_images='" + refund_images + '\'' +
-                ", refund_time='" + refund_time + '\'' +
+                ", refund=" + refund +
                 ", wx_transaction_id='" + wx_transaction_id + '\'' +
                 ", trade_no='" + trade_no + '\'' +
                 ", vendor='" + vendor + '\'' +

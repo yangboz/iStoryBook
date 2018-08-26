@@ -75,17 +75,20 @@ public class OrderController {
         return this.refreshToken();
     }
 
-    //TODO:access_token 是开放接口的全局唯一接口调用凭据，公众号调用各接口时都需使用 access_token。
+    //NOTE:access_token 是开放接口的全局唯一接口调用凭据，公众号调用各接口时都需使用 access_token。
     // 开发者需要进行妥善保存。access_token 的有效期目前为2个小时，需定时刷新，
     // 重复获取将导致上次获取的 access_token 失效。
     //@see: http://wx764fa42b23cd341f.97866.com/wp-admin/admin.php?page=shop-open
     private WxShopToken refreshToken() throws IOException, ExecutionException, InterruptedException {
-        WxShopToken wxShopTokenMemcached = (WxShopToken) this.getMemcachedClient().get("wxshoptoken");
-        logger.info("wxShopToken from memcached:" + wxShopTokenMemcached.toString());
+        //
         if(this.wxShopInfo == null){
-            this.wxShopInfo = new WxShopInfo(wxShopSettings.getShopId(),wxShopSettings.getAppId(),wxShopSettings.getAppSecret());
+            this.wxShopInfo  = new WxShopInfo(wxShopSettings.getShopId(),wxShopSettings.getAppId(),wxShopSettings.getAppSecret());
         }
-        if(wxShopTokenMemcached == null) {//using memcached to avoid duplication
+        //
+        WxShopToken wxShopTokenMemcached = (WxShopToken) this.getMemcachedClient().get("wxshoptoken");
+        logger.info("wxShopToken from memcached:" + wxShopTokenMemcached);
+        //using memcached to avoid duplication
+        if(wxShopTokenMemcached == null) {
             // Start the clock
             long start = System.currentTimeMillis();
             // Kick of multiple, asynchronous lookups
@@ -128,7 +131,8 @@ public class OrderController {
     @RequestMapping(value="/", method= RequestMethod.GET, produces = "application/json")
     public List<WxShopOrder> listAllOrders() throws URISyntaxException, IOException, ExecutionException, InterruptedException {
         this.refreshToken();
-        allOrders = wxShopService.asyncGetAllOrders().get();
+        //
+        allOrders = wxShopService.asyncGetAllOrders(this.wxShopToken).get();
         logger.info("List all of orders:"+allOrders.toString());
 //        List<WxShopProduct> allProducts= wxShopService.asyncGetAllProducts().get();
 //        logger.info("List all of products:"+allProducts.toString());
@@ -182,7 +186,7 @@ public class OrderController {
         List<WxShopOrder> myOrders = new ArrayList<>();
         //findAll
         for(WxShopOrder wxShopOrder: allOrders) {
-            if (wxShopOrder.getBuyer_nickname().equals(nickName)){
+            if (wxShopOrder.getBuyer().getBuyer_nickname().equals(nickName)){
                 logger.info("getOrderByNickname:" + wxShopOrder.toString());
                 myOrders.add(wxShopOrder);
             }

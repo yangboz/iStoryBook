@@ -71,7 +71,7 @@ public class WxShopInfo {
         return new URI("http://"+shopId+".97866.com/api/mag.admin.order.list.json?access_token="+accessToken
 //                +"&start_time="+TIME_START
 // +"&end_time="+TIME_END
-                +"&status="+STATUS_CLOSED
+//                +"&status="+STATUS_CLOSED
 //        +"&blog_id=4160&orderbv=time"
         );
     }
