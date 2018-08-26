@@ -80,11 +80,12 @@ public class OrderController {
     // 重复获取将导致上次获取的 access_token 失效。
     //@see: http://wx764fa42b23cd341f.97866.com/wp-admin/admin.php?page=shop-open
     private WxShopToken refreshToken() throws IOException, ExecutionException, InterruptedException {
-        this.wxShopToken = (WxShopToken) this.getMemcachedClient().get("wxshoptoken");
+        WxShopToken wxShopTokenMemcached = (WxShopToken) this.getMemcachedClient().get("wxshoptoken");
+        logger.info("wxShopToken from memcached:" + wxShopTokenMemcached.toString());
         if(this.wxShopInfo == null){
             this.wxShopInfo = new WxShopInfo(wxShopSettings.getShopId(),wxShopSettings.getAppId(),wxShopSettings.getAppSecret());
         }
-        if(this.wxShopToken == null) {//using memcached to avoid duplication
+        if(wxShopTokenMemcached == null) {//using memcached to avoid duplication
             // Start the clock
             long start = System.currentTimeMillis();
             // Kick of multiple, asynchronous lookups
@@ -96,6 +97,8 @@ public class OrderController {
             this.wxShopToken = page_token.get();
             logger.info("wxShopToken:" +  this.wxShopToken);
             this.getMemcachedClient().set("wxshoptoken", this.wxShopToken.getExpires_in(), this.wxShopToken);
+        }else {
+            this.wxShopToken = wxShopTokenMemcached;
         }
         return this.wxShopToken;
     }
@@ -193,7 +196,7 @@ public class OrderController {
     @RequestMapping("/byIdAndStatus/{id}/{status}")
     public WxShopOrder getOrderByIdAndStatus(@PathVariable("id") String id,@PathVariable("status") int status) throws URISyntaxException, IOException, ExecutionException, InterruptedException {
         logger.info(" View order by id:"
-                + id +", znd status:"+status);
+                + id +", and status:"+status);
         allOrders = this.listAllOrders();
         //findOne
         for(WxShopOrder wxShopOrder: allOrders){
