@@ -31,6 +31,8 @@ https://www.theverge.com/2017/12/13/16754266/cryptokitties-ethereum-ether-game-c
 
 http://jenetics.io
 
+https://www.bigchaindb.com/developers/guide/tutorial-piece-of-art/
+
 ## FAQ
 How are CryptoStoryBooks created?
 
