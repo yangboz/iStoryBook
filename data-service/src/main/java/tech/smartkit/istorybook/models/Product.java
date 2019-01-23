@@ -11,7 +11,7 @@ import tech.smartkit.istorybook.services.ProductService;
  * Product DTO - used to interact with the {@link ProductService}.
  *
  * @author yangboz
- * @see https://imagemagick.org/script/montage.php
+ * @see: https://imagemagick.org/script/montage.php
  * magick montage -label %f -frame 5 -background '#336699' -geometry +4+4 rose.jpg red-ball.png frame.jpg
  */
 @JsonRootName("T_PRODUCT")

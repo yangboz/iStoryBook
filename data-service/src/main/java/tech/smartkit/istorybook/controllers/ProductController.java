@@ -76,7 +76,7 @@ public class ProductController {
          * Fork product by id,name,.
          * @see:https://developer.github.com/v3/repos/forks/
          */
-        @RequestMapping("/{pid}/fork/{uid}")
+        @RequestMapping("/fork/{pid}/{uid}")
         public String fork(@PathVariable("pid") Long pid,@PathVariable("uid") Long uid) throws PostCreateException, PostNotFoundException, InterruptedException, IOException, IM4JavaException {
                 return productService.fork(pid,uid);
         }

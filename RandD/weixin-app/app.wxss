@@ -85,8 +85,8 @@
   position: absolute;
   left: 0rpx;
   top: 24rpx;
-  width: 200rpx;
-  height: 150rpx;
+  width: 400rpx;
+  height: 300rpx;
 }
 
 .common-list .list-item.has-img .content-title {

@@ -7,6 +7,8 @@ package tech.smartkit.istorybook.controllers;
 import java.util.List;
 import java.util.logging.Logger;
 
+import com.afrozaar.wordpress.wpapi.v2.exception.WpApiParsedException;
+import com.afrozaar.wordpress.wpapi.v2.model.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -22,6 +24,7 @@ import tech.smartkit.istorybook.models.Account;
 import tech.smartkit.istorybook.models.WxAccount;
 import tech.smartkit.istorybook.models.dao.AccountRepository;
 import tech.smartkit.istorybook.models.dao.WxAccountRepository;
+import tech.smartkit.istorybook.services.WordPressService;
 
 /**
  * A RESTFul controller for accessing account information.
@@ -41,7 +44,8 @@ public class AccountsController {
 	protected AccountRepository accountRepository;
 	@Autowired
 	protected WxAccountRepository wxAccountRepository;
-
+	@Autowired
+	WordPressService wordPressService;
 	/**
 	 * Create an instance plugging in the respository of Accounts.
 	 *
@@ -154,14 +158,20 @@ public class AccountsController {
 			, consumes = MediaType.APPLICATION_JSON_VALUE
 			, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<WxAccount> save(
-			@RequestBody WxAccount wxUserInfo ){
+			@RequestBody WxAccount wxUserInfo ) throws WpApiParsedException {
 //			@RequestParam("userInfo") WxAccount wxUserInfo) {
 		logger.info("accounts-service save() invoked: ");
 		//if not existed?
 		List<WxAccount> find = wxAccountRepository.findByNickName(wxUserInfo.getNickName());
 		WxAccount saved = null;
-		if(find.size()==0){
+		if(find==null){
 			saved = wxAccountRepository.save(wxUserInfo);
+			//create a WordPress user.
+			User wpUser = new User();
+			wpUser.setName(wxUserInfo.getNickName());
+			wpUser.setUrl(wxUserInfo.getAvatarUrl());
+			wpUser.setDescription(wxUserInfo.toString());
+			wordPressService.createUser(wpUser);
 		}{
 			logger.info("accounts-service save() already existed: " + find.toString());
 		}

@@ -366,7 +366,7 @@ Page({
           wx.navigateToMiniProgram({
               appId: appid,
               envVersion: 'release',
-              path: url,
+              path: '',
               success(res) {
                   // 打开成功
               },
@@ -386,13 +386,15 @@ Page({
     });
   },
   forkStorybook: function (e) {
-    // wx.showLoading({
-    //   title: 'forkStoryBook',
-    // })
+    wx.showLoading({
+      title: 'forking...',
+    })
     //TODO:call forkStorybook api.
     that = this;
+    var pid = 0;
+    var uid = 0;
       wxApi.request({
-      url: "http://op.juhe.cn/onebox/weather/query",
+      url: "http://localhost:8080/storybook/product/fork/"+pid+"/"+uid,
       header: {
         "Content-Type": "application/x-www-form-urlencoded"
       },
