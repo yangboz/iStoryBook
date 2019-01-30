@@ -1,0 +1,31 @@
+<view>
+<view class="section__title">ANIRAC</view>
+     <view class="label-1" >
+      <label>Name
+        <input placeholder='Angel Wish'></input>
+      </label>
+
+      <label>Age
+        <input placeholder='35'></input>
+      </label>
+
+      <label>Gender
+        <input placeholder='Male'></input>
+      </label>
+
+
+      <label>Height
+        <input placeholder='175'></input>
+      </label>
+
+      <label>Purchase
+        <input placeholder='$1000'></input>
+      </label>
+
+      <label>Phone
+        <input placeholder='+851234567'></input>
+      </label>
+
+      </view>
+<button bindtap="onImagePickerBtnClick" type="primary"  open-type="getUserInfo">Sefile</button>
+</view>

@@ -1,0 +1,14 @@
+<view>
+<view >ANIRAC</view>
+     <view >
+      <label>
+        <text >The customer is now in the Lucky Draw.</text>
+      </label>
+<button bindtap="" type="primary"  open-type="getUserInfo">Finish</button>
+
+      <label>
+        <text>View the customer list</text>
+      </label>
+      </view>
+<button bindtap="" type="primary"  disabled>View</button>
+</view>

@@ -1,0 +1,4 @@
+<view>
+<button class="btn_instruction"  bindtap="onInstructionBtnClick" type="primary" plain='true'/>
+<button class="image_picker" bindtap="onImagePickerBtnClick" type="primary" plain='true'/>
+</view>

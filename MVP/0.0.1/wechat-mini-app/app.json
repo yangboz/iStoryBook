@@ -1,0 +1,14 @@
+{
+  "pages":[
+    "pages/login/login",
+    "pages/profile/profile",
+    "pages/result/result",
+    "pages/index/index"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "LuckyDraw",
+    "navigationBarTextStyle":"black"
+  }
+}

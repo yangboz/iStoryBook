@@ -1,0 +1,13 @@
+<view>
+<view >ANIRAC</view>
+     <view >
+      <label>
+        <text >Thank you for your purchase.</text>
+      </label>
+
+      <label>
+        <text>Please enter your information to enter the lucky draw</text>
+      </label>
+      </view>
+<button bindtap="onLoginBtnClick" type="primary"  open-type="getUserInfo">Continue</button>
+</view>
