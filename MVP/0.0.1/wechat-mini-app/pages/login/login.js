@@ -4,30 +4,43 @@ Page({
 
  onLoginBtnClick: function(e){
 
-   wx.showModal({
-     title: 'Share WeChat info',
-     content: 'Share WeChat info with ANIRAC.',
-     showCancel: true,
-     confirmColor: '#30b1f3',
-     cancelText: 'No',
-     confirmText: 'Yes',
-     success: function (res) {
-       if (res.confirm) {
-         
-         wx.redirectTo({
-           url: '/pages/profile/profile'
-         })
+  // 必须是在用户已经授权的情况下调用
+wx.getUserInfo({
+  success(res) {
+    const userInfo = res.userInfo
+    const nickName = userInfo.nickName
+    const avatarUrl = userInfo.avatarUrl
+    const gender = userInfo.gender // 性别 0：未知、1：男、2：女
+    const province = userInfo.province
+    const city = userInfo.city
+    const country = userInfo.country
+  }
+})
 
-       }
-       if (res.cancel) {
+   // wx.showModal({
+   //   title: 'Share WeChat info',
+   //   content: 'Share WeChat info with ANIRAC.',
+   //   showCancel: true,
+   //   confirmColor: '#30b1f3',
+   //   cancelText: 'No',
+   //   confirmText: 'Yes',
+   //   success: function (res) {
+   //     if (res.confirm) {
          
-        //  wx.redirectTo({
-        //    url: '/pages/index/index'
-        //  })
-       }
+   //       wx.redirectTo({
+   //         url: '/pages/profile/profile'
+   //       })
 
-     }
-   });
+   //     }
+   //     if (res.cancel) {
+         
+   //      //  wx.redirectTo({
+   //      //    url: '/pages/index/index'
+   //      //  })
+   //     }
+
+   //   }
+   // });
 
 
 	console.log("getWxCode...");

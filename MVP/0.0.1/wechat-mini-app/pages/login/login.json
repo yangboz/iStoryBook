@@ -1,6 +1,6 @@
 {
-  "navigationBarBackgroundColor": "#ffffff",
-  "navigationBarTextStyle": "black",
-  "backgroundColor": "#333",
-  "navigationBarTitleText":"Login"
+  "navigationBarBackgroundColor": "#4A90E2",
+  "navigationBarTextStyle": "white",
+  "backgroundColor": "#4A90E2",
+  "navigationBarTitleText":"绘本王国"
 }

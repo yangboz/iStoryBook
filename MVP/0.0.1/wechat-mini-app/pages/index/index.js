@@ -1,7 +1,7 @@
 //Index.js
 //获取应用实例
 import { set as setGlobalData, get as getGlobalData } from '../../global_data'
-import { ENDPOINT_IMAGE_UPLOAD } from '../../constants/api-endpoints'
+import { ENDPOINT_IMAGE_UPLOAD } from '../../constants/api-endpoints' 
 
 var app = getApp();
 Page({

@@ -1,4 +1,6 @@
 <view>
-<button class="btn_instruction"  bindtap="onInstructionBtnClick" type="primary" plain='true'/>
+<button class="btn_instruction"  bindtap="onInstructionBtnClick" type="primary" plain='true' ></button>
 <button class="image_picker" bindtap="onImagePickerBtnClick" type="primary" plain='true'/>
+
+<text class='iconfont icon-jinru'>AA</text>
 </view>

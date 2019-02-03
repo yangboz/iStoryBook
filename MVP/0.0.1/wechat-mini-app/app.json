@@ -1,14 +1,40 @@
 {
   "pages":[
+    "pages/index/index",
     "pages/login/login",
     "pages/profile/profile",
     "pages/result/result",
-    "pages/index/index"
+    "pages/my/my"
+    
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "LuckyDraw",
-    "navigationBarTextStyle":"black"
+    "navigationBarBackgroundColor": "#4A90E2",
+    "navigationBarTitleText": "绘本王国",
+    "navigationBarTextStyle":"white"
   }
+  ,"window": {
+    "navigationBarTitleText": "绘本王国"
+  },
+  "tabBar": {
+    "color":"#333",
+    "selectedColor":"#4A90E2",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "绘本推荐"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的绘本"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  },
+  "debug": true,
+  "navigateToMiniProgramAppIdList": ["wxe5f52902cf4de896"],
+  "pageOrientation": "auto"
 }

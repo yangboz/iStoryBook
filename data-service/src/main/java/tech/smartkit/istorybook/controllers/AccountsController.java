@@ -9,16 +9,19 @@ import java.util.logging.Logger;
 
 import com.afrozaar.wordpress.wpapi.v2.exception.WpApiParsedException;
 import com.afrozaar.wordpress.wpapi.v2.model.User;
+import com.google.gson.Gson;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.web.client.RestTemplate;
 import tech.smartkit.istorybook.exceptions.AccountNotFoundException;
 import tech.smartkit.istorybook.models.Account;
 import tech.smartkit.istorybook.models.WxAccount;
@@ -29,7 +32,7 @@ import tech.smartkit.istorybook.services.WordPressService;
 /**
  * A RESTFul controller for accessing account information.
  * 
- * @author Paul Chapman
+ * @author yangboz
  *
  * @ref: https://springframework.guru/spring-boot-restful-api-documentation-with-swagger-2/
  */
