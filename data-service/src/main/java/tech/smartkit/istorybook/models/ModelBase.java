@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @MappedSuperclass
-public class ModelBase {
+public abstract class ModelBase {
     // @Version
     // @Temporal(TemporalType.DATE)
     // @Column(name = "created", nullable = false)
