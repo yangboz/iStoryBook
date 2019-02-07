@@ -11,8 +11,8 @@ import java.io.Serializable;
 
 //@see:https://github.com/apelegri/wechat-mini-program-wiki#get-user-information
 @Entity
-@Table(name = "T_WXUSER_INFO")
-public class WxAccount extends ModelBase implements Serializable {
+@Table(name = "T_WXUSER")
+public class WxUser extends ModelBase implements Serializable {
     public Long getId() {
         return id;
     }
@@ -28,9 +28,18 @@ public class WxAccount extends ModelBase implements Serializable {
     @ApiModelProperty(notes = "The auto-generated version of the product")
     private Integer version;
 
-    @ApiModelProperty(notes = "The avatarUrl for WxAccount",required = true,readOnly = true)
+    @ApiModelProperty(notes = "The avatarUrl for WxUser",required = true,readOnly = true)
     private String avatarUrl;
 
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
+
+    private String openid;
     private String city;
     private String country;
     private int gender;//sex => 0: unknown ; 1: male ; 2：female
@@ -38,22 +47,12 @@ public class WxAccount extends ModelBase implements Serializable {
     private String nickName;
     private String province;
 
-    public WxAccount(String avatarUrl, String city, String country, int gender, String language, String nickName, String province) {
-        this.avatarUrl = avatarUrl;
-        this.city = city;
-        this.country = country;
-        this.gender = gender;
-        this.language = language;
-        this.nickName = nickName;
-        this.province = province;
-    }
-    public WxAccount(String avatarUrl) {
+    public WxUser(String avatarUrl) {
         this.avatarUrl = avatarUrl;
     }
 
-    public WxAccount() {
+    public WxUser() {
     }
-
 
     public String getAvatarUrl() {
         return avatarUrl;
@@ -113,8 +112,11 @@ public class WxAccount extends ModelBase implements Serializable {
 
     @Override
     public String toString() {
-        return "WxAccount{" +
-                "avatarUrl='" + avatarUrl + '\'' +
+        return "WxUser{" +
+                "id=" + id +
+                ", version=" + version +
+                ", avatarUrl='" + avatarUrl + '\'' +
+                ", openid='" + openid + '\'' +
                 ", city='" + city + '\'' +
                 ", country='" + country + '\'' +
                 ", gender=" + gender +

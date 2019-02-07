@@ -1,11 +1,10 @@
 {
   "pages":[
-    "pages/index/index",
     "pages/login/login",
+    "pages/index/index",
     "pages/profile/profile",
     "pages/result/result",
     "pages/my/my"
-    
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -13,10 +12,7 @@
     "navigationBarTitleText": "绘本王国",
     "navigationBarTextStyle":"white"
   }
-  ,"window": {
-    "navigationBarTitleText": "绘本王国"
-  },
-  "tabBar": {
+  ,"tabBar": {
     "color":"#333",
     "selectedColor":"#4A90E2",
     "list": [

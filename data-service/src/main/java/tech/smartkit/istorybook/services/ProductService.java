@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Logger;
 
-import tech.smartkit.istorybook.models.WxAccount;
+import tech.smartkit.istorybook.models.WxUser;
 import tech.smartkit.istorybook.models.dto.IMConvertInfo;
 
 /**
@@ -93,8 +93,8 @@ public class ProductService {
         //for blockchain transactions，https://www.kairos.com/protocol
         Iterable wxAccountList = wxAccountsService.listAll();
         logger.info("wxAccountList:"+wxAccountList.toString());
-        WxAccount wxUserInfo = wxAccountsService.findOne(uid);
-        logger.info("WxAccount:"+wxUserInfo.toString());
+        WxUser wxUserInfo = wxAccountsService.findOne(uid);
+        logger.info("WxUser:"+wxUserInfo.toString());
         File avatarImageFile = null;
         FileUtils.copyURLToFile(new URL(wxUserInfo.getAvatarUrl()), avatarImageFile);
         //image magick composite all.
