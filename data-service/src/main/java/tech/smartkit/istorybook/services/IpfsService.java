@@ -27,9 +27,9 @@ public class IpfsService {
         // Can't do this in the constructor because the RestTemplate injection
         // happens afterwards.
         // @see: https://github.com/ipfs/java-ipfs-api
-        IPFS ipfs = new IPFS("/ip4/127.0.0.1/tcp/5001");
-        logger.warning("hard coded IPFS info: "+ipfs.toString());
-        ipfs.refs.local();
+//        IPFS ipfs = new IPFS("/ip4/127.0.0.1/tcp/5001");
+//        logger.warning("hard coded IPFS info: "+ipfs.toString());
+//        ipfs.refs.local();
     }
 
     public String put(File file) throws IOException {

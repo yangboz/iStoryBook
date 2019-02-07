@@ -109,8 +109,8 @@ public class WxMaConfiguration {
                 WxMaInMemoryConfig config = new WxMaInMemoryConfig();
                 config.setAppid(a.getAppid());
                 config.setSecret(a.getSecret());
-                config.setToken(a.getToken());
-                config.setAesKey(a.getAesKey());
+//                config.setToken(a.getToken());
+//                config.setAesKey(a.getAesKey());
                 config.setMsgDataFormat(a.getMsgDataFormat());
 
                 WxMaService service = new WxMaServiceImpl();

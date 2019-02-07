@@ -1,13 +1,22 @@
-package tech.smartkit.istorybook.models.dto;
+package tech.smartkit.istorybook.models;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.Embeddable;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 //https://github.com/kuckboy1994/mp_canvas_drawer#api
+//https://www.callicoder.com/hibernate-spring-boot-jpa-element-collection-demo/
 @Getter
 @Setter
 @ToString
+/// /@Table(name = "T_STORYBOOK_PAGE_VIEW")
+
+@Embeddable
 public class StoryBookPageView {
     private String type;//: 'image',
     private String url;//: 'url',

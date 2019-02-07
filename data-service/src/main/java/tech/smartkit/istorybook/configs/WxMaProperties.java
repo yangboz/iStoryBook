@@ -5,11 +5,13 @@ import java.util.List;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import lombok.Data;
+import org.springframework.context.annotation.PropertySource;
 
 /**
  * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 @Data
+//@PropertySource("classpath:application.yml")
 @ConfigurationProperties(prefix = "wx.miniapp")
 public class WxMaProperties {
 
@@ -30,12 +32,12 @@ public class WxMaProperties {
         /**
          * 设置微信小程序消息服务器配置的token
          */
-        private String token;
+//        private String token;
 
         /**
          * 设置微信小程序消息服务器配置的EncodingAESKey
          */
-        private String aesKey;
+//        private String aesKey;
 
         /**
          * 消息格式，XML或者JSON
