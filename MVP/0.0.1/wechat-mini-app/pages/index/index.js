@@ -1,11 +1,14 @@
 //Index.js
 //获取应用实例
 import { set as setGlobalData, get as getGlobalData } from '../../global_data'
-import { ENDPOINT_IMAGE_UPLOAD } from '../../constants/api-endpoints' 
+import { API_STORYBOOK_PUBLIC } from '../../constants/api-endpoints' 
 
 var app = getApp();
 Page({
-created (options) {
+  data: {
+    bookList: []
+  }
+,created (options) {
     console.log(options,option.query)
     // Do some initialize when page load.
   },
@@ -16,8 +19,30 @@ onReady () {
 //global variables
 },
 onLoad: function(option){
-      console.log("@IndexPage,onLoad:",option)
+      console.log("@IndexPage,onLoad:",option);
+      //https://www.jianshu.com/p/2057d88f0920
+      //get public storybook pages
+  var _this = this;
+    wx.request({
+      url: API_STORYBOOK_PUBLIC,
+      data: {},
+      method: 'GET',
+      success: function (res) {
+        console.log(API_STORYBOOK_PUBLIC + " success resp:", res);
+        //
+        _this.setData({ bookList:res.data});
+      }
+      ,fail: function (err) {
+        console.error(API_STORYBOOK_PUBLIC + " fail:", err);
+      }
+    });
 }
+,showBookDetail: function (e) {
+    let id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/pages/book_detail/?id=' + id,
+    })
+  }
 ,onImagePickerBtnClick: function(e){
 	var _this = this;
 	wx.chooseImage({

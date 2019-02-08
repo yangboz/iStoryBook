@@ -1,0 +1,66 @@
+package tech.smartkit.istorybook.models;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import tech.smartkit.istorybook.settings.StoryBookModes;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
+import java.util.*;
+
+//https://github.com/kuckboy1994/mp_canvas_drawer#api
+@Entity
+@Table(name = "T_STORYBOOK")
+@Data
+@JsonIgnoreProperties(value= {"pages"})
+@ToString
+@EqualsAndHashCode
+public class StoryBook extends ModelBase implements Serializable{
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue
+    protected Long id;
+    @NotNull
+    @Size(max = 10)
+    private double width;//
+    @NotNull
+    @Size(max = 10)
+    private double height;
+    @NotNull
+    @Size(max = 10)
+    private String title;//
+    @NotNull
+    @Size(max = 144)
+    private String description;
+    @NotNull
+    @Size(max = 300)
+    private String cover;
+
+    private double rate;
+    private int share;
+
+    private String author;//
+//    @ElementCollection(fetch = FetchType.LAZY)
+//    @CollectionTable(name = "T_STORYBOOK_PAGE", joinColumns = @JoinColumn(name = "storybook_id"))
+////@AttributeOverrides({
+////        @AttributeOverride(name = "addressLine1", column = @Column(name = "house_number")),
+////        @AttributeOverride(name = "addressLine2", column = @Column(name = "street"))
+////})
+//    private Collection<StoryBookPage> pages = new ArrayList<>();
+//https://vladmihalcea.com/the-best-way-to-use-the-manytomany-annotation-with-jpa-and-hibernate/
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(name = "BOOK_PAGE",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "page_id")
+    )
+    private Set<StoryBookPage> pages = new HashSet<>();
+
+    private String mode= StoryBookModes.PUBLIC.toString();//free for template, private property for trading.default is public.
+}

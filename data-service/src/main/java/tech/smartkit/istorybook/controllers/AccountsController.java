@@ -5,6 +5,7 @@
 package tech.smartkit.istorybook.controllers;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import com.afrozaar.wordpress.wpapi.v2.exception.WpApiParsedException;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import tech.smartkit.istorybook.exceptions.AccountNotFoundException;
 import tech.smartkit.istorybook.models.Account;
+import tech.smartkit.istorybook.models.StoryBookPage;
 import tech.smartkit.istorybook.models.WxUser;
 import tech.smartkit.istorybook.models.dao.AccountRepository;
 import tech.smartkit.istorybook.models.dao.WxUserRepository;
@@ -42,20 +44,20 @@ public class AccountsController {
 			.getName());
 	@Autowired
 	protected AccountRepository accountRepository;
-	@Autowired
-	protected WxUserRepository wxUserRepository;
+//	@Autowired
+//	protected WxUserRepository wxUserRepository;
 	@Autowired
 	WordPressService wordPressService;
-	/**
-	 * Create an instance plugging in the respository of Accounts.
-	 *
-	 *            An account repository implementation.
-	 */
-	@Autowired
-	public AccountsController(WxUserRepository wxUserRepository) {
-		this.wxUserRepository = wxUserRepository;
-		logger.info("AccountRepository autowired.");
-	}
+//	/**
+//	 * Create an instance plugging in the respository of Accounts.
+//	 *
+//	 *            An account repository implementation.
+//	 */
+//	@Autowired
+//	public AccountsController(AccountRepository wxUserRepository) {
+//		this.accountRepository = accountRepository;
+//		logger.info("AccountRepository autowired.");
+//	}
 //	public AccountsController() {
 //		logger.info("AccountRepository says system has "
 //				+ accountRepository.countAccounts() + " accounts");
@@ -112,22 +114,22 @@ public class AccountsController {
 	 * is supported. So <code>http://.../accounts/owner/a</code> will find any
 	 * accounts with upper or lower case 'a' in their name.
 	 * 
-	 * @param nickName
+	 * @param owner
 	 * @return A non-null, non-empty set of accounts.
 	 * @throws AccountNotFoundException
 	 *             If there are no matches at all.
 	 */
-	@RequestMapping("/nickName/{nickName}")
-	public List<WxUser> byNickName(@PathVariable("nickName") String nickName) {
+	@RequestMapping("/o/{owner}")
+	public List<Account> byOwner(@PathVariable("owner") String owner) {
 		logger.info("accounts-service byOwner() invoked: "
 				+ accountRepository.getClass().getName() + " for "
-				+ nickName);
+				+ owner);
 
-		List<WxUser> accounts = wxUserRepository.findByNickName(nickName);
+		List<Account> accounts = accountRepository.findByOwnerContainingIgnoreCase(owner);
 		logger.info("accounts-service byOwner() found: " + accounts);
 
 		if (accounts == null || accounts.size() == 0)
-			throw new AccountNotFoundException(nickName);
+			throw new AccountNotFoundException(owner);
 		else {
 			return accounts;
 		}
@@ -142,7 +144,7 @@ public class AccountsController {
 	public int counts() {
 
 		logger.info("accounts-service counts() invoked: ");
-		List<WxUser> wxUserInfos = (List<WxUser>) wxUserRepository.findAll();
+		List<Account> wxUserInfos = (List<Account>) accountRepository.findAll();
 		logger.info("accounts-service counts() found: " + wxUserInfos.size());
 		return wxUserInfos.size();
 	}
@@ -157,25 +159,26 @@ public class AccountsController {
 	@RequestMapping(value="/save/",method = RequestMethod.POST
 			, consumes = MediaType.APPLICATION_JSON_VALUE
 			, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<WxUser> save(
-			@RequestBody WxUser wxUserInfo ) throws WpApiParsedException {
+	public ResponseEntity<Account> save(
+			@RequestBody Account account ) throws WpApiParsedException {
 //			@RequestParam("userInfo") WxUser wxUserInfo) {
 		logger.info("accounts-service save() invoked: ");
 		//if not existed?
-		List<WxUser> find = wxUserRepository.findByNickName(wxUserInfo.getNickName());
-		WxUser saved = null;
+		List<Account> find = accountRepository.findByOwnerContainingIgnoreCase(account.getOwner());
+		Account saved = null;
 		if(find==null){
-			saved = wxUserRepository.save(wxUserInfo);
-			//create a WordPress user.
-			User wpUser = new User();
-			wpUser.setName(wxUserInfo.getNickName());
-			wpUser.setUrl(wxUserInfo.getAvatarUrl());
-			wpUser.setDescription(wxUserInfo.toString());
-			wordPressService.createUser(wpUser);
+			saved = accountRepository.save(account);
 		}{
 			logger.info("accounts-service save() already existed: " + find.toString());
 		}
 		logger.info("accounts-service save() result: " + saved);
-		return new ResponseEntity<WxUser>(saved, HttpStatus.OK);
+		return new ResponseEntity<Account>(saved, HttpStatus.OK);
+	}
+
+	@RequestMapping("/f/{oid}")
+	public List<Account> findByOpenid(@PathVariable("oid") String oid) {
+		List<Account> find = accountRepository.findByOwnerContainingIgnoreCase(oid);
+		logger.info("accounts-service findByOpenid result: " + find);
+		return find;
 	}
 }

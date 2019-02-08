@@ -8,12 +8,13 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 import tech.smartkit.istorybook.models.Account;
-
+@Repository
 /**
  * Repository for Account data implemented using Spring Data JPA.
  * 
- * @author Paul Chapman
+ * @author yangboz
  */
 public interface AccountRepository extends CrudRepository<Account, Long> {
 	/**
@@ -44,4 +45,5 @@ public interface AccountRepository extends CrudRepository<Account, Long> {
 
 //	@Query("SELECT * from Account")
 //	public List<Account> findAll();
+
 }

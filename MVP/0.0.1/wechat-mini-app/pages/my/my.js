@@ -1,59 +1,29 @@
 import { set as setGlobalData, get as getGlobalData } from '../../global_data'
+import { API_STORYBOOK_MY } from '../../constants/api-endpoints'
 
 Page({
-
- onLoginBtnClick: function(e){
-
-   wx.showModal({
-     title: 'Share WeChat info',
-     content: 'Share WeChat info with ANIRAC.',
-     showCancel: true,
-     confirmColor: '#30b1f3',
-     cancelText: 'No',
-     confirmText: 'Yes',
-     success: function (res) {
-       if (res.confirm) {
-         
-         wx.redirectTo({
-           url: '/pages/profile/profile'
-         })
-
-       }
-       if (res.cancel) {
-         
-        //  wx.redirectTo({
-        //    url: '/pages/index/index'
-        //  })
-       }
-
-     }
-   });
-
-
-	console.log("getWxCode...");
-	var _this = this;
-	// wx.navigateTo({url: '/pages/login/login'});
-    wx.login({
+  data: {
+    bookList: []
+  }
+  ,onLoad: function (option) {
+    console.log("@MyPage,onLoad:", option);
+    var g_openid = getGlobalData("openid");
+    var _this = this;
+    //get my storybook pages
+    wx.request({
+      url: API_STORYBOOK_MY + g_openid,
+      data: {},
+      method: 'GET',
       success: function (res) {
-      	console.log("wx.login success response:",res);
-        var appId = 'wx8834117a4fca9256';//appid
-        var appSecret = '4a4a8e0d067b0ddeb027a451ec76a4af';//的app secret
-        var js_code = res.code;//code
-        console.log("js_code:",js_code);
-        //only works for debugging
-        wx.request({
-          url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appId + '&secret=' + appSecret + '&js_code=' + js_code + '&grant_type=authorization_code',
-          data: {},
-          method: 'GET',
-          success: function (res) {
-            var openid = res.data.openid //返回的用户唯一标识符openid
-            console.log("openid:",openid);
-          }
-        });
-        
-        }
+        console.log(API_STORYBOOK_MY + " success resp:", res);
+        //
+        _this.setData({ bookList: res.data });
+      }
+      , fail: function (err) {
+        console.error(API_STORYBOOK_MY + " fail:", err);
+      }
     });
- } 
+  }
   ,onShow() {
     
   },

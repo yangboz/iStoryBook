@@ -4,13 +4,14 @@
 
 package tech.smartkit.istorybook.models;
 
+import lombok.EqualsAndHashCode;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Persistent account entity with JPA markup. Accounts are stored in an H2
@@ -20,6 +21,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "T_ACCOUNT")
+@EqualsAndHashCode
 public class Account implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -29,12 +31,18 @@ public class Account implements Serializable {
 	@Id
 	protected Long id;
 
-	protected String number;
+	protected int number;
 
-	@Column(name = "name")
+	@Column(name = "name")//for WxUser is openid.
 	protected String owner;
 
 	protected BigDecimal balance;
+
+	//current point to storybook page ids.
+	@ElementCollection
+	@CollectionTable(name = "ACCOUNT_ASSETS", joinColumns = @JoinColumn(name = "ACCOUNT_ID"))
+	@OrderColumn
+	private List<StoryBookPage> assets = new ArrayList<>();
 
 	/**
 	 * This is a very simple, and non-scalable solution to generating unique
@@ -56,7 +64,7 @@ public class Account implements Serializable {
 		balance = BigDecimal.ZERO;
 	}
 
-	public Account(String number, String owner) {
+	public Account(int number, String owner) {
 		id = getNextId();
 		this.number = number;
 		this.owner = owner;
@@ -77,11 +85,11 @@ public class Account implements Serializable {
 		this.id = id;
 	}
 
-	public String getNumber() {
+	public int getNumber() {
 		return number;
 	}
 
-	protected void setNumber(String accountNumber) {
+	protected void setNumber(int accountNumber) {
 		this.number = accountNumber;
 	}
 

@@ -5,11 +5,13 @@
 package tech.smartkit.istorybook.models.dao;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 import tech.smartkit.istorybook.models.WxUser;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface WxUserRepository extends CrudRepository<WxUser, Long> {
 
     /**
@@ -20,10 +22,9 @@ public interface WxUserRepository extends CrudRepository<WxUser, Long> {
      * @return The list of matching accounts - always non-null, but may be
      *         empty.
      */
-    public List<WxUser> findByNickName(String nickName);
-
+    List<WxUser> findByNickName(String nickName);
     //
-    public Optional<WxUser> findById(Long id);
+    Optional<WxUser> findById(Long id);
     //
-    public Optional<WxUser> findByOpenid(String oid);
+    Optional<WxUser> findByOpenid(String oid);
 }

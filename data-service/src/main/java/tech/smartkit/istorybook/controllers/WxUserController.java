@@ -14,10 +14,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tech.smartkit.istorybook.models.Account;
 import tech.smartkit.istorybook.models.StoryBookPage;
 import tech.smartkit.istorybook.models.WxUser;
+import tech.smartkit.istorybook.models.dao.AccountRepository;
 import tech.smartkit.istorybook.models.dao.StoryBookPageRepository;
 import tech.smartkit.istorybook.models.dao.WxUserRepository;
+import tech.smartkit.istorybook.utils.NumberUtil;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +35,8 @@ public class WxUserController {
 
     @Autowired
     WxUserRepository wxUserRepository;
+    @Autowired
+    AccountRepository accountRepository;
     /**
      /WxUser
      POST / - Create cart
@@ -88,10 +93,15 @@ public class WxUserController {
         if(find.isPresent()){
             //TODO update.
             logger.info("accounts-service save() with update: " + find);
+            return new ResponseEntity<WxUser>(find.get(), HttpStatus.OK);
         }else {
             //save new
             saved = wxUserRepository.save(wxUser);
-            logger.info("accounts-service save() result: " + saved);
+            logger.info("wxUser-service save() result: " + saved);
+            //sync to account
+            Account _account = new Account(NumberUtil.nextRandomInt(),saved.getOpenid());
+            Account savedAccount = accountRepository.save(_account);
+            logger.info("and accounts-service save() result: " + savedAccount);
         }
         return new ResponseEntity<WxUser>(saved, HttpStatus.OK);
     }

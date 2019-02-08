@@ -13,12 +13,12 @@ public abstract class ModelBase {
     // @Temporal(TemporalType.DATE)
     // @Column(name = "created", nullable = false)
     // @Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
-    @Column(name = "CREATED", nullable = false, insertable = true, updatable = true, length = 19, precision = 0)
+    @Column(name = "create_at", nullable = false, insertable = true, updatable = true, length = 19, precision = 0)
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated", nullable = false)
+    @Column(name = "update_at", nullable = false)
     private Date updated;
 
     @PrePersist
@@ -42,13 +42,13 @@ public abstract class ModelBase {
     // The item date
 //	@NotNull
 //	private Date date = new Date();
-    protected Date date;
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
+//    protected Date date;
+//
+//    public Date getDate() {
+//        return date;
+//    }
+//
+//    public void setDate(Date date) {
+//        this.date = date;
+//    }
 }

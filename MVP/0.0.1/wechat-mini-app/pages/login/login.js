@@ -1,4 +1,6 @@
 import { set as setGlobalData, get as getGlobalData } from '../../global_data'
+import { API_WX_USER_LOGIN, API_WX_USER_SAVE } from '../../constants/api-endpoints' ;
+
 
 Page({
   data: {
@@ -15,7 +17,7 @@ Page({
               console.log("wx.getUserInfo:");
               console.log(res.userInfo);
               //save to globaldata.
-              setGlobalData("nickname",res.userInfo.nickName);
+              setGlobalData("nickName",res.userInfo.nickName);
               setGlobalData("gender", res.userInfo.gender);
               setGlobalData("avatarUrl", res.userInfo.avatarUrl);
               setGlobalData("city", res.userInfo.city);
@@ -50,7 +52,7 @@ Page({
         // });
         //http://localhost:8080/storybook/storybook/page/
         wx.request({
-          url: 'http://localhost:8080/storybook/wx/user/' + appId + '/login?' + 'code=' + js_code,
+          url: API_WX_USER_LOGIN + appId + '/login?' + 'code=' + js_code,
           data: {},
           method: 'GET',
           success: function (res) {
@@ -71,10 +73,10 @@ Page({
     //sync user info.
     //http://localhost:8080/storybook/storybook/page/
      wx.request({
-       url: 'http://localhost:8080/storybook/wx/user/save/',
+       url: API_WX_USER_SAVE,
        data: {
          "openid": getGlobalData("openid"),
-         "nickname": getGlobalData("nickname"),
+         "nickName": getGlobalData("nickName"),
          "gender": getGlobalData("gender"),
          "avatarUrl": getGlobalData("avatarUrl"),
          "city": getGlobalData("city"),
@@ -90,10 +92,15 @@ Page({
       //   'content-type':'application/x-www-form-urlencoded'
       //  },
        success: function (res) {
-         console.log("/storybook/wx/user/save resp:", res);
+         console.log(API_WX_USER_SAVE +" success resp:", res);
+         //redirect to index page.
+         wx.switchTab({
+           url: '/pages/index/index'
+         });
          //
-        
-         //
+       },
+       fail:function(err) {
+         console.error(API_WX_USER_SAVE+" fail:", err);
        }
      });
 
