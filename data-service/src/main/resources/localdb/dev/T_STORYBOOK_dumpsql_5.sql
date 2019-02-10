@@ -21,5 +21,5 @@ CREATE TABLE `T_STORYBOOK` (
 /*Data for the table `T_STORYBOOK_PAGE` */
 
 insert  into `T_STORYBOOK`(`id`,`author`,`title`,`description`,`cover`,`pages`,`rate`,`share`,`width`,`height`,`mode`,`create_at`,`update_at`) values
-(1,'官方作品','骑士的勇气','美丽的公主被魔王抢走，勇敢的小骑士Mark开启了营救之旅...','https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJA7Siay35wOVVuGZ9mMicnLkof0kAvowk0wibuHibIfH42uqtODEdYoIx7AFmh6K8LD1E79LmrtvwAcw/132','1,11,12',0,0,100,100,'public','2018-12-28 23:01:35','2018-12-28 23:01:35'),
-(2,'oyZCt4rMnjmn8lvFRTLbzi05CBfA','疯狂捉迷藏','玩捉迷藏啦～小松鼠Tomas有一个疯狂的不被人发现的想法...','https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJA7Siay35wOVVuGZ9mMicnLkof0kAvowk0wibuHibIfH42uqtODEdYoIx7AFmh6K8LD1E79LmrtvwAcw/132','2,21,27',0,0,200,200,'public','2018-12-28 23:01:35','2018-12-28 23:01:35')
+(1,'官方作品','骑士的勇气','美丽的公主被魔王抢走，勇敢的小骑士Mark开启了营救之旅...','http://knighter.xyz:82/assets/previews/low/1.jpg',0,0,0,100,100,'public','2018-12-28 23:01:35','2018-12-28 23:01:35'),
+(2,'oyZCt4rMnjmn8lvFRTLbzi05CBfA','疯狂捉迷藏','玩捉迷藏啦～小松鼠Tomas有一个疯狂的不被人发现的想法...','http://knighter.xyz:82/assets/previews/low/2.jpg',0,0,0,200,200,'public','2018-12-28 23:01:35','2018-12-28 23:01:35')

@@ -1,19 +1,44 @@
 //preview.js
 //获取应用实例
 import { set as setGlobalData, get as getGlobalData } from '../../global_data'
-import {  ENDPOINT_IMAGE_REVIEW } from '../../constants/api-endpoints'
+import {  } from '../../constants/api-endpoints'
 
 var app = getApp();
 Page(
 {
 data: {
-    imagePreview: null,
-    maxWidth: 320,
-    maxHeight: 504,
-    rWidth: 0,
-    rHeight: 0
-},
-created (options) {
+    imgUrls: [
+      'http://knighter.xyz:82/assets/templates/1.jpg',
+      'http://knighter.xyz:82/assets/templates/2.jpg',
+      'http://knighter.xyz:82/assets/templates/3.jpg',
+      'http://knighter.xyz:82/assets/templates/4.jpg'
+    ],
+    indicatorDots: true,
+    autoplay: false,
+    interval: 5000,
+    duration: 1000
+  }
+,changeIndicatorDots(e) {
+    this.setData({
+      indicatorDots: !this.data.indicatorDots
+    })
+  }
+  ,changeAutoplay(e) {
+    this.setData({
+      autoplay: !this.data.autoplay
+    })
+  }
+  ,intervalChange(e) {
+    this.setData({
+      interval: e.detail.value
+    })
+  }
+  ,durationChange(e) {
+    this.setData({
+      duration: e.detail.value
+    })
+  }
+,created (options) {
     console.log(options,option.query)
     // Do some initialize when page load.
 }

@@ -14,10 +14,9 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @ToString
-/// /@Table(name = "T_STORYBOOK_PAGE_VIEW")
-
+@Table(name = "T_STORYPAGE_VIEW")
 @Embeddable
-public class StoryBookPageView {
+public class StoryPageView {
     private String type;//: 'image',
     private String url;//: 'url',
     private double top;//: 0,

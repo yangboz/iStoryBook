@@ -1,12 +1,12 @@
 package tech.smartkit.istorybook.models.dto;
 
-import tech.smartkit.istorybook.models.StoryBookPageView;
-import tech.smartkit.istorybook.settings.StoryBookPageViewTypes;
+import tech.smartkit.istorybook.models.StoryPageView;
+import tech.smartkit.istorybook.settings.StoryPageViewTypes;
 
-public class StoryBookRectView extends StoryBookPageView {
+public class StoryBookRectView extends StoryPageView {
 
     @Override
     public String getType() {
-        return StoryBookPageViewTypes.RECT.toString();
+        return StoryPageViewTypes.RECT.toString();
     }
 }

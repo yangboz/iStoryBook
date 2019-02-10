@@ -40,7 +40,7 @@ onLoad: function(option){
 ,showBookDetail: function (e) {
     let id = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '/pages/book_detail/?id=' + id,
+      url: '/pages/preview/preview?id=' + id,
     })
   }
 ,onImagePickerBtnClick: function(e){

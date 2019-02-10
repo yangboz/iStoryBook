@@ -1,6 +1,6 @@
 package tech.smartkit.istorybook.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -16,7 +16,7 @@ import java.util.*;
 @Entity
 @Table(name = "T_STORYBOOK")
 @Data
-@JsonIgnoreProperties(value= {"pages"})
+//@JsonIgnoreProperties(value= {"pages"})
 @ToString
 @EqualsAndHashCode
 public class StoryBook extends ModelBase implements Serializable{
@@ -25,11 +25,11 @@ public class StoryBook extends ModelBase implements Serializable{
     @GeneratedValue
     protected Long id;
     @NotNull
-    @Size(max = 10)
-    private double width;//
+//    @Size(max = 10)
+    private int width;//
     @NotNull
-    @Size(max = 10)
-    private double height;
+//    @Size(max = 10)
+    private int height;
     @NotNull
     @Size(max = 10)
     private String title;//
@@ -50,17 +50,28 @@ public class StoryBook extends ModelBase implements Serializable{
 ////        @AttributeOverride(name = "addressLine1", column = @Column(name = "house_number")),
 ////        @AttributeOverride(name = "addressLine2", column = @Column(name = "street"))
 ////})
-//    private Collection<StoryBookPage> pages = new ArrayList<>();
+//    private Collection<StoryPage> pages = new ArrayList<>();
 //https://vladmihalcea.com/the-best-way-to-use-the-manytomany-annotation-with-jpa-and-hibernate/
-    @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
-    @JoinTable(name = "BOOK_PAGE",
-            joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "page_id")
-    )
-    private Set<StoryBookPage> pages = new HashSet<>();
+//    @ManyToMany(cascade = {
+//            CascadeType.PERSIST,
+//            CascadeType.MERGE
+//    })
+//    @JoinTable(name = "BOOK_PAGE",
+//            joinColumns = @JoinColumn(name = "book_id"),
+//            inverseJoinColumns = @JoinColumn(name = "page_id")
+//    )
+//https://www.objectdb.com/api/java/jpa/ManyToMany
+//http://juhahinkula.github.io/2016-07-16-crudboot-manytomany/
+//https://vladmihalcea.com/the-best-way-to-handle-the-lazyinitializationexception/
+//@ManyToMany(targetEntity=tech.smartkit.istorybook.models.StoryPage.class,fetch = FetchType.EAGER)
+//    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+//    @JoinTable(name = "book_publisher", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "page_id", referencedColumnName = "id"))
+////    @JsonIgnore
+//    private Set<StoryPage> pages = new HashSet<>();
+
+    @OneToMany(mappedBy = "storybook", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<StoryBookPage> storyBookPages = new HashSet<>();
+
 
     private String mode= StoryBookModes.PUBLIC.toString();//free for template, private property for trading.default is public.
 }

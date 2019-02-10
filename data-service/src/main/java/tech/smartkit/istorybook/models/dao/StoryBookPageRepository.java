@@ -1,11 +1,10 @@
 package tech.smartkit.istorybook.models.dao;
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 import tech.smartkit.istorybook.models.StoryBookPage;
 
-import java.util.List;
-@Repository
-public interface StoryBookPageRepository extends CrudRepository<StoryBookPage,Long> {
-    List<StoryBookPage> findByMode(String mode);
+import java.util.spi.LocaleNameProvider;
+
+//@see:https://hellokoding.com/restful-api-example-with-spring-boot-spring-data-rest-spring-data-jpa-many-to-many-extra-columns-relationship-and-mysql/
+public interface StoryBookPageRepository extends CrudRepository<StoryBookPage,LocaleNameProvider> {
 }

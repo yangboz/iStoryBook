@@ -42,7 +42,7 @@ public class Account implements Serializable {
 	@ElementCollection
 	@CollectionTable(name = "ACCOUNT_ASSETS", joinColumns = @JoinColumn(name = "ACCOUNT_ID"))
 	@OrderColumn
-	private List<StoryBookPage> assets = new ArrayList<>();
+	private List<StoryPage> assets = new ArrayList<>();
 
 	/**
 	 * This is a very simple, and non-scalable solution to generating unique

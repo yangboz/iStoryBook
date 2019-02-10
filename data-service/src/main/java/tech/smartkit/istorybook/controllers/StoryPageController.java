@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tech.smartkit.istorybook.models.StoryBookPage;
-import tech.smartkit.istorybook.models.dao.StoryBookPageRepository;
+import tech.smartkit.istorybook.models.StoryPage;
+import tech.smartkit.istorybook.models.dao.StoryPageRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,13 +20,13 @@ import java.util.Optional;
 @Slf4j
 @RestController
 @RequestMapping(value ="/page")
-@Api(value="StoryBookPageController", description="Operations pertaining to storybook pages in iStoryBook")
-public class StoryBookPageController {
+@Api(value="StoryPageController", description="Operations pertaining to storypages in iStoryBook")
+public class StoryPageController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    StoryBookPageRepository storyBookPageRepository;
+    StoryPageRepository storyBookPageRepository;
     /**
      /cart
      POST / - Create cart
@@ -48,17 +48,17 @@ public class StoryBookPageController {
     }
     )
     @RequestMapping("/")
-    public Iterable<StoryBookPage> listAll() {
+    public Iterable<StoryPage> listAll() {
         return storyBookPageRepository.findAll();
     }
 
     @RequestMapping("/{id}")
-    public Optional<StoryBookPage> getOne(@PathVariable("id") long id) {
+    public Optional<StoryPage> getOne(@PathVariable("id") long id) {
         return storyBookPageRepository.findById(id);
     }
 
     @RequestMapping("/m/{mode}")
-    public List<StoryBookPage> findByMode(@PathVariable("mode") String mode) {
+    public List<StoryPage> findByMode(@PathVariable("mode") String mode) {
         return storyBookPageRepository.findByMode(mode);
     }
 }

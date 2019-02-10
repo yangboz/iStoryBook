@@ -3,6 +3,7 @@
     "pages/login/login",
     "pages/index/index",
     "pages/profile/profile",
+    "pages/preview/preview",
     "pages/result/result",
     "pages/my/my"
   ],

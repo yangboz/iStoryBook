@@ -1,6 +1,6 @@
 package tech.smartkit.istorybook.settings;
 
-public enum StoryBookPageViewTypes {
+public enum StoryPageViewTypes {
     IMAGE,
     TEXT,
     RECT

@@ -5,11 +5,9 @@
 package tech.smartkit.istorybook.controllers;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Logger;
 
 import com.afrozaar.wordpress.wpapi.v2.exception.WpApiParsedException;
-import com.afrozaar.wordpress.wpapi.v2.model.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -22,10 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import tech.smartkit.istorybook.exceptions.AccountNotFoundException;
 import tech.smartkit.istorybook.models.Account;
-import tech.smartkit.istorybook.models.StoryBookPage;
-import tech.smartkit.istorybook.models.WxUser;
 import tech.smartkit.istorybook.models.dao.AccountRepository;
-import tech.smartkit.istorybook.models.dao.WxUserRepository;
 import tech.smartkit.istorybook.services.WordPressService;
 
 /**
