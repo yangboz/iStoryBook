@@ -69,7 +69,8 @@ public class StoryBook extends ModelBase implements Serializable{
 ////    @JsonIgnore
 //    private Set<StoryPage> pages = new HashSet<>();
 
-    @OneToMany(mappedBy = "storybook", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "storyBook", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private Set<StoryBookPage> storyBookPages = new HashSet<>();
 
 

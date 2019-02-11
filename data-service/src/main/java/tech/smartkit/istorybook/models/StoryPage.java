@@ -28,25 +28,31 @@ public class StoryPage extends ModelBase implements Serializable{
 //    @Size(max = 10)
     private int height;
     private String mode= StoryBookModes.PUBLIC.toString();//free for template, private property for trading.default is public.
+//    @ElementCollection
+//@Embedded
 //    private List<StoryPageView> views;//
 //    @ElementCollection
     //@see: https://www.callicoder.com/hibernate-spring-boot-jpa-element-collection-demo/
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "T_STORYPAGE_VIEW", joinColumns = @JoinColumn(name = "storypage_id"))
+//    @ElementCollection(fetch = FetchType.LAZY)
+//    @CollectionTable(name = "T_STORYPAGE_VIEW", joinColumns = @JoinColumn(name = "storypage_id"))
 //@AttributeOverrides({
 //        @AttributeOverride(name = "addressLine1", column = @Column(name = "house_number")),
 //        @AttributeOverride(name = "addressLine2", column = @Column(name = "street"))
 //})
-    @JsonIgnore
-//    private Collection<StoryPageView> views = new ArrayList<>();
-    private Set<StoryPageView> views = new HashSet<>();
+//    @JsonIgnore
+//@ElementCollection
+@Embedded
+@ElementCollection
+    private List<StoryPageView> views = new ArrayList<>();
+//    @Embedded
+//@ElementCollection
+//    private Set<StoryPageView> views = new HashSet<>();
 
 //https://vladmihalcea.com/the-best-way-to-use-the-manytomany-annotation-with-jpa-and-hibernate/
 //    @ManyToMany(mappedBy = "pages")
 ////@ManyToMany(targetEntity=tech.smartkit.istorybook.models.StoryBook.class, mappedBy="pages",fetch = FetchType.EAGER)
-////    @JsonIgnore
-//    private Set<StoryBook> books = new HashSet<>();
     @OneToMany(mappedBy = "storyPage")
+    @JsonIgnore
     private Set<StoryBookPage> storyBookPages = new HashSet<>();
 
     @Override

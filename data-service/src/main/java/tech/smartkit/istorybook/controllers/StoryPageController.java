@@ -39,7 +39,7 @@ public class StoryPageController {
     /**
      * View wxshop orders by id.
      */
-    @ApiOperation(value = "View a list of available StoryBookPages", response = Iterable.class)
+    @ApiOperation(value = "View a list of available StoryPages", response = Iterable.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved list"),
             @ApiResponse(code = 401, message = "You are not authorized to view the resource"),

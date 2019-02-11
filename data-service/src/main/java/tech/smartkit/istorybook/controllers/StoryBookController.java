@@ -1,7 +1,6 @@
 package tech.smartkit.istorybook.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -44,7 +43,7 @@ public class StoryBookController {
     /**
      * View wxshop orders by id.
      */
-    @ApiOperation(value = "View a list of available StoryBookPages", response = Iterable.class)
+    @ApiOperation(value = "View a list of available StoryBooks", response = Iterable.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved list"),
             @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
@@ -54,13 +53,6 @@ public class StoryBookController {
     )
     @RequestMapping("/")
     public Iterable<StoryBook> listAll() {
-        ObjectMapper mapper = new ObjectMapper();
-//// for Hibernate 4.x:
-//        mapper.registerModule(new Hibernate4Module());
-// or, for Hibernate 5.x
-        mapper.registerModule(new Hibernate5Module());
-//// or, for Hibernate 3.6
-//        mapper.registerModule(new Hibernate3Module());
         return storyBookRepository.findAll();
     }
 
