@@ -1,5 +1,6 @@
 package tech.smartkit.istorybook.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,6 +9,7 @@ import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 //https://github.com/kuckboy1994/mp_canvas_drawer#api
 //https://www.callicoder.com/hibernate-spring-boot-jpa-element-collection-demo/
@@ -16,7 +18,11 @@ import javax.persistence.Table;
 @ToString
 @Table(name = "T_STORYPAGE_VIEW")
 @Embeddable
-public class StoryPageView {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class StoryPageView implements Serializable {
+    @Id
+    @GeneratedValue
+    protected Long id;
     private String type;//: 'image',
     private String url;//: 'url',
     private double top;//: 0,

@@ -1,9 +1,7 @@
 package tech.smartkit.istorybook.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 import tech.smartkit.istorybook.settings.StoryBookModes;
 
 import javax.persistence.*;
@@ -19,6 +17,8 @@ import java.util.*;
 //@JsonIgnoreProperties(value= {"pages"})
 @ToString
 @EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
 public class StoryBook extends ModelBase implements Serializable{
     private static final long serialVersionUID = 1L;
     @Id
@@ -75,4 +75,8 @@ public class StoryBook extends ModelBase implements Serializable{
 
 
     private String mode= StoryBookModes.PUBLIC.toString();//free for template, private property for trading.default is public.
+
+    public StoryBook(Long id) {
+        this.id = id;
+    }
 }

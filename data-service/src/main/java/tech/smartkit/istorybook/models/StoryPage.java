@@ -1,8 +1,22 @@
 package tech.smartkit.istorybook.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.vladmihalcea.hibernate.type.array.IntArrayType;
+import com.vladmihalcea.hibernate.type.array.StringArrayType;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+import com.vladmihalcea.hibernate.type.json.JsonNodeBinaryType;
+import com.vladmihalcea.hibernate.type.json.JsonNodeStringType;
+import com.vladmihalcea.hibernate.type.json.JsonStringType;
+import jdk.nashorn.internal.objects.annotations.Constructor;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
 import tech.smartkit.istorybook.settings.StoryBookModes;
 
 import javax.persistence.*;
@@ -16,6 +30,16 @@ import java.util.*;
 @Data
 //@JsonIgnoreProperties(value= {"views","books"})
 @EqualsAndHashCode
+@TypeDefs({
+        @TypeDef(name = "string-array", typeClass = StringArrayType.class),
+        @TypeDef(name = "int-array", typeClass = IntArrayType.class),
+        @TypeDef(name = "json", typeClass = JsonStringType.class),
+        @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class),
+        @TypeDef(name = "jsonb-node", typeClass = JsonNodeBinaryType.class),
+        @TypeDef(name = "json-node", typeClass = JsonNodeStringType.class),
+})
+@AllArgsConstructor
+@NoArgsConstructor
 public class StoryPage extends ModelBase implements Serializable{
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,11 +65,16 @@ public class StoryPage extends ModelBase implements Serializable{
 //})
 //    @JsonIgnore
 //@ElementCollection
-@Embedded
-@ElementCollection
-    private List<StoryPageView> views = new ArrayList<>();
+//@Embedded
+//@ElementCollection
+
+//    private List<StoryPageView> views = new ArrayList<>();
 //    @Embedded
 //@ElementCollection
+//@JsonUnwrapped
+@Type(type = "jsonb")
+@Column(columnDefinition = "jsonb")
+private List<StoryPageView> views = new ArrayList<>();
 //    private Set<StoryPageView> views = new HashSet<>();
 
 //https://vladmihalcea.com/the-best-way-to-use-the-manytomany-annotation-with-jpa-and-hibernate/
@@ -64,5 +93,9 @@ public class StoryPage extends ModelBase implements Serializable{
                 ", mode='" + mode + '\'' +
                 ", views=" + views +
                 '}';
+    }
+
+    public StoryPage(Long id) {
+        this.id = id;
     }
 }

@@ -13,9 +13,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.smartkit.istorybook.models.StoryBook;
+import tech.smartkit.istorybook.models.StoryBookPage;
 import tech.smartkit.istorybook.models.StoryPage;
+import tech.smartkit.istorybook.models.dao.StoryBookPageRepository;
 import tech.smartkit.istorybook.models.dao.StoryBookRepository;
+import tech.smartkit.istorybook.models.dao.StoryPageRepository;
 
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -25,12 +29,17 @@ import java.util.Set;
 @RestController
 @RequestMapping(value ="/book/")
 @Api(value="StoryBookController", description="Operations pertaining to storybooks in iStoryBook")
+//@Transactional
 public class StoryBookController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     StoryBookRepository storyBookRepository;
+    @Autowired
+    StoryPageRepository storyPageRepository;
+    @Autowired
+    StoryBookPageRepository storyBookPageRepository;
     /**
      /cart
      POST / - Create cart
@@ -77,32 +86,23 @@ public class StoryBookController {
         return new ResponseEntity<StoryBook>(saved, HttpStatus.OK);
     }
 //@see: https://hellokoding.com/restful-api-example-with-spring-boot-spring-data-rest-spring-data-jpa-many-to-many-extra-columns-relationship-and-mysql/
-//    @RequestMapping(value="/{id}/add/",method = RequestMethod.POST)
-//    public ResponseEntity<StoryBook> addPage(@PathVariable("id") long id, @RequestBody StoryPage storyBookPage )  {
-//        Optional<StoryBook> findOne = storyBookRepository.findById(id);
-//        StoryBook savedRes = null;
-//        //
-//        if(findOne.isPresent()){
-//            StoryBook  preSaved  = findOne.get();
-//            preSaved.getStoryBookPages().add(storyBookPage.getId());
-//            savedRes = storyBookRepository.save(preSaved);
-//        }else{
-//            logger.error("none of book found.");
-//        }
-//        return new ResponseEntity<StoryBook>(savedRes, HttpStatus.OK);
-//    }
+    @RequestMapping(value="/{bid}/add/{pid}",method = RequestMethod.POST)
+    public ResponseEntity<StoryBookPage> addPage(@PathVariable("bid") long bid, @PathVariable("pid") long pid )  {
+        //
+        StoryBook storyBook = storyBookRepository.getOne(bid);
+        StoryPage storyPage = storyPageRepository.getOne(pid);
+        StoryBookPage savedRes = storyBookPageRepository.save(new  StoryBookPage(storyBook,storyPage));
+        return new ResponseEntity<StoryBookPage>(savedRes, HttpStatus.OK);
+    }
 
-//    @RequestMapping("/{id}/page")
-//    public ResponseEntity<Set<StoryPage>> getOnePage(@PathVariable("id") long id) {
-//        Optional<StoryBook> findOne = storyBookRepository.findById(id);
-//        Set<StoryPage> pageRes = new HashSet<>();
-//        //
-//        if(findOne.isPresent()){
-//            pageRes = findOne.get().getPages();
-//        }else{
-//            logger.error("none of book found.");
-//        }
-//        return new ResponseEntity<Set<StoryPage>>(pageRes, HttpStatus.OK);
-//    }
+    @RequestMapping("/{id}/pages")
+    public ResponseEntity<Iterable<StoryBookPage>> getPages(@PathVariable("id") long id) {
+        Iterable<StoryBookPage> findOne = storyBookPageRepository.findByStoryBook(new StoryBook(id));
+        //
+        if(findOne.equals(null)){
+            logger.error("none of book pages found.");
+        }
+        return new ResponseEntity<Iterable<StoryBookPage>>(findOne, HttpStatus.OK);
+    }
 
 }

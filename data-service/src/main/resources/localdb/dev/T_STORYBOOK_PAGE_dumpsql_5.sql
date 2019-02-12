@@ -10,4 +10,4 @@ CREATE TABLE `T_STORYBOOK_PAGE` (
 
 insert  into `T_STORYBOOK_PAGE`(`storybook_id`,`storypage_id`) values
 (1,1),
-(2,2)
+(2,2);

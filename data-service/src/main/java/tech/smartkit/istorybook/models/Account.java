@@ -39,10 +39,10 @@ public class Account implements Serializable {
 	protected BigDecimal balance;
 
 	//current point to storybook page ids.
-	@ElementCollection
-	@CollectionTable(name = "ACCOUNT_ASSETS", joinColumns = @JoinColumn(name = "ACCOUNT_ID"))
-	@OrderColumn
-	private List<StoryPage> assets = new ArrayList<>();
+//	@ElementCollection
+//	@CollectionTable(name = "ACCOUNT_ASSETS", joinColumns = @JoinColumn(name = "ACCOUNT_ID"))
+//	@OrderColumn
+//	private List<StoryPage> assets = new ArrayList<>();
 
 	/**
 	 * This is a very simple, and non-scalable solution to generating unique

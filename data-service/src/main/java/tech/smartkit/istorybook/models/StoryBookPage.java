@@ -1,5 +1,6 @@
 package tech.smartkit.istorybook.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.ToString;
 
@@ -10,10 +11,17 @@ import java.io.Serializable;
 @Table(name = "T_STORYBOOK_PAGE")
 @Data
 @ToString
-public class StoryBookPage extends ModelBase implements Serializable {
+public class StoryBookPage implements Serializable {
+    private int id;
     @Id
-    @GeneratedValue
-    protected Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     @ManyToOne
     @JoinColumn(name = "storybook_id")
@@ -21,4 +29,10 @@ public class StoryBookPage extends ModelBase implements Serializable {
     @ManyToOne
     @JoinColumn(name = "storypage_id")
     private StoryPage storyPage;
+
+
+    public StoryBookPage(StoryBook storyBook, StoryPage storyPage) {
+        this.storyBook = storyBook;
+        this.storyPage = storyPage;
+    }
 }
