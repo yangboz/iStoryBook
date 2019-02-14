@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
+import tech.smartkit.istorybook.exceptions.ErrorDetails;
+import tech.smartkit.istorybook.exceptions.ResourceNotFoundException;
 import tech.smartkit.istorybook.models.StoryBook;
 import tech.smartkit.istorybook.models.StoryBookPage;
 import tech.smartkit.istorybook.models.StoryPage;
@@ -20,10 +23,7 @@ import tech.smartkit.istorybook.models.dao.StoryBookRepository;
 import tech.smartkit.istorybook.models.dao.StoryPageRepository;
 
 import javax.transaction.Transactional;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Slf4j
 @RestController
@@ -90,19 +90,40 @@ public class StoryBookController {
     public ResponseEntity<StoryBookPage> addPage(@PathVariable("bid") long bid, @PathVariable("pid") long pid )  {
         //
         StoryBook storyBook = storyBookRepository.getOne(bid);
+        if(storyBook.equals(null)){
+            logger.error("none of book's pages found.");
+            throw new ResourceNotFoundException("bookid-" + bid);
+        }
         StoryPage storyPage = storyPageRepository.getOne(pid);
-        StoryBookPage savedRes = storyBookPageRepository.save(new  StoryBookPage(storyBook,storyPage));
+        if(storyPage.equals(null)){
+            logger.error("none of book's pages found.");
+            throw new ResourceNotFoundException("pageid-" + pid);
+        }
+
+        StoryBookPage savedRes = storyBookPageRepository.save(new  StoryBookPage(bid,pid));
         return new ResponseEntity<StoryBookPage>(savedRes, HttpStatus.OK);
     }
 
+
     @RequestMapping("/{id}/pages")
-    public ResponseEntity<Iterable<StoryBookPage>> getPages(@PathVariable("id") long id) {
-        Iterable<StoryBookPage> findOne = storyBookPageRepository.findByStoryBook(new StoryBook(id));
+    public ResponseEntity<List<StoryPage>> getPages(@PathVariable("id") long id) {
+        Iterable<StoryBookPage> findOne = storyBookPageRepository.findByStoryBookId(id);
         //
+        List<StoryPage> findPages = new ArrayList<StoryPage>();
         if(findOne.equals(null)){
-            logger.error("none of book pages found.");
+            logger.error("none of book's pages found.");
+        }else{
+            //FIXME,SQL optimize.
+            for (StoryBookPage bookPage : findOne){
+                long pageId = bookPage.getStoryPage();
+                Optional<StoryPage> storyPage =  storyPageRepository.findById(pageId);
+                if(storyPage.isPresent()) {
+                    findPages.add(storyPage.get());
+                }
+            }
+            logger.error("find book's pages:"+findPages.toString());
         }
-        return new ResponseEntity<Iterable<StoryBookPage>>(findOne, HttpStatus.OK);
+        return new ResponseEntity<List<StoryPage>>(findPages, HttpStatus.OK);
     }
 
 }

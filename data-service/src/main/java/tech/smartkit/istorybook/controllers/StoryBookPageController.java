@@ -8,34 +8,25 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tech.smartkit.istorybook.models.StoryBook;
 import tech.smartkit.istorybook.models.StoryBookPage;
 import tech.smartkit.istorybook.models.StoryPage;
 import tech.smartkit.istorybook.models.dao.StoryBookPageRepository;
-import tech.smartkit.istorybook.models.dao.StoryBookRepository;
 import tech.smartkit.istorybook.models.dao.StoryPageRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Slf4j
 @RestController
-@RequestMapping(value ="/page")
-@Api(value="StoryPageController", description="Operations pertaining to storypages in iStoryBook")
-public class StoryPageController {
+@RequestMapping(value ="/bookPage")
+@Api(value="StoryBookPageController", description="Operations pertaining to story book_pages in iStoryBook")
+public class StoryBookPageController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    StoryBookRepository storyBookRepository;
-    @Autowired
-    StoryPageRepository storyPageRepository;
     @Autowired
     StoryBookPageRepository storyBookPageRepository;
     /**
@@ -59,39 +50,18 @@ public class StoryPageController {
     }
     )
     @RequestMapping("/")
-    public Iterable<StoryPage> listAll() {
-        return storyPageRepository.findAll();
+    public Iterable<StoryBookPage> listAll() {
+        return storyBookPageRepository.findAll();
     }
 
-    @RequestMapping("/{id}")
-    public Optional<StoryPage> getOne(@PathVariable("id") long id) {
-        return storyPageRepository.findById(id);
+    @RequestMapping("/b/{id}")
+    public Iterable<StoryBookPage> findByBookId(@PathVariable("id") long id) {
+        return storyBookPageRepository.findByStoryBookId(id);
     }
 
-    @RequestMapping("/m/{mode}")
-    public List<StoryPage> findByMode(@PathVariable("mode") String mode) {
-        return storyPageRepository.findByMode(mode);
-    }
-
-    @RequestMapping("/{id}/books")
-    public ResponseEntity<List<StoryBook>> getBooks(@PathVariable("id") long id) {
-        Iterable<StoryBookPage> findOne = storyBookPageRepository.findByStoryPageId(id);
-        //
-        List<StoryBook> findBooks = new ArrayList<StoryBook>();
-        if (findOne.equals(null)) {
-            logger.error("none of book's pages found.");
-        } else {
-            //FIXME,SQL optimize.
-            for (StoryBookPage bookPage : findOne) {
-                long bookId = bookPage.getStoryBook();
-                Optional<StoryBook> storyBook = storyBookRepository.findById(bookId);
-                if (storyBook.isPresent()) {
-                    findBooks.add(storyBook.get());
-                }
-            }
-            logger.error("find page's books:" + findBooks.toString());
-        }
-        return new ResponseEntity<List<StoryBook>>(findBooks, HttpStatus.OK);
+    @RequestMapping("/p/{id}")
+    public Iterable<StoryBookPage> findByPageId(@PathVariable("id") long id) {
+        return storyBookPageRepository.findByStoryPageId(id);
     }
 
 }

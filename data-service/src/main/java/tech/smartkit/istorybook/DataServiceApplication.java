@@ -19,23 +19,23 @@ public class DataServiceApplication {
 		SpringApplication.run(DataServiceApplication.class, args);
 	}
 
-	@Bean
-	public ConnectionFactory memcachedConnection() {
-		return new ConnectionFactoryBuilder()
-				.setDaemon(true)
-				.setFailureMode(FailureMode.Cancel)
-				.build();
-	}
+//	@Bean
+//	public ConnectionFactory memcachedConnection() {
+//		return new ConnectionFactoryBuilder()
+//				.setDaemon(true)
+//				.setFailureMode(FailureMode.Cancel)
+//				.build();
+//	}
 
-	@Bean
-	public Executor asyncExecutor() {
-		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-		executor.setCorePoolSize(2);
-		executor.setMaxPoolSize(2);
-		executor.setQueueCapacity(500);
-		executor.setThreadNamePrefix("WxShopLookup-");//Order or product
-		executor.initialize();
-		return executor;
-	}
+//	@Bean
+//	public Executor asyncExecutor() {
+//		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+//		executor.setCorePoolSize(2);
+//		executor.setMaxPoolSize(2);
+//		executor.setQueueCapacity(500);
+//		executor.setThreadNamePrefix("WxShopLookup-");//Order or product
+//		executor.initialize();
+//		return executor;
+//	}
 
 }

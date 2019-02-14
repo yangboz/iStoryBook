@@ -24,14 +24,16 @@ public class StoryBookPage implements Serializable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "storybook_id")
-    private StoryBook storyBook;
+//    @JoinColumn(name = "storybook_id")
+//    private StoryBook storyBook;
+    private long storyBook;
     @ManyToOne
-    @JoinColumn(name = "storypage_id")
-    private StoryPage storyPage;
+//    @JoinColumn(name = "storypage_id")
+//    private StoryPage storyPage;
+    private long storyPage;
 
 
-    public StoryBookPage(StoryBook storyBook, StoryPage storyPage) {
+    public StoryBookPage(long storyBook, long storyPage) {
         this.storyBook = storyBook;
         this.storyPage = storyPage;
     }

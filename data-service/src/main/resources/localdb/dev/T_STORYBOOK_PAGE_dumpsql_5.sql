@@ -2,12 +2,15 @@
 DROP TABLE IF EXISTS `T_STORYBOOK_PAGE`;
 
 CREATE TABLE `T_STORYBOOK_PAGE` (
-  `storybook_id` int(19) unsigned NOT NULL AUTO_INCREMENT COMMENT '',
-  `storypage_id` int(19) unsigned NOT NULL AUTO_INCREMENT COMMENT ''
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '',
+  `story_book` int(19) unsigned NOT NULL AUTO_INCREMENT COMMENT '',
+  `story_page` int(19) unsigned NOT NULL AUTO_INCREMENT COMMENT ''
 ) ENGINE=InnoDB AUTO_INCREMENT=24577 DEFAULT CHARSET=utf8;
 
 /*Data for the table `T_STORYBOOK_PAGE` */
 
-insert  into `T_STORYBOOK_PAGE`(`storybook_id`,`storypage_id`) values
-(1,1),
-(2,2);
+insert  into `T_STORYBOOK_PAGE`(`id`,`story_book`,`story_page`) values
+(1,1,1),
+(2,1,2),
+(3,2,1),
+(4,2,2);
