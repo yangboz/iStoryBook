@@ -2,6 +2,7 @@ package tech.smartkit.istorybook.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.io.Serializable;
 @Table(name = "T_STORYBOOK_PAGE")
 @Data
 @ToString
+@NoArgsConstructor
 public class StoryBookPage implements Serializable {
     private int id;
     @Id

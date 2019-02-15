@@ -1,6 +1,6 @@
 <view>
 <!-- bookList是要循环的数组，内部的属性通过item.xxx的方式调用 -->
- <block wx:for='{{bookList}}'>
+ <block wx:for='{{bookList}}' wx:key="id">
    <!-- data-*属性在触发事件时获取  -->
    <view class='singleBook' hover-class='item-press' catchtap='showBookDetail' data-id='{{item.id}}'>
      <image src='{{item.cover}}' class='img' />
