@@ -7,7 +7,7 @@
     <artifactId>data-service-iStoryBook</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>data-service-iStoryBooke</name>
+    <name>data-service-iStoryBook</name>
     <description>iStoryBook-DataService project using Spring Boot</description>
 
     <parent>
@@ -164,8 +164,16 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.5.0</version>
+            <version>2.7.4</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.vladmihalcea/hibernate-types-52 -->
+        <dependency>
+            <groupId>com.vladmihalcea</groupId>
+            <artifactId>hibernate-types-52</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+
 
 
     </dependencies>
