@@ -4,6 +4,7 @@
   interval="{{interval}}"
   duration="{{duration}}"
   vertical=true
+  class='image-swiper'
 >
   <block wx:for="{{bookPages}}" wx:key="created">
     <swiper-item>

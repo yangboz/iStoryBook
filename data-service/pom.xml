@@ -22,6 +22,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <start-class>tech.smartkit.istorybook.DataServiceApplication</start-class>
+        <jackson.version>2.9.4</jackson.version>
     </properties>
 
     <dependencies>
@@ -161,12 +162,6 @@
             <scope>runtime</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.7.4</version>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/com.vladmihalcea/hibernate-types-52 -->
         <dependency>
             <groupId>com.vladmihalcea</groupId>
@@ -174,6 +169,21 @@
             <version>2.2.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
 
 
     </dependencies>
