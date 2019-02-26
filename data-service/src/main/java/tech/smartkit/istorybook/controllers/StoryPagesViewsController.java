@@ -12,18 +12,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.smartkit.istorybook.models.StoryBookPages;
+import tech.smartkit.istorybook.models.StoryPagesViews;
 import tech.smartkit.istorybook.models.dao.StoryBookPagesRepository;
+import tech.smartkit.istorybook.models.dao.StoryPagesViewsRepository;
 
 @Slf4j
 @RestController
-@RequestMapping(value ="/bookPage")
-@Api(value="StoryBookPageController", description="Operations pertaining to story book_pages in iStoryBook")
-public class StoryBookPageController {
+@RequestMapping(value ="/pageView")
+@Api(value="StoryPagesViewsController", description="Operations pertaining to story book_pages in iStoryBook")
+public class StoryPagesViewsController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    StoryBookPagesRepository storyBookPageRepository;
+    StoryPagesViewsRepository storyPagesViewsRepository;
 
     @ApiOperation(value = "View a list of available StoryPages", response = Iterable.class)
     @ApiResponses(value = {
@@ -35,17 +37,17 @@ public class StoryBookPageController {
     )
     @RequestMapping("/")
     public Iterable<StoryBookPages> listAll() {
-        return storyBookPageRepository.findAll();
+        return storyPagesViewsRepository.findAll();
     }
 
-    @RequestMapping("/b/{id}")
-    public Iterable<StoryBookPages> findByBookId(@PathVariable("id") long id) {
-        return storyBookPageRepository.findByStoryBookId(id);
+    @RequestMapping("/v/{id}")
+    public Iterable<StoryPagesViews> findByBookId(@PathVariable("id") long id) {
+        return storyPagesViewsRepository.findByStoryViewId(id);
     }
 
     @RequestMapping("/p/{id}")
-    public Iterable<StoryBookPages> findByPageId(@PathVariable("id") long id) {
-        return storyBookPageRepository.findByStoryPageId(id);
+    public Iterable<StoryPagesViews> findByPageId(@PathVariable("id") long id) {
+        return storyPagesViewsRepository.findByStoryPageId(id);
     }
 
 }

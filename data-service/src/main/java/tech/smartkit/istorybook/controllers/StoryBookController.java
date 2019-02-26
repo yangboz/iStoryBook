@@ -1,6 +1,5 @@
 package tech.smartkit.istorybook.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -12,17 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
-import tech.smartkit.istorybook.exceptions.ErrorDetails;
 import tech.smartkit.istorybook.exceptions.ResourceNotFoundException;
-import tech.smartkit.istorybook.models.StoryBook;
-import tech.smartkit.istorybook.models.StoryBookPage;
-import tech.smartkit.istorybook.models.StoryPage;
-import tech.smartkit.istorybook.models.dao.StoryBookPageRepository;
-import tech.smartkit.istorybook.models.dao.StoryBookRepository;
-import tech.smartkit.istorybook.models.dao.StoryPageRepository;
+import tech.smartkit.istorybook.models.*;
+import tech.smartkit.istorybook.models.dao.*;
+import tech.smartkit.istorybook.models.dto.BookPagesResp;
 
-import javax.transaction.Transactional;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import java.util.*;
 
 @Slf4j
@@ -39,19 +35,12 @@ public class StoryBookController {
     @Autowired
     StoryPageRepository storyPageRepository;
     @Autowired
-    StoryBookPageRepository storyBookPageRepository;
-    /**
-     /cart
-     POST / - Create cart
-     GET /{id} - Get carts for card with ID = {id}
-     POST /{id} - Add CartItem to cart with ID {id}
-     DELETE /{id}/{product_id} - Remove product with ID {product_id} from cart with ID {id}
-     POST /{id}/quantity - Updates cart item, i.e. set product quantity
-     POTS /{id}/order - Create order from cart
-     */
-    /**
-     * View wxshop orders by id.
-     */
+    StoryViewRepository storyViewRepository;
+    @Autowired
+    StoryBookPagesRepository storyBookPageRepository;
+    @Autowired
+    StoryPagesViewsRepository storyPagesViewsRepository;
+
     @ApiOperation(value = "View a list of available StoryBooks", response = Iterable.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved list"),
@@ -87,7 +76,7 @@ public class StoryBookController {
     }
 //@see: https://hellokoding.com/restful-api-example-with-spring-boot-spring-data-rest-spring-data-jpa-many-to-many-extra-columns-relationship-and-mysql/
     @RequestMapping(value="/{bid}/add/{pid}",method = RequestMethod.POST)
-    public ResponseEntity<StoryBookPage> addPage(@PathVariable("bid") long bid, @PathVariable("pid") long pid )  {
+    public ResponseEntity<StoryBookPages> addPage(@PathVariable("bid") long bid, @PathVariable("pid") long pid )  {
         //
         StoryBook storyBook = storyBookRepository.getOne(bid);
         if(storyBook.equals(null)){
@@ -100,30 +89,40 @@ public class StoryBookController {
             throw new ResourceNotFoundException("pageid-" + pid);
         }
 
-        StoryBookPage savedRes = storyBookPageRepository.save(new  StoryBookPage(bid,pid));
-        return new ResponseEntity<StoryBookPage>(savedRes, HttpStatus.OK);
+        StoryBookPages savedRes = storyBookPageRepository.save(new StoryBookPages(bid,pid));
+        return new ResponseEntity<StoryBookPages>(savedRes, HttpStatus.OK);
     }
 
 
+    @PersistenceContext(type= PersistenceContextType.EXTENDED)
+    private EntityManager entityManager;
+
     @RequestMapping("/{id}/pages")
-    public ResponseEntity<List<StoryPage>> getPages(@PathVariable("id") long id) {
-        Iterable<StoryBookPage> findOne = storyBookPageRepository.findByStoryBookId(id);
+//    public ResponseEntity<Iterable<StoryPage>> getPages(@PathVariable("id") long id) {
+    public ResponseEntity<List<BookPagesResp>> getPages(@PathVariable("id") long id) {
+//        Iterable<StoryBookPages> findOne = storyBookPageRepository.findByStoryBookId(id);
+//        //
+//        Iterable<StoryPage> findPages = storyBookRepository.findStoryBookPagesById(id);
+//        logger.error("find book's pages:"+findPages.toString());
         //
-        List<StoryPage> findPages = new ArrayList<StoryPage>();
-        if(findOne.equals(null)){
-            logger.error("none of book's pages found.");
-        }else{
-            //FIXME,SQL optimize.
-            for (StoryBookPage bookPage : findOne){
-                long pageId = bookPage.getStoryPage();
-                Optional<StoryPage> storyPage =  storyPageRepository.findById(pageId);
-                if(storyPage.isPresent()) {
-                    findPages.add(storyPage.get());
-                }
-            }
-            logger.error("find book's pages:"+findPages.toString());
-        }
-        return new ResponseEntity<List<StoryPage>>(findPages, HttpStatus.OK);
+        //SELECT i FROM StoryPage i WHERE id IN \n" +
+        //"   (SELECT id FROM StoryBookPages WHERE STORY_BOOK =:bid)
+        //
+//        SELECT  tsp.*, tspv.*, tsbp.*,tsv.*  from T_STORY_PAGE tsp INNER JOIN
+//        T_STORY_BOOK_PAGES tsbp ON tsp.id = tsbp.STORY_PAGE INNER JOIN T_STORY_PAGES_VIEWS tspv ON
+//        tspv.STORY_PAGE = tsp.id INNER JOIN T_STORY_VIEW tsv ON tsv.id=tspv.STORY_VIEW  WHERE tsbp.STORY_BOOK=1
+        List<BookPagesResp> findPages = entityManager
+                .createQuery("SELECT i_tsp,i_tsv FROM StoryPage i_tsp  INNER JOIN\n" +
+                                "StoryBookPages tsbp ON i_tsp.id = tsbp.storyPage INNER JOIN StoryPagesViews tspv ON \n" +
+                                "tspv.storyPage = i_tsp.id INNER JOIN StoryView i_tsv ON i_tsv.id=tspv.storyView  WHERE tsbp.storyBook=:bid")
+                .setParameter( "bid",id)
+                .getResultList();
+
+//        assertFalse( postDTOs.isEmpty() );
+        logger.info("find book's pages:"+findPages.toString());
+        return null;
+        //
+//        return new ResponseEntity<List<BookPagesResp>>(findPages, HttpStatus.OK);
     }
 
 }

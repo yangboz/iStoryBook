@@ -11,21 +11,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tech.smartkit.istorybook.models.StoryBookPages;
-import tech.smartkit.istorybook.models.dao.StoryBookPagesRepository;
+import tech.smartkit.istorybook.models.StoryPage;
+import tech.smartkit.istorybook.models.StoryView;
+import tech.smartkit.istorybook.models.dao.StoryBookRepository;
+import tech.smartkit.istorybook.models.dao.StoryPageRepository;
+import tech.smartkit.istorybook.models.dao.StoryViewRepository;
+
+import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RestController
-@RequestMapping(value ="/bookPage")
-@Api(value="StoryBookPageController", description="Operations pertaining to story book_pages in iStoryBook")
-public class StoryBookPageController {
+@RequestMapping(value ="/view")
+@Api(value="StoryViewController", description="Operations pertaining to storyviews in iStoryBook")
+public class StoryViewController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    StoryBookPagesRepository storyBookPageRepository;
+    StoryViewRepository storyViewRepository;
+    @Autowired
+    StoryPageRepository storyPageRepository;
 
-    @ApiOperation(value = "View a list of available StoryPages", response = Iterable.class)
+    @ApiOperation(value = "View a list of available StoryViews", response = Iterable.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved list"),
             @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
@@ -34,18 +42,15 @@ public class StoryBookPageController {
     }
     )
     @RequestMapping("/")
-    public Iterable<StoryBookPages> listAll() {
-        return storyBookPageRepository.findAll();
+    public Iterable<StoryView> listAll() {
+        return storyViewRepository.findAll();
     }
 
-    @RequestMapping("/b/{id}")
-    public Iterable<StoryBookPages> findByBookId(@PathVariable("id") long id) {
-        return storyBookPageRepository.findByStoryBookId(id);
+    @RequestMapping("/{id}")
+    public Optional<StoryView> getOne(@PathVariable("id") long id) {
+        return storyViewRepository.findById(id);
     }
 
-    @RequestMapping("/p/{id}")
-    public Iterable<StoryBookPages> findByPageId(@PathVariable("id") long id) {
-        return storyBookPageRepository.findByStoryPageId(id);
-    }
+
 
 }

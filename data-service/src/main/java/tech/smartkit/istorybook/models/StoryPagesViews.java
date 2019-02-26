@@ -9,11 +9,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "T_STORYBOOK_PAGE")
+@Table(name = "T_STORY_PAGEs_VIEWs")
 @Data
 @ToString
 @NoArgsConstructor
-public class StoryBookPage implements Serializable {
+public class StoryPagesViews implements Serializable {
     private int id;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,15 +28,15 @@ public class StoryBookPage implements Serializable {
     @ManyToOne
 //    @JoinColumn(name = "storybook_id")
 //    private StoryBook storyBook;
-    private long storyBook;
+    private long storyPage;
     @ManyToOne
 //    @JoinColumn(name = "storypage_id")
 //    private StoryPage storyPage;
-    private long storyPage;
+    private long storyView;
 
 
-    public StoryBookPage(long storyBook, long storyPage) {
-        this.storyBook = storyBook;
+    public StoryPagesViews(long storyPage, long storyView) {
+        this.storyView = storyView;
         this.storyPage = storyPage;
     }
 }

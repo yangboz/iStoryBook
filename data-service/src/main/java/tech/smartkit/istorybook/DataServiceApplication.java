@@ -12,7 +12,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import java.util.concurrent.Executor;
 
 @SpringBootApplication
-@EnableMemcached
+//@EnableMemcached
 public class DataServiceApplication {
 
 	public static void main(String[] args) {

@@ -13,17 +13,17 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
-import tech.smartkit.istorybook.settings.StoryBookModes;
+import tech.smartkit.istorybook.settings.StoryViewTypes;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.*;
 
 //https://github.com/kuckboy1994/mp_canvas_drawer#api
 @Entity
-@Table(name = "T_STORY_PAGE")
+@Table(name = "T_STORY_VIEW")
 @Data
+//@JsonIgnoreProperties(value= {"views","books"})
 @EqualsAndHashCode
 @TypeDefs({
         @TypeDef(name = "string-array", typeClass = StringArrayType.class),
@@ -35,41 +35,18 @@ import java.util.*;
 })
 @AllArgsConstructor
 @NoArgsConstructor
-public class StoryPage extends ModelBase implements Serializable{
-    private static final long serialVersionUID = 1L;
+public class StoryView extends ModelBase implements Serializable{
     @Id
     @GeneratedValue
     protected Long id;
-    @NotNull
-//    @Size(max = 10)
-    private int width;//
-    @NotNull
-//    @Size(max = 10)
-    private int height;
-    private StoryBookModes mode= StoryBookModes.PUBLIC;//free for template, private property for trading.default is public.
+    private StoryViewTypes type;//: 'image',
+    private String url;//: 'url',
+    private double top;//: 0,
+    private double left;//: 0,
+    private double width;//: 375,
+    private double height;//: 555
 
-    @OneToMany(mappedBy = "storyPage")
+    @OneToMany(mappedBy = "storyPage", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<StoryBookPages> storyBookPages = new HashSet<>();
-
-
-    @OneToMany(mappedBy = "storyView",fetch = FetchType.EAGER)
-    @JsonIgnore
-    private Set<StoryPagesViews> storyPagesViews = new HashSet<>();
-
-    @Override
-    public String toString() {
-        return "StoryPage{" +
-                "id=" + id +
-                ", width=" + width +
-                ", height=" + height +
-                ", mode='" + mode + '\'' +
-                ", storyBookPages=" + storyBookPages +
-                ", storyPagesViews=" + storyPagesViews +
-                '}';
-    }
-
-    public StoryPage(Long id) {
-        this.id = id;
-    }
 }

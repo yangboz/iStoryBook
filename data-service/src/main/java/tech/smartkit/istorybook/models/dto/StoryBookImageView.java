@@ -1,12 +1,12 @@
 package tech.smartkit.istorybook.models.dto;
 
-import tech.smartkit.istorybook.models.StoryPageView;
-import tech.smartkit.istorybook.settings.StoryPageViewTypes;
+import tech.smartkit.istorybook.models.StoryView;
+import tech.smartkit.istorybook.settings.StoryViewTypes;
 
-public class StoryBookImageView extends StoryPageView {
+public class StoryBookImageView extends StoryView {
 
     @Override
-    public String getType() {
-        return StoryPageViewTypes.IMAGE.toString();
+    public StoryViewTypes getType() {
+        return StoryViewTypes.IMAGE;
     }
 }

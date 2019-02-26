@@ -36,6 +36,9 @@ Component({
   },
   ctx: null,
   cache: {},
+  attached () {
+
+  },
   ready () {
     wx.removeStorageSync('canvasdrawer_pic_cache')
     this.cache = wx.getStorageSync('canvasdrawer_pic_cache') || {}

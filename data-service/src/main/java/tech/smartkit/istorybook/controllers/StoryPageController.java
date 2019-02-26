@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.smartkit.istorybook.models.StoryBook;
-import tech.smartkit.istorybook.models.StoryBookPage;
+import tech.smartkit.istorybook.models.StoryBookPages;
 import tech.smartkit.istorybook.models.StoryPage;
-import tech.smartkit.istorybook.models.dao.StoryBookPageRepository;
+import tech.smartkit.istorybook.models.dao.StoryBookPagesRepository;
 import tech.smartkit.istorybook.models.dao.StoryBookRepository;
 import tech.smartkit.istorybook.models.dao.StoryPageRepository;
 
@@ -37,7 +37,7 @@ public class StoryPageController {
     @Autowired
     StoryPageRepository storyPageRepository;
     @Autowired
-    StoryBookPageRepository storyBookPageRepository;
+    StoryBookPagesRepository storyBookPageRepository;
     /**
      /cart
      POST / - Create cart
@@ -75,14 +75,14 @@ public class StoryPageController {
 
     @RequestMapping("/{id}/books")
     public ResponseEntity<List<StoryBook>> getBooks(@PathVariable("id") long id) {
-        Iterable<StoryBookPage> findOne = storyBookPageRepository.findByStoryPageId(id);
+        Iterable<StoryBookPages> findOne = storyBookPageRepository.findByStoryPageId(id);
         //
         List<StoryBook> findBooks = new ArrayList<StoryBook>();
         if (findOne.equals(null)) {
             logger.error("none of book's pages found.");
         } else {
             //FIXME,SQL optimize.
-            for (StoryBookPage bookPage : findOne) {
+            for (StoryBookPages bookPage : findOne) {
                 long bookId = bookPage.getStoryBook();
                 Optional<StoryBook> storyBook = storyBookRepository.findById(bookId);
                 if (storyBook.isPresent()) {

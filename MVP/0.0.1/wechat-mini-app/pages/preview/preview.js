@@ -1,13 +1,14 @@
 //preview.js
 //获取应用实例
 import { set as setGlobalData, get as getGlobalData } from '../../global_data'
-import { API_STORYBOOK_ID_PAGES } from '../../constants/api-endpoints'
+import { API_STORYBOOK_ID_PAGES, API_STORYPAGE_ID_VIEWS } from '../../constants/api-endpoints'
 
 var app = getApp();
 Page(
 {
 data: {
     bookPages: [],
+    pageViews: [],
     imgUrls: [],
     indicatorDots: true,
     autoplay: false,

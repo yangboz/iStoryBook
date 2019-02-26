@@ -1,8 +1,13 @@
 package tech.smartkit.istorybook.exceptions;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.Date;
 
+@Setter
+@Getter
 public class ErrorDetails implements Serializable{
 
     private Date timestamp;
