@@ -19,6 +19,7 @@ import tech.smartkit.istorybook.models.dto.BookPagesResp;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
+import javax.persistence.TypedQuery;
 import java.util.*;
 
 @Slf4j
@@ -111,7 +112,7 @@ public class StoryBookController {
 //        SELECT  tsp.*, tspv.*, tsbp.*,tsv.*  from T_STORY_PAGE tsp INNER JOIN
 //        T_STORY_BOOK_PAGES tsbp ON tsp.id = tsbp.STORY_PAGE INNER JOIN T_STORY_PAGES_VIEWS tspv ON
 //        tspv.STORY_PAGE = tsp.id INNER JOIN T_STORY_VIEW tsv ON tsv.id=tspv.STORY_VIEW  WHERE tsbp.STORY_BOOK=1
-        List<BookPagesResp> findPages = entityManager
+        List<Object[]> findPages = entityManager
                 .createQuery("SELECT i_tsp,i_tsv FROM StoryPage i_tsp  INNER JOIN\n" +
                                 "StoryBookPages tsbp ON i_tsp.id = tsbp.storyPage INNER JOIN StoryPagesViews tspv ON \n" +
                                 "tspv.storyPage = i_tsp.id INNER JOIN StoryView i_tsv ON i_tsv.id=tspv.storyView  WHERE tsbp.storyBook=:bid")
@@ -119,10 +120,14 @@ public class StoryBookController {
                 .getResultList();
 
 //        assertFalse( postDTOs.isEmpty() );
+        List<BookPagesResp> bookPagesResps = new ArrayList<>();
+        for(Object[] objects : findPages ){
+//            logger.info("one of findPages:"+objects.toString());
+            bookPagesResps.add(new BookPagesResp((StoryPage)objects[0],(StoryView) objects[1]));
+        }
         logger.info("find book's pages:"+findPages.toString());
-        return null;
         //
-//        return new ResponseEntity<List<BookPagesResp>>(findPages, HttpStatus.OK);
+        return new ResponseEntity<List<BookPagesResp>>(bookPagesResps, HttpStatus.OK);
     }
 
 }
