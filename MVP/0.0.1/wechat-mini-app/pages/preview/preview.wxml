@@ -9,8 +9,8 @@
   <block wx:for="{{bookPages}}" wx:key="created">
     <swiper-item>
     <!-- <image src="{{item.views[0].url}}" class="slide-image" width="{{item.width}}" height="{{item.height}}" /> -->
-      <block wx:for="{{pageViews}}" wx:key="id">
-        <image src="{{item.url}}" class="slide-image" width="{{item.width}}" height="{{item.height}}" />
+      <block wx:for="{{item.views}}" wx:key="id">
+        <image src="{{item.url}}" class="slide-image" style="width:{{rMaxWidth}}px; height:{{rMaxHeight}}px;"/>
       </block>
     </swiper-item>
   </block>

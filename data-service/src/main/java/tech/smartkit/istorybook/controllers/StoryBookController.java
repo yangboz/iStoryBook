@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +16,13 @@ import tech.smartkit.istorybook.exceptions.ResourceNotFoundException;
 import tech.smartkit.istorybook.models.*;
 import tech.smartkit.istorybook.models.dao.*;
 import tech.smartkit.istorybook.models.dto.BookPagesResp;
+import tech.smartkit.istorybook.models.dto.StoryPageResp;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.TypedQuery;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 @Slf4j
@@ -100,7 +103,7 @@ public class StoryBookController {
 
     @RequestMapping("/{id}/pages")
 //    public ResponseEntity<Iterable<StoryPage>> getPages(@PathVariable("id") long id) {
-    public ResponseEntity<List<BookPagesResp>> getPages(@PathVariable("id") long id) {
+    public ResponseEntity<List<StoryPageResp>> getPages(@PathVariable("id") long id) throws InvocationTargetException, IllegalAccessException {
 //        Iterable<StoryBookPages> findOne = storyBookPageRepository.findByStoryBookId(id);
 //        //
 //        Iterable<StoryPage> findPages = storyBookRepository.findStoryBookPagesById(id);
@@ -120,14 +123,24 @@ public class StoryBookController {
                 .getResultList();
 
 //        assertFalse( postDTOs.isEmpty() );
-        List<BookPagesResp> bookPagesResps = new ArrayList<>();
+        List<StoryPageResp> storyPageResps = new ArrayList<>();
         for(Object[] objects : findPages ){
 //            logger.info("one of findPages:"+objects.toString());
-            bookPagesResps.add(new BookPagesResp((StoryPage)objects[0],(StoryView) objects[1]));
+            StoryPage storyPage = (StoryPage)objects[0];
+            StoryView storyView = (StoryView) objects[1];
+//            logger.info("storyPage:"+storyPage.toString()+",storyView:"+storyView.toString());
+            //cast parent to child
+            StoryPageResp storyPageResp = new StoryPageResp();
+            BeanUtils.copyProperties(storyPageResp,storyPage);
+            storyPageResp.setViews(new ArrayList<StoryView>(Arrays.asList(storyView)));
+            //
+//            logger.info("storyPageResp:",storyPageResp.toString());
+            //
+            storyPageResps.add(storyPageResp);
         }
-        logger.info("find book's pages:"+findPages.toString());
+//        logger.info("find storyPageResps:"+storyPageResps.toString());
         //
-        return new ResponseEntity<List<BookPagesResp>>(bookPagesResps, HttpStatus.OK);
+        return new ResponseEntity<List<StoryPageResp>>(storyPageResps, HttpStatus.OK);
     }
 
 }

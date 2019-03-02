@@ -8,12 +8,14 @@ Page(
 {
 data: {
     bookPages: [],
-    pageViews: [],
-    imgUrls: [],
     indicatorDots: true,
     autoplay: false,
     interval: 5000,
-    duration: 1000
+    duration: 1000,
+    maxWidth: 0,
+    maxHeight: 0,
+    rMaxWidth:0,
+    rMaxHeight:0
   }
 ,changeIndicatorDots(e) {
     this.setData({
@@ -39,6 +41,35 @@ data: {
     console.log(options,option.query)
     // Do some initialize when page load.
 }
+,aspectRatioDisplay(){
+    //@see: https://eikhart.com/blog/aspect-ratio-calculator
+    var bookPage = this.data.bookPages[0];
+    console.log("bookPage:",bookPage);
+    var rawImgWidth = bookPage.width;
+    var rawImgHeight = bookPage.height;
+    var aspectRatio = ( rawImgWidth / rawImgHeight );
+    console.log("rawImgWidth:",rawImgWidth,"rawImgHeight:",rawImgHeight,",aspectRatio:",aspectRatio);
+    //by height default 
+    // var resizedHeight = (rawImgHeight>this.data.maxHeight)?this.data.maxHeight:rawImgHeight;
+    var resizedHeight = this.data.maxHeight;
+    var resizedWidth = resizedHeight / aspectRatio;
+    var scaleX = resizedWidth/rawImgWidth;
+    var scaleY = resizedHeight/rawImgHeight;
+    console.log("by height, resizedWidth:",resizedWidth,"resizedHeight:",resizedHeight,",scaledX:",scaleY,",scaledY:",scaleY);
+    //by width
+    // var resizedWidth = (rawImgWidth>this.data.maxWidth)?this.data.maxWidth:rawImgWidth;
+    // var resizedHeight = resizedWidth * aspectRatio;
+    // resizedHeight = resizedHeight>this.data.maxHeight?this.data.maxHeight:resizedHeight;
+    // var scaleX = resizedWidth/rawImgWidth;
+    // var scaleY = resizedHeight/rawImgHeight;
+    //if two much width, too much height;
+    // console.log("by width, resizedWidth:",resizedWidth,"resizedHeight:",resizedHeight,",scaledX:",scaleY,",scaledY:",scaleY);
+    //
+    this.setData({
+            rMaxWidth: resizedWidth,
+            rMaxHeight: resizedHeight
+    });
+}
 ,onReady () {
     var _this = this;
 // console.log(this.selectComponent())
@@ -51,10 +82,12 @@ data: {
         var maxCanvasWidth = res.windowWidth;// - 56;
         var maxCanvasHeight = res.windowHeight;// - 200;
         console.log("maxCanvasWidth:",maxCanvasWidth,",maxCanvasHeight:",maxCanvasHeight);
-        // _this.setData({
-        //     maxWidth: maxCanvasWidth,
-        //     maxHeight: maxCanvasHeight
-        // });
+        _this.setData({
+            maxWidth: maxCanvasWidth,
+            maxHeight: maxCanvasHeight
+        });
+        //
+        _this.aspectRatioDisplay();
       }
     });
 }
@@ -75,11 +108,6 @@ data: {
         console.error(API_STORYBOOK_ID_PAGES + " fail:", err);
       }
     });
-    // let global_imagePreview = getGlobalData('imagePreview');
-    // console.log("@PreviewPage, transfered global_imagePreview:",global_imagePreview);
-    // this.setData({imagePreview: global_imagePreview.filePath});
-    // // go to imagedReviewHandler
-    // this.imagedReviewHandler(global_imagePreview.fileName);
     
 }
 

@@ -57,6 +57,7 @@ public class StoryPage extends ModelBase implements Serializable{
     @JsonIgnore
     private Set<StoryPagesViews> storyPagesViews = new HashSet<>();
 
+
     @Override
     public String toString() {
         return "StoryPage{" +
