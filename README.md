@@ -49,6 +49,8 @@ How are CryptoStoryBooks created?
 6.Now, WeChat user can exchange his/her storybook card in crypto market with verified hash ID;
 
 
+7.NFT results at https://opensea.io/collection/istorybook
+
 ## Wiki
 
 https://github.com/yangboz/iStoryBook/wiki
