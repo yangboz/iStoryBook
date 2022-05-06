@@ -51,6 +51,12 @@ How are CryptoStoryBooks created?
 
 7.NFT results at https://opensea.io/collection/istorybook
 
+
+
+##TODO
+
+use https://github.com/borisdayma/dalle-mini to generate images with prompt text.
+
 ## Wiki
 
 https://github.com/yangboz/iStoryBook/wiki
