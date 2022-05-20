@@ -33,6 +33,10 @@ http://jenetics.io
 
 https://www.bigchaindb.com/developers/guide/tutorial-piece-of-art/
 
+https://github.com/yangboz/VQGAN-CLIP#story-mode
+
+
+
 ## FAQ
 How are CryptoStoryBooks created?
 
