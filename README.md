@@ -77,6 +77,8 @@ How are CryptoStoryBooks created?
 
 
 ##TODO
+train iStorybook 's class use dreambooth 
+https://github.com/XavierXiao/Dreambooth-Stable-Diffusion
 
 use https://github.com/borisdayma/dalle-mini to generate images with prompt text.
 
