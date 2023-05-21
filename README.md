@@ -82,6 +82,9 @@ https://github.com/XavierXiao/Dreambooth-Stable-Diffusion
 
 use https://github.com/borisdayma/dalle-mini to generate images with prompt text.
 
+use paddleSeg/GAN for PoCs https://aistudio.baidu.com/aistudio/projectdetail/2288888?channelType=0&channel=0
+
+
 ## Wiki
 
 https://github.com/yangboz/iStoryBook/wiki
