@@ -56,6 +56,9 @@ https://github.com/yangboz/VQGAN-CLIP#story-mode
 
 https://www.producthunt.com/products/storygenius
 
+https://github.com/jwmao1/story-adapter
+
+
 
 
 ## FAQ
