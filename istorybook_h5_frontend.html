@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iStoryBook - 我的故事书</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 414px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4a90e2 0%, #6c5ce7 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            font-weight: 300;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .section {
+            padding: 20px;
+            margin: 20px 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-left: 15px;
+            margin-right: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-2px);
+        }
+
+        .section h2 {
+            color: #4a90e2;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+
+        .section h2::before {
+            content: "";
+            width: 4px;
+            height: 20px;
+            background: #4a90e2;
+            margin-right: 10px;
+            border-radius: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #4a90e2;
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+        }
+
+        .avatar-upload {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .avatar-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid #4a90e2;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .avatar-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-placeholder {
+            color: #999;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .upload-btn {
+            background: #4a90e2;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s ease;
+        }
+
+        .upload-btn:hover {
+            background: #357abd;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #4a90e2 0%, #6c5ce7 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(74, 144, 226, 0.3);
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .story-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: center;
+            border: 2px dashed #e0e0e0;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .story-card.generated {
+            border: 2px solid #4a90e2;
+            background: white;
+        }
+
+        .story-preview {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .share-options {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .share-btn {
+            flex: 1;
+            padding: 10px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .share-btn:hover {
+            background: #218838;
+        }
+
+        .share-btn.download {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .share-btn.download:hover {
+            background: #e0a800;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #4a90e2;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .message {
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            padding: 0 20px;
+        }
+
+        .step {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            color: #999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .step.active {
+            background: #4a90e2;
+            color: white;
+        }
+
+        .step.completed {
+            background: #28a745;
+            color: white;
+        }
+
+        .step:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 2px;
+            background: #e0e0e0;
+        }
+
+        .step.completed:not(:last-child)::after {
+            background: #28a745;
+        }
+
+        .floating-action {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #4a90e2;
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(74, 144, 226, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .floating-action:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                max-width: 100%;
+            }
+            
+            .section {
+                margin-left: 10px;
+                margin-right: 10px;
+                padding: 15px;
+            }
+            
+            .header {
+                padding: 15px;
+            }
+            
+            .share-options {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>iStoryBook</h1>
+            <p>我的专属故事书 - MVP 0.0.1</p>
+        </div>
+
+        <!-- Step Indicator -->
+        <div class="step-indicator">
+            <div class="step active" id="step1">1</div>
+            <div class="step" id="step2">2</div>
+            <div class="step" id="step3">3</div>
+        </div>
+
+        <!-- Messages -->
+        <div id="message" class="message"></div>
+
+        <!-- Step 1: User Setup -->
+        <div class="section" id="setup-section">
+            <h2>1. 设置用户信息</h2>
+            <form id="user-setup-form">
+                <div class="form-group">
+                    <label for="nickname">昵称 *</label>
+                    <input type="text" id="nickname" name="nickname" required placeholder="请输入您的昵称">
+                </div>
+                
+                <div class="form-group">
+                    <label for="city">城市</label>
+                    <input type="text" id="city" name="city" placeholder="请输入您的城市">
+                </div>
+                
+                <div class="form-group">
+                    <label for="province">省份</label>
+                    <input type="text" id="province" name="province" placeholder="请输入您的省份">
+                </div>
+                
+                <div class="form-group">
+                    <label for="gender">性别</label>
+                    <select id="gender" name="gender">
+                        <option value="0">未知</option>
+                        <option value="1">男</option>
+                        <option value="2">女</option>
+                    </select>
+                </div>
+
+                <div class="avatar-upload">
+                    <div class="avatar-preview" id="avatar-preview">
+                        <div class="avatar-placeholder">点击上传头像</div>
+                    </div>
+                    <input type="file" id="avatar-input" class="file-input" accept="image/*">
+                    <button type="button" class="upload-btn" onclick="document.getElementById('avatar-input').click()">
+                        选择头像
+                    </button>
+                </div>
+
+                <button type="submit" class="btn" id="setup-btn">完成设置</button>
+            </form>
+        </div>
+
+        <!-- Step 2: Story Generation -->
+        <div class="section" id="story-section" style="display: none;">
+            <h2>2. 生成故事卡片</h2>
+            <form id="story-form">
+                <div class="form-group">
+                    <label for="story-template">故事模板</label>
+                    <select id="story-template" name="story-template">
+                        <option value="default">默认模板</option>
+                        <option value="adventure">冒险故事</option>
+                        <option value="fairy">童话故事</option>
+                        <option value="modern">现代故事</option>
+                    </select>
+                </div>
+
+                <div class="story-card" id="story-card">
+                    <div class="avatar-placeholder">您的故事卡片将在这里显示</div>
+                </div>
+
+                <button type="submit" class="btn" id="generate-btn">生成故事</button>
+            </form>
+        </div>
+
+        <!-- Step 3: Share -->
+        <div class="section" id="share-section" style="display: none;">
+            <h2>3. 分享到朋友圈</h2>
+            <form id="share-form">
+                <div class="form-group">
+                    <label for="card-text">分享文案</label>
+                    <input type="text" id="card-text" name="card-text" placeholder="请输入分享文案（可选）">
+                </div>
+
+                <div class="story-card" id="share-card">
+                    <div class="avatar-placeholder">分享卡片将在这里显示</div>
+                </div>
+
+                <button type="submit" class="btn" id="share-btn">生成分享卡片</button>
+                
+                <div class="share-options" id="share-options" style="display: none;">
+                    <button type="button" class="share-btn" onclick="shareToWeChat()">分享微信</button>
+                    <button type="button" class="share-btn download" onclick="downloadCard()">下载图片</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Loading -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>正在处理中...</p>
+        </div>
+
+        <!-- Floating Action Button -->
+        <button class="floating-action" onclick="scrollToTop()" title="回到顶部">
+            ↑
+        </button>
+    </div>
+
+    <script>
+        // Configuration
+        const API_BASE_URL = 'http://localhost:8000/api/v1';
+        
+        // Global variables
+        let currentUserId = null;
+        let currentStoryId = null;
+        let currentShareId = null;
+        let uploadedAvatar = null;
+
+        // Utility functions
+        function generateUserId() {
+            return 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        }
+
+        function showMessage(text, type = 'success') {
+            const messageEl = document.getElementById('message');
+            messageEl.textContent = text;
+            messageEl.className = `message ${type}`;
+            messageEl.style.display = 'block';
+            
+            setTimeout(() => {
+                messageEl.style.display = 'none';
+            }, 5000);
+        }
+
+        function showLoading(show = true) {
+            const loadingEl = document.getElementById('loading');
+            loadingEl.className = show ? 'loading show' : 'loading';
+        }
+
+        function updateStepIndicator(step) {
+            for (let i = 1; i <= 3; i++) {
+                const stepEl = document.getElementById(`step${i}`);
+                if (i < step) {
+                    stepEl.className = 'step completed';
+                } else if (i === step) {
+                    stepEl.className = 'step active';
+                } else {
+                    stepEl.className = 'step';
+                }
+            }
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // API calls
+        async function apiCall(endpoint, options = {}) {
+            try {
+                const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...options.headers
+                    },
+                    ...options
+                });
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.detail || '请求失败');
+                }
+                
+                return await response.json();
+            } catch (error) {
+                console.error('API Error:', error);
+                throw error;
+            }
+        }
+
+        // Step 1: User Setup
+        document.getElementById('avatar-input').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('avatar-preview');
+                    preview.innerHTML = `<img src="${e.target.result}" alt="Avatar">`;
+                    uploadedAvatar = file;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('user-setup-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const nickname = formData.get('nickname');
+            
+            if (!nickname) {
+                showMessage('请输入昵称', 'error');
+                return;
+            }
+
+            showLoading(true);
+            
+            try {
+                // Generate user ID
+                currentUserId = generateUserId();
+                
+                // Setup user info
+                const userInfo = {
+                    user_id: currentUserId,
+                    nickname: nickname,
+                    city: formData.get('city') || null,
+                    province: formData.get('province') || null,
+                    gender: parseInt(formData.get('gender')) || 0,
+                    language: 'zh_CN',
+                    country: 'CN'
+                };
+
+                await apiCall('/setup/user', {
+                    method: 'POST',
+                    body: JSON.stringify(userInfo)
+                });
+
+                // Upload avatar if exists
+                if (uploadedAvatar) {
+                    const avatarData = new FormData();
+                    avatarData.append('user_id', currentUserId);
+                    avatarData.append('avatar', uploadedAvatar);
+
+                    await fetch(`${API_BASE_URL}/setup/avatar`, {
+                        method: 'POST',
+                        body: avatarData
+                    });
+                }
+
+                showMessage('用户信息设置成功！');
+                
+                // Move to step 2
+                document.getElementById('setup-section').style.display = 'none';
+                document.getElementById('story-section').style.display = 'block';
+                updateStepIndicator(2);
+                
+            } catch (error) {
+                showMessage(error.message, 'error');
+            } finally {
+                showLoading(false);
+            }
+        });
+
+        // Step 2: Story Generation
+        document.getElementById('story-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            if (!currentUserId) {
+                showMessage('请先完成用户设置', 'error');
+                return;
+            }
+
+            showLoading(true);
+            
+            try {
+                const formData = new FormData(e.target);
+                const storyRequest = {
+                    user_id: currentUserId,
+                    story_template: formData.get('story-template') || 'default'
+                };
+
+                const response = await apiCall('/story/generate', {
+                    method: 'POST',
+                    body: JSON.stringify(storyRequest)
+                });
+
+                currentStoryId = response.data.story_id;
+                
+                // Display story preview
+                const storyCard = document.getElementById('story-card');
+                storyCard.innerHTML = `
+                    <img src="${API_BASE_URL}/story/preview/${currentStoryId}" 
+                         alt="Story Card" class="story-preview">
+                `;
+                storyCard.className = 'story-card generated';
+
+                showMessage('故事卡片生成成功！');
+                
+                // Move to step 3
+                document.getElementById('story-section').style.display = 'none';
+                document.getElementById('share-section').style.display = 'block';
+                updateStepIndicator(3);
+                
+            } catch (error) {
+                showMessage(error.message, 'error');
+            } finally {
+                showLoading(false);
+            }
+        });
+
+        // Step 3: Share
+        document.getElementById('share-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            if (!currentStoryId) {
+                showMessage('请先生成故事卡片', 'error');
+                return;
+            }
+
+            showLoading(true);
+            
+            try {
+                const formData = new FormData(e.target);
+                const shareRequest = {
+                    user_id: currentUserId,
+                    story_id: currentStoryId,
+                    card_text: formData.get('card-text') || null
+                };
+
+                const response = await apiCall('/share/card', {
+                    method: 'POST',
+                    body: JSON.stringify(shareRequest)
+                });
+
+                currentShareId = response.data.share_id;
+                
+                // Display share card preview
+                const shareCard = document.getElementById('share-card');
+                shareCard.innerHTML = `
+                    <img src="${API_BASE_URL}/share/preview/${currentShareId}" 
+                         alt="Share Card" class="story-preview">
+                `;
+                shareCard.className = 'story-card generated';
+
+                // Show share options
+                document.getElementById('share-options').style.display = 'flex';
+
+                showMessage('分享卡片生成成功！');
+                
+            } catch (error) {
+                showMessage(error.message, 'error');
+            } finally {
+                showLoading(false);
+            }
+        });
+
+        // Share functions
+        function shareToWeChat() {
+            if (!currentShareId) {
+                showMessage('请先生成分享卡片', 'error');
+                return;
+            }
+            
+            // In a real WeChat environment, you would use WeChat JS SDK
+            // For now, we'll just copy the share URL
+            const shareUrl = `${API_BASE_URL}/share/preview/${currentShareId}`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'iStoryBook - 我的专属故事',
+                    text: '快来看看我的专属故事书！',
+                    url: shareUrl
+                }).then(() => {
+                    showMessage('分享成功！');
+                }).catch((error) => {
+                    console.log('Share failed:', error);
+                    fallbackShare(shareUrl);
+                });
+            } else {
+                fallbackShare(shareUrl);
+            }
+        }
+
+        function fallbackShare(url) {
+            // Copy to clipboard
+            navigator.clipboard.writeText(url).then(() => {
+                showMessage('链接已复制到剪贴板！');
+            }).catch(() => {
+                showMessage('请手动复制链接：' + url, 'error');
+            });
+        }
+
+        function downloadCard() {
+            if (!currentShareId) {
+                showMessage('请先生成分享卡片', 'error');
+                return;
+            }
+            
+            const downloadUrl = `${API_BASE_URL}/share/download/${currentShareId}`;
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = `istorybook_share_${currentShareId}.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showMessage('图片下载中...');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStepIndicator(1);
+            
+            // Auto-fill some demo data for testing
+            if (window.location.hash === '#demo') {
+                document.getElementById('nickname').value = '小明';
+                document.getElementById('city').value = '北京';
+                document.getElementById('province').value = '北京市';
+                document.getElementById('gender').value = '1';
+            }
+        });
+    </script>
+</body>
+</html>
